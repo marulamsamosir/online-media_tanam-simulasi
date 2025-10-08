@@ -98,7 +98,8 @@ $(document).ready(function() {
                     <h3>${material.name}</h3>
                     <div class="percentage-control">
                         <input type="range" class="percentage-slider" min="0" max="100" step="0.1" value="${material.percentage}">
-                        <span class="percentage-value">${material.percentage.toFixed(1)}%</span>
+                        <input type="number" class="percentage-input" min="0" max="100" step="0.1" value="${material.percentage.toFixed(1)}">
+                        <span class="percentage-label">%</span>
                     </div>
                     <div class="properties">
                         <div class="property">
@@ -132,6 +133,18 @@ $(document).ready(function() {
                 updateMaterialPercentage(id, value);
             });
             
+            card.find(".percentage-input").on("input", function() {
+                const id = $(this).closest(".material-card").data("id");
+                let value = parseFloat($(this).val());
+                // Validasi input
+                if (isNaN(value) || value < 0) {
+                    value = 0;
+                } else if (value > 100) {
+                    value = 100;
+                }
+                updateMaterialPercentage(id, value);
+            });
+            
             card.find(".delete-material").on("click", function() {
                 const id = $(this).closest(".material-card").data("id");
                 removeMaterial(id);
@@ -153,8 +166,9 @@ $(document).ready(function() {
         const material = materials.find(m => m.id === id);
         if (material) {
             material.percentage = percentage;
-            $(`.material-card[data-id="${id}"] .percentage-value`).text(`${percentage.toFixed(1)}%`);
-            $(`.material-card[data-id="${id}"] .percentage-slider`).val(percentage);
+            const card = $(`.material-card[data-id="${id}"]`);
+            card.find(".percentage-slider").val(percentage);
+            card.find(".percentage-input").val(percentage.toFixed(1));
             updateTotalPercentage();
         }
     }
