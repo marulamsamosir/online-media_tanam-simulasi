@@ -72,6 +72,9 @@ $(document).ready(function() {
         // Event listener untuk update info penyiraman
         $("#water-volume").on("input", updateWateringInfo);
         $("#watering-duration").on("input", updateWateringInfo);
+        
+        // Event listener untuk import file
+        $("#import-file").on("change", handleFileImport);
     }
     
     // Render material cards
@@ -324,7 +327,7 @@ $(document).ready(function() {
                 
                 hole.css({
                     top: `${topPosition}%`,
-                    transform: `rotate(${angle}deg) translateX(95px)`
+                    transform: `rotate(${angle}deg) translateX(85px)`
                 });
                 
                 sideHolesContainer.append(hole);
@@ -391,6 +394,63 @@ $(document).ready(function() {
         }, 2000);
     }
     
+    // Fungsi untuk menghasilkan rekomendasi
+    function generateRecommendations(mixedProps) {
+        const recommendations = [];
+        
+        // Rekomendasi berdasarkan retensi
+        if (mixedProps.retention < 30) {
+            recommendations.push("Retensi rendah. Tambah cocopeat, humus, atau vermicompost.");
+        } else if (mixedProps.retention > 70) {
+            recommendations.push("Retensi terlalu tinggi. Kurangi bahan dengan retensi tinggi dan tambah bahan drainase.");
+        }
+        
+        // Rekomendasi berdasarkan drainase
+        if (mixedProps.drainage < 30) {
+            recommendations.push("Drainase buruk! Tambah perlite, pasir, sekam bakar, atau biji kapuk.");
+        } else if (mixedProps.drainage > 70) {
+            recommendations.push("Drainase terlalu tinggi. Tambah bahan dengan retensi lebih tinggi.");
+        }
+        
+        // Rekomendasi berdasarkan porositas
+        if (mixedProps.porosity < 40) {
+            recommendations.push("Porositas rendah. Tambah perlite atau cocofiber.");
+        } else if (mixedProps.porosity > 80) {
+            recommendations.push("Porositas sangat tinggi. Pertimbangkan menambah bahan dengan kepadatan lebih tinggi.");
+        }
+        
+        // Rekomendasi umum
+        if (mixedProps.retention > 50 && mixedProps.drainage > 50) {
+            recommendations.push("Media memiliki keseimbangan retensi dan drainase yang baik.");
+        }
+        
+        // Rekomendasi untuk pH
+        if (recommendations.length === 0) {
+            recommendations.push("pH asam. Pertimbangkan dolomit.");
+        }
+        
+        return recommendations;
+    }
+    
+    // Tampilkan rekomendasi
+    function displayRecommendations(mixedProps) {
+        const recommendations = generateRecommendations(mixedProps);
+        const recommendationList = $("#recommendation-list");
+        
+        if (recommendations.length === 0) {
+            $("#recommendation-card").hide();
+            return;
+        }
+        
+        recommendationList.empty();
+        
+        recommendations.forEach(rec => {
+            recommendationList.append(`<li>${rec}</li>`);
+        });
+        
+        $("#recommendation-card").show();
+    }
+    
     // Jalankan simulasi
     function runSimulation() {
         if (isSimulating) return;
@@ -432,6 +492,7 @@ $(document).ready(function() {
         // Delay untuk animasi
         setTimeout(() => {
             displayResults(potVolume, soilVolume, waterVolume, wateringDuration, retainedWater, drainedWater, mixedProps);
+            displayRecommendations(mixedProps);
             isSimulating = false;
             $("#simulate-btn").prop("disabled", false).html('<i class="fas fa-play"></i> Jalankan Simulasi');
         }, 2000);
@@ -551,6 +612,7 @@ $(document).ready(function() {
                     <p>Klik "Jalankan Simulasi" untuk melihat hasil</p>
                 </div>
             `);
+            $("#recommendation-card").hide();
             
             showAlert(`Konfigurasi "${name}" berhasil dimuat!`, "Sukses", "check-circle");
         }
@@ -637,6 +699,7 @@ $(document).ready(function() {
                             <p>Klik "Jalankan Simulasi" untuk melihat hasil</p>
                         </div>
                     `);
+                    $("#recommendation-card").hide();
                     updateWateringInfo();
                     renderSavedConfigs();
                     showAlert("Semua data berhasil dihapus!", "Sukses", "check-circle");
@@ -738,7 +801,118 @@ $(document).ready(function() {
                 <p>Klik "Jalankan Simulasi" untuk melihat hasil</p>
             </div>
         `);
+        $("#recommendation-card").hide();
         updateWateringInfo();
+    }
+    
+    // Import dari file TXT
+    function handleFileImport(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const content = e.target.result;
+            parseImportedData(content);
+        };
+        reader.readAsText(file);
+        
+        // Reset input file
+        event.target.value = '';
+    }
+    
+    // Parse data yang diimport dari file TXT
+    function parseImportedData(content) {
+        try {
+            const lines = content.split('\n');
+            let inCompositionSection = false;
+            let newMaterials = [];
+            
+            // Reset materials yang ada
+            materials = [];
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                
+                // Cari bagian konfigurasi pot
+                if (line.startsWith('KONFIGURASI POT:')) {
+                    // Baca baris-baris berikutnya sampai bagian berikutnya
+                    for (let j = i + 1; j < lines.length; j++) {
+                        const configLine = lines[j].trim();
+                        if (configLine.startsWith('- Diameter:')) {
+                            const diameter = parseFloat(configLine.match(/Diameter: ([\d.]+)/)[1]);
+                            $("#pot-diameter").val(diameter);
+                        } else if (configLine.startsWith('- Tinggi:')) {
+                            const height = parseFloat(configLine.match(/Tinggi: ([\d.]+)/)[1]);
+                            $("#pot-height").val(height);
+                        } else if (configLine.startsWith('- Pengisian Media:')) {
+                            const soilPercentage = parseFloat(configLine.match(/Pengisian Media: ([\d.]+)/)[1]);
+                            $("#soil-percentage").val(soilPercentage);
+                        } else if (configLine === '' && j > i + 5) {
+                            break;
+                        }
+                    }
+                }
+                
+                // Cari bagian komposisi media tanam
+                if (line.startsWith('KOMPOSISI MEDIA TANAM:')) {
+                    inCompositionSection = true;
+                    continue;
+                }
+                
+                if (inCompositionSection) {
+                    // Jika menemukan baris kosong setelah bagian komposisi, keluar
+                    if (line === '' && newMaterials.length > 0) {
+                        inCompositionSection = false;
+                        break;
+                    }
+                    
+                    // Parse baris bahan
+                    if (line.startsWith('- ') && line.includes('%')) {
+                        // Format: - [nama bahan]: [persentase]% (Retensi: [retensi]%, Drainase: [drainase]%, Porositas: [porositas]%)
+                        const match = line.match(/^- (.+?): ([\d.]+)% \(Retensi: ([\d.]+)%, Drainase: ([\d.]+)%, Porositas: ([\d.]+)%\)/);
+                        if (match) {
+                            const name = match[1].trim();
+                            const percentage = parseFloat(match[2]);
+                            const retention = parseFloat(match[3]);
+                            const drainage = parseFloat(match[4]);
+                            const porosity = parseFloat(match[5]);
+                            
+                            // Cek apakah bahan sudah ada dalam daftar default
+                            const existingDefault = defaultMaterials.find(m => m.name === name);
+                            
+                            if (existingDefault) {
+                                // Gunakan bahan default dengan persentase yang diimport
+                                materials.push({
+                                    ...existingDefault,
+                                    percentage: percentage
+                                });
+                            } else {
+                                // Tambahkan sebagai bahan custom
+                                materials.push({
+                                    id: nextCustomId++,
+                                    name: name,
+                                    percentage: percentage,
+                                    retention: retention,
+                                    drainage: drainage,
+                                    porosity: porosity
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // Update tampilan
+            renderMaterialCards();
+            updateTotalPercentage();
+            updateWateringInfo();
+            
+            showAlert("Data berhasil diimport dari file!", "Sukses", "check-circle");
+        } catch (error) {
+            console.error("Error parsing imported data:", error);
+            showAlert("Terjadi kesalahan saat mengimport data. Pastikan file yang diimport valid.", "Error", "exclamation-triangle");
+        }
     }
     
     // Event handlers
