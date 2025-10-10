@@ -19,6 +19,9 @@
     --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.07);
     --shadow-medium: 0 8px 15px rgba(0, 0, 0, 0.1);
     --shadow-heavy: 0 15px 30px rgba(0, 0, 0, 0.15);
+    --ph-acid: #e74c3c;
+    --ph-neutral: #f39c12;
+    --ph-alkaline: #3498db;
 }
 
 * {
@@ -137,7 +140,7 @@ h1 {
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* Perbaikan layout untuk Ukuran Pot dan Konfigurasi Penyiraman */
+/* PERBAIKAN: Layout untuk Ukuran Pot dan Konfigurasi Penyiraman */
 .config-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -175,6 +178,7 @@ label {
     font-size: 0.9rem;
 }
 
+/* PERBAIKAN: Lebar input number dibatasi 100px */
 input[type="number"], input[type="text"], select {
     width: 100%;
     padding: 10px 12px;
@@ -183,6 +187,12 @@ input[type="number"], input[type="text"], select {
     font-size: 0.95rem;
     transition: all 0.3s;
     background: white;
+}
+
+/* Input number khusus dengan lebar terbatas */
+.number-input {
+    width: 100px !important;
+    max-width: 100px;
 }
 
 input[type="number"]:focus, input[type="text"]:focus, select:focus {
@@ -224,7 +234,7 @@ button.danger {
     background: var(--gradient-accent);
 }
 
-/* Material Cards - Lebih Compact */
+/* PERBAIKAN: Material Cards - Lebih Compact */
 .material-cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -356,7 +366,7 @@ button.danger {
 
 .properties {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 6px;
 }
 
@@ -404,6 +414,53 @@ button.danger {
     background: var(--gradient-secondary);
 }
 
+.ph-fill {
+    background: linear-gradient(135deg, #e74c3c 0%, #f39c12 50%, #3498db 100%);
+}
+
+.property-indicator {
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-top: 2px;
+    text-align: center;
+    padding: 1px 3px;
+    border-radius: 3px;
+}
+
+.retention-indicator {
+    background-color: rgba(39, 174, 96, 0.1);
+    color: var(--primary);
+}
+
+.drainage-indicator {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: var(--accent);
+}
+
+.porosity-indicator {
+    background-color: rgba(230, 126, 34, 0.1);
+    color: var(--secondary);
+}
+
+.ph-indicator {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.ph-acid {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: var(--ph-acid);
+}
+
+.ph-neutral {
+    background-color: rgba(243, 156, 18, 0.1);
+    color: var(--ph-neutral);
+}
+
+.ph-alkaline {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: var(--ph-alkaline);
+}
+
 .total-percentage {
     font-weight: bold;
     text-align: center;
@@ -422,10 +479,21 @@ button.danger {
     border-color: var(--danger);
 }
 
+/* PERBAIKAN: Posisi tombol di tengah */
 .action-buttons {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+/* PERBAIKAN: Tombol untuk import dan simpan di tengah */
+.save-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
     margin-top: 20px;
 }
 
@@ -623,17 +691,18 @@ button.danger {
     font-size: 1.1rem;
 }
 
-/* Card Rekomendasi */
-.recommendation-card {
+/* PERBAIKAN: Card Rekomendasi dan Analisis */
+.info-card {
     margin-top: 16px;
     padding: 16px;
     background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
     border-radius: 12px;
     box-shadow: var(--shadow-light);
     border-left: 5px solid var(--secondary);
+    width: 100%;
 }
 
-.recommendation-card h4 {
+.info-card h4 {
     color: var(--secondary);
     margin-bottom: 12px;
     display: flex;
@@ -641,23 +710,29 @@ button.danger {
     gap: 8px;
 }
 
-.recommendation-list {
+.info-list {
     list-style-type: none;
 }
 
-.recommendation-list li {
+.info-list li {
     margin-bottom: 8px;
     padding-left: 24px;
     position: relative;
     font-size: 0.9rem;
 }
 
-.recommendation-list li:before {
+.info-list li:before {
     content: "•";
     color: var(--secondary);
     font-weight: bold;
     position: absolute;
     left: 8px;
+}
+
+.analysis-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 8px;
 }
 
 footer {
@@ -709,20 +784,6 @@ footer {
     margin-bottom: 16px;
 }
 
-.info-card {
-    background: var(--gradient-card);
-    padding: 16px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: var(--shadow-light);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s;
-}
-
-.info-card:hover {
-    transform: translateY(-3px);
-}
-
 .info-value {
     font-size: 1.5rem;
     font-weight: bold;
@@ -745,6 +806,18 @@ footer {
 .empty-state p {
     margin-bottom: 8px;
     font-size: 0.9rem;
+}
+
+/* PERBAIKAN: Input sejajar untuk Retensi, Drainase, Porositas, pH */
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.input-row .input-group {
+    margin-bottom: 0;
 }
 
 /* Popup Styles */
@@ -894,13 +967,14 @@ footer {
     box-shadow: var(--shadow-medium);
 }
 
-@media (max-width: 1024px) {
+/* PERBAIKAN: Responsif untuk semua ukuran layar */
+@media (max-width: 1200px) {
     .main-content {
         grid-template-columns: 1fr;
     }
     
     .material-cards {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 }
 
@@ -913,7 +987,7 @@ footer {
         grid-template-columns: 1fr;
     }
     
-    .action-buttons {
+    .action-buttons, .save-buttons {
         flex-direction: column;
     }
     
@@ -953,5 +1027,70 @@ footer {
     .percentage-input {
         width: 100%;
         margin-left: 0;
+    }
+    
+    .input-row {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .properties {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .section-title {
+        font-size: 1.3rem;
+    }
+    
+    .pot-display {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    header {
+        padding: 15px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .config-section, .simulation-section {
+        padding: 15px;
+    }
+    
+    .material-selection, .save-management {
+        padding: 15px;
+    }
+    
+    .pot-display {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .properties {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .input-row {
+        grid-template-columns: 1fr;
     }
 }

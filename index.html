@@ -22,24 +22,24 @@
                 
                 <div class="note">
                     <strong><i class="fas fa-info-circle"></i> Catatan:</strong> Media tanam akan tercampur sempurna menjadi satu kesatuan homogen di dalam pot. 
-                    Sifat-sifat media (retensi, drainase, porositas) merupakan rata-rata tertimbang dari bahan-bahan penyusunnya.
+                    Sifat-sifat media (retensi, drainase, porositas, pH) merupakan rata-rata tertimbang dari bahan-bahan penyusunnya.
                 </div>
                 
-                <!-- Perbaikan layout Ukuran Pot dan Konfigurasi Penyiraman -->
+                <!-- PERBAIKAN: Layout untuk Ukuran Pot dan Konfigurasi Penyiraman -->
                 <div class="config-row">
                     <div class="compact-card">
                         <h3 class="config-title"><i class="fas fa-fill-drip"></i> Ukuran Pot</h3>
                         <div class="input-group">
                             <label for="pot-diameter"><i class="fas fa-ruler-horizontal"></i> Diameter Pot (cm)</label>
-                            <input type="number" id="pot-diameter" min="5" max="50" value="9.5" step="0.1">
+                            <input type="number" id="pot-diameter" min="5" max="50" value="9.5" step="0.1" class="number-input">
                         </div>
                         <div class="input-group">
                             <label for="pot-height"><i class="fas fa-ruler-vertical"></i> Tinggi Pot (cm)</label>
-                            <input type="number" id="pot-height" min="5" max="50" value="9.5" step="0.1">
+                            <input type="number" id="pot-height" min="5" max="50" value="9.5" step="0.1" class="number-input">
                         </div>
                         <div class="input-group">
                             <label for="soil-percentage"><i class="fas fa-percentage"></i> Persentase Pengisian Media (%)</label>
-                            <input type="number" id="soil-percentage" min="50" max="100" value="95">
+                            <input type="number" id="soil-percentage" min="50" max="100" value="95" class="number-input">
                         </div>
                     </div>
                     
@@ -47,11 +47,11 @@
                         <h3 class="config-title"><i class="fas fa-tint"></i> Konfigurasi Penyiraman</h3>
                         <div class="input-group">
                             <label for="water-volume"><i class="fas fa-water"></i> Volume Air (mL)</label>
-                            <input type="number" id="water-volume" min="0" max="2000" value="500" step="10">
+                            <input type="number" id="water-volume" min="0" max="2000" value="500" step="10" class="number-input">
                         </div>
                         <div class="input-group">
                             <label for="watering-duration"><i class="fas fa-clock"></i> Durasi Penyiraman (detik)</label>
-                            <input type="number" id="watering-duration" min="0" max="600" value="5" step="0.1">
+                            <input type="number" id="watering-duration" min="0" max="600" value="5" step="0.1" class="number-input">
                         </div>
                         <div class="watering-info">
                             <div class="info-card">
@@ -75,21 +75,30 @@
                             <label for="material-select"><i class="fas fa-cube"></i> Pilih Bahan:</label>
                             <select id="material-select">
                                 <option value="">-- Pilih Bahan --</option>
-                                <option value="1">Sekam padi mentah fermentasi</option>
-                                <option value="2">Sekam padi bakar</option>
-                                <option value="3">Humus daun bambu fermentasi</option>
-                                <option value="4">Humus daun kaliandra fermentasi</option>
-                                <option value="5">Humus andam fermentasi</option>
-                                <option value="6">Akar pakis cacah kecil sudah dioven</option>
-                                <option value="7">Biji kapuk atau klenteng sudah dioven</option>
-                                <option value="8">Cocopeat fermentasi</option>
-                                <option value="9">Cocofiber</option>
-                                <option value="10">Perlite</option>
-                                <option value="11">Pasir malang (ukuran sedang)</option>
-                                <option value="12">Zeolit</option>
-                                <option value="13">Top Soil</option>
-                                <option value="14">Pupuk Kandang Kambing fermentasi</option>
-                                <option value="15">Vermicompost (kascing)</option>
+                                <option value="1">Sekam padi mentah</option>
+                                <option value="2">Sekam padi mentah (fermentasi)</option>
+                                <option value="3">Arang sekam padi</option>
+                                <option value="4">Humus daun bambu (fermentasi)</option>
+                                <option value="5">Humus daun kaliandra (fermentasi)</option>
+                                <option value="6">Humus andam (fermentasi)</option>
+                                <option value="7">Akar pakis cacah kecil (oven)</option>
+                                <option value="8">Biji kapuk / klenteng (oven)</option>
+                                <option value="9">Cocopeat (fermentasi)</option>
+                                <option value="10">Cocofiber</option>
+                                <option value="11">Perlite</option>
+                                <option value="12">Pasir Malang (ukuran sedang)</option>
+                                <option value="13">Vermiculite</option>
+                                <option value="14">Zeolit</option>
+                                <option value="15">Top Soil</option>
+                                <option value="16">Pupuk Kandang Kambing (fermentasi)</option>
+                                <option value="17">Vermicompost (kascing)</option>
+                                <option value="18">Arang kayu</option>
+                                <option value="19">Rockwool</option>
+                                <option value="20">Kerikil</option>
+                                <option value="21">Pasir sungai</option>
+                                <option value="22">Hydroton</option>
+                                <option value="23">Spagnum peat moss</option>
+                                <option value="24">Biochar</option>
                             </select>
                         </div>
                         <button id="add-material-btn"><i class="fas fa-plus-circle"></i> Tambah Bahan Terpilih</button>
@@ -107,6 +116,7 @@
                         <i class="fas fa-calculator"></i> Total: 0%
                     </div>
                     
+                    <!-- PERBAIKAN: Tombol di tengah -->
                     <div class="action-buttons">
                         <button id="normalize-btn"><i class="fas fa-balance-scale"></i> Normalisasi ke 100%</button>
                         <button id="reset-composition-btn" class="secondary"><i class="fas fa-undo"></i> Reset Komposisi</button>
@@ -118,17 +128,24 @@
                             <label for="custom-material-name"><i class="fas fa-tag"></i> Nama Bahan</label>
                             <input type="text" id="custom-material-name" placeholder="Nama bahan">
                         </div>
-                        <div class="input-group">
-                            <label for="custom-retention"><i class="fas fa-tint"></i> Retensi (%)</label>
-                            <input type="number" id="custom-retention" min="0" max="100" value="0">
-                        </div>
-                        <div class="input-group">
-                            <label for="custom-drainage"><i class="fas fa-water"></i> Drainase (%)</label>
-                            <input type="number" id="custom-drainage" min="0" max="100" value="0">
-                        </div>
-                        <div class="input-group">
-                            <label for="custom-porosity"><i class="fas fa-filter"></i> Porositas (%)</label>
-                            <input type="number" id="custom-porosity" min="0" max="100" value="0">
+                        <!-- PERBAIKAN: Input sejajar untuk Retensi, Drainase, Porositas, dan pH -->
+                        <div class="input-row">
+                            <div class="input-group">
+                                <label for="custom-retention"><i class="fas fa-tint"></i> Retensi (%)</label>
+                                <input type="number" id="custom-retention" min="0" max="100" value="0" class="number-input">
+                            </div>
+                            <div class="input-group">
+                                <label for="custom-drainage"><i class="fas fa-water"></i> Drainase (%)</label>
+                                <input type="number" id="custom-drainage" min="0" max="100" value="0" class="number-input">
+                            </div>
+                            <div class="input-group">
+                                <label for="custom-porosity"><i class="fas fa-filter"></i> Porositas (%)</label>
+                                <input type="number" id="custom-porosity" min="0" max="100" value="0" class="number-input">
+                            </div>
+                            <div class="input-group">
+                                <label for="custom-ph"><i class="fas fa-vial"></i> pH</label>
+                                <input type="number" id="custom-ph" min="0" max="14" value="7.0" step="0.1" class="number-input">
+                            </div>
                         </div>
                         <button id="add-custom-btn"><i class="fas fa-plus"></i> Tambah Bahan Custom</button>
                     </div>
@@ -140,7 +157,8 @@
                         <label for="save-name"><i class="fas fa-file-signature"></i> Nama Simpanan</label>
                         <input type="text" id="save-name" placeholder="Nama untuk simpanan ini">
                     </div>
-                    <div class="action-buttons">
+                    <!-- PERBAIKAN: Tombol import dan simpan di tengah -->
+                    <div class="save-buttons">
                         <button id="save-config-btn"><i class="fas fa-save"></i> Simpan Konfigurasi</button>
                         <div class="file-input-wrapper">
                             <button class="file-input-button"><i class="fas fa-file-import"></i> Import dari TXT</button>
@@ -199,10 +217,16 @@
                         </div>
                     </div>
                     
-                    <!-- Card Rekomendasi akan ditambahkan di sini setelah simulasi -->
-                    <div class="recommendation-card" id="recommendation-card" style="display: none;">
-                        <h4><i class="fas fa-bullseye"></i> Rekomendasi</h4>
-                        <ul class="recommendation-list" id="recommendation-list">
+                    <!-- PERBAIKAN: Card Informasi Drainase dan Analisis Media -->
+                    <div class="info-card" id="info-card" style="display: none;">
+                        <h4><i class="fas fa-info-circle"></i> Analisis Media & Rekomendasi</h4>
+                        <div class="analysis-text" id="drainage-info">
+                            <!-- Info drainase akan ditambahkan di sini -->
+                        </div>
+                        <div class="analysis-text" id="media-analysis">
+                            <!-- Analisis media akan ditambahkan di sini -->
+                        </div>
+                        <ul class="info-list" id="recommendation-list">
                             <!-- Rekomendasi akan ditambahkan di sini -->
                         </ul>
                     </div>
