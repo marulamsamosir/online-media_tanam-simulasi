@@ -99,6 +99,7 @@
                                 <option value="22">Hydroton</option>
                                 <option value="23">Spagnum peat moss</option>
                                 <option value="24">Biochar</option>
+                                <option value="25">Pumice</option>
                             </select>
                         </div>
                         <button id="add-material-btn"><i class="fas fa-plus-circle"></i> Tambah Bahan Terpilih</button>
@@ -217,18 +218,59 @@
                         </div>
                     </div>
                     
-                    <!-- PERBAIKAN: Card Informasi Drainase dan Analisis Media -->
-                    <div class="info-card" id="info-card" style="display: none;">
-                        <h4><i class="fas fa-info-circle"></i> Analisis Media & Rekomendasi</h4>
-                        <div class="analysis-text" id="drainage-info">
-                            <!-- Info drainase akan ditambahkan di sini -->
+                    <!-- PERBAIKAN: Analisis Media & Rekomendasi yang lebih menarik -->
+                    <div class="analysis-container" id="analysis-container" style="display: none;">
+                        <h3 class="section-title"><i class="fas fa-chart-bar"></i> Analisis Media & Rekomendasi</h3>
+                        
+                        <div class="analysis-grid">
+                            <div class="analysis-card drainage">
+                                <div class="analysis-header">
+                                    <div class="analysis-icon drainage">
+                                        <i class="fas fa-tint"></i>
+                                    </div>
+                                    <div class="analysis-title">Analisis Drainase</div>
+                                </div>
+                                <div class="analysis-content" id="drainage-analysis">
+                                    <!-- Analisis drainase akan ditampilkan di sini -->
+                                </div>
+                            </div>
+                            
+                            <div class="analysis-card ph">
+                                <div class="analysis-header">
+                                    <div class="analysis-icon ph">
+                                        <i class="fas fa-vial"></i>
+                                    </div>
+                                    <div class="analysis-title">Analisis pH</div>
+                                </div>
+                                <div class="analysis-content" id="ph-analysis">
+                                    <!-- Analisis pH akan ditampilkan di sini -->
+                                </div>
+                            </div>
+                            
+                            <div class="analysis-card media">
+                                <div class="analysis-header">
+                                    <div class="analysis-icon media">
+                                        <i class="fas fa-seedling"></i>
+                                    </div>
+                                    <div class="analysis-title">Analisis Media</div>
+                                </div>
+                                <div class="analysis-content" id="media-analysis">
+                                    <!-- Analisis media akan ditampilkan di sini -->
+                                </div>
+                            </div>
                         </div>
-                        <div class="analysis-text" id="media-analysis">
-                            <!-- Analisis media akan ditambahkan di sini -->
+                        
+                        <div class="recommendations-section">
+                            <div class="recommendations-header">
+                                <div class="recommendations-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div class="recommendations-title">Rekomendasi Perbaikan</div>
+                            </div>
+                            <ul class="recommendations-list" id="recommendation-list">
+                                <!-- Rekomendasi akan ditampilkan di sini -->
+                            </ul>
                         </div>
-                        <ul class="info-list" id="recommendation-list">
-                            <!-- Rekomendasi akan ditambahkan di sini -->
-                        </ul>
                     </div>
                     
                     <div class="action-buttons">
