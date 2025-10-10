@@ -554,25 +554,39 @@ $(document).ready(function() {
         };
     }
     
-    // PERBAIKAN: Tampilkan analisis dan rekomendasi termasuk pH
+    // PERBAIKAN: Tampilkan analisis dan rekomendasi dengan tampilan baru
     function displayAnalysis(mixedProps) {
         const analysis = generateAnalysis(mixedProps);
-        const infoCard = $("#info-card");
+        const analysisContainer = $("#analysis-container");
         
-        $("#drainage-info").text(analysis.drainageInfo);
-        $("#media-analysis").text(analysis.mediaAnalysis);
+        // Tampilkan analisis drainase
+        $("#drainage-analysis").html(`<p>${analysis.drainageInfo}</p>`);
         
-        // Tambahkan info pH
-        $("#media-analysis").after(`<div class="analysis-text" id="ph-info">${analysis.phInfo}</div>`);
+        // Tampilkan analisis pH
+        $("#ph-analysis").html(`<p>${analysis.phInfo}</p>`);
         
+        // Tampilkan analisis media
+        $("#media-analysis").html(`<p>${analysis.mediaAnalysis}</p>`);
+        
+        // Tampilkan rekomendasi
         const recommendationList = $("#recommendation-list");
         recommendationList.empty();
         
         analysis.recommendations.forEach(rec => {
-            recommendationList.append(`<li>${rec}</li>`);
+            let listItem = $("<li></li>").text(rec);
+            
+            // Tambahkan kelas berdasarkan jenis rekomendasi
+            if (rec.includes("buruk") || rec.includes("terlalu") || rec.includes("risiko")) {
+                listItem.addClass("warning");
+            } else if (rec.includes("ideal") || rec.includes("baik")) {
+                listItem.addClass("important");
+            }
+            
+            recommendationList.append(listItem);
         });
         
-        infoCard.show();
+        // Tampilkan container analisis
+        analysisContainer.show();
     }
     
     // Jalankan simulasi
@@ -741,7 +755,7 @@ $(document).ready(function() {
                     <p>Klik "Jalankan Simulasi" untuk melihat hasil</p>
                 </div>
             `);
-            $("#info-card").hide();
+            $("#analysis-container").hide();
             
             showAlert(`Konfigurasi "${name}" berhasil dimuat!`, "Sukses", "check-circle");
         }
@@ -828,7 +842,7 @@ $(document).ready(function() {
                             <p>Klik "Jalankan Simulasi" untuk melihat hasil</p>
                         </div>
                     `);
-                    $("#info-card").hide();
+                    $("#analysis-container").hide();
                     updateWateringInfo();
                     renderSavedConfigs();
                     showAlert("Semua data berhasil dihapus!", "Sukses", "check-circle");
@@ -931,7 +945,7 @@ $(document).ready(function() {
                 <p>Klik "Jalankan Simulasi" untuk melihat hasil</p>
             </div>
         `);
-        $("#info-card").hide();
+        $("#analysis-container").hide();
         updateWateringInfo();
     }
     
