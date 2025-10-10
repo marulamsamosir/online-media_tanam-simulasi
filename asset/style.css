@@ -72,12 +72,14 @@ h1 {
     margin-bottom: 10px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     position: relative;
+    transition: all 0.3s ease;
 }
 
 .subtitle {
     font-size: 1.3rem;
     opacity: 0.9;
     font-weight: 300;
+    transition: all 0.3s ease;
 }
 
 .main-content {
@@ -128,6 +130,261 @@ h1 {
     border-left: 5px solid var(--accent);
     font-size: 0.9rem;
     box-shadow: var(--shadow-light);
+}
+
+.simulation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pot-display {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 25px;
+    perspective: 800px;
+}
+
+.pot {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #8d6e63 0%, #5d4037 100%);
+    border-radius: 18px 18px 60px 60px;
+    overflow: hidden;
+    box-shadow: 
+        var(--shadow-heavy),
+        inset 0 10px 20px rgba(0, 0, 0, 0.2);
+    transform-style: preserve-3d;
+    transform: rotateX(5deg);
+}
+
+.pot-top {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 15%;
+    background: #6d4c41;
+    border-radius: 18px 18px 0 0;
+    z-index: 2;
+    box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.pot-body {
+    position: absolute;
+    top: 15%;
+    width: 100%;
+    height: 85%;
+    background: linear-gradient(135deg, #8d6e63 0%, #5d4037 100%);
+    border-radius: 0 0 60px 60px;
+}
+
+.soil {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: 
+        linear-gradient(135deg, #8bc34a 0%, #689f38 100%),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23689f38" /><path d="M0 50 Q 25 40, 50 50 T 100 50" stroke="%238bc34a" stroke-width="10" fill="none" /></svg>');
+    background-blend-mode: overlay;
+    transition: height 1s ease;
+    z-index: 1;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.water {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.3) 0%, transparent 50%),
+        linear-gradient(135deg, rgba(52, 152, 219, 0.8) 0%, rgba(41, 128, 185, 0.6) 100%);
+    transition: height 1s ease;
+    z-index: 0;
+}
+
+.drainage-holes {
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    z-index: 3;
+}
+
+.drainage-hole {
+    width: 10px;
+    height: 10px;
+    background: #2c3e50;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.side-holes {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 33%;
+    bottom: 0;
+    z-index: 3;
+}
+
+.side-hole {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #2c3e50;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.analysis-card {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: var(--shadow-light);
+    border-left: 4px solid var(--primary);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.analysis-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.analysis-card.drainage {
+    border-left-color: var(--accent);
+}
+
+.analysis-card.ph {
+    border-left-color: var(--ph-neutral);
+}
+
+.analysis-card.media {
+    border-left-color: var(--secondary);
+}
+
+.analysis-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.analysis-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.analysis-icon.drainage {
+    background: var(--gradient-accent);
+}
+
+.analysis-icon.ph {
+    background: linear-gradient(135deg, var(--ph-acid) 0%, var(--ph-neutral) 50%, var(--ph-alkaline) 100%);
+}
+
+.analysis-icon.media {
+    background: var(--gradient-secondary);
+}
+
+.analysis-title {
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 1.1rem;
+}
+
+.analysis-content {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #555;
+}
+
+.recommendations-section {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow-light);
+    margin-top: 20px;
+    border-top: 4px solid var(--warning);
+}
+
+.recommendations-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.recommendations-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-secondary);
+    color: white;
+    font-size: 1.1rem;
+}
+
+.recommendations-title {
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 1.2rem;
+}
+
+.recommendations-list {
+    list-style-type: none;
+}
+
+.recommendations-list li {
+    margin-bottom: 10px;
+    padding-left: 30px;
+    position: relative;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.recommendations-list li:before {
+    content: "✓";
+    color: var(--success);
+    font-weight: bold;
+    position: absolute;
+    left: 8px;
+    width: 20px;
+    height: 20px;
+    background: rgba(39, 174, 96, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recommendations-list li.warning:before {
+    content: "!";
+    color: var(--warning);
+    background: rgba(243, 156, 18, 0.1);
+}
+
+.recommendations-list li.important:before {
+    content: "★";
+    color: var(--danger);
+    background: rgba(231, 76, 60, 0.1);
 }
 
 /* Compact Cards */
@@ -550,101 +807,6 @@ button.danger {
     font-size: 0.85rem;
 }
 
-.simulation-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.pot-display {
-    position: relative;
-    width: 200px;
-    height: 200px;
-    margin-bottom: 25px;
-}
-
-.pot {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #8d6e63 0%, #5d4037 100%);
-    border-radius: 18px 18px 60px 60px;
-    overflow: hidden;
-    box-shadow: var(--shadow-heavy);
-}
-
-.pot-top {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 15%;
-    background: #6d4c41;
-    border-radius: 18px 18px 0 0;
-    z-index: 2;
-}
-
-.pot-body {
-    position: absolute;
-    top: 15%;
-    width: 100%;
-    height: 85%;
-    background: linear-gradient(135deg, #8d6e63 0%, #5d4037 100%);
-    border-radius: 0 0 60px 60px;
-}
-
-.soil {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background: linear-gradient(135deg, #8bc34a 0%, #689f38 100%);
-    transition: height 1s ease;
-    z-index: 1;
-}
-
-.water {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background: linear-gradient(135deg, rgba(52, 152, 219, 0.8) 0%, rgba(41, 128, 185, 0.6) 100%);
-    transition: height 1s ease;
-    z-index: 0;
-}
-
-.drainage-holes {
-    position: absolute;
-    bottom: 8px;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    z-index: 3;
-}
-
-.drainage-hole {
-    width: 10px;
-    height: 10px;
-    background: #2c3e50;
-    border-radius: 50%;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-}
-
-.side-holes {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 33%;
-    bottom: 0;
-    z-index: 3;
-}
-
-.side-hole {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: #2c3e50;
-    border-radius: 50%;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-}
-
 .results {
     width: 100%;
     margin-top: 20px;
@@ -967,7 +1129,6 @@ footer {
     box-shadow: var(--shadow-medium);
 }
 
-/* PERBAIKAN: Responsif untuk semua ukuran layar */
 @media (max-width: 1200px) {
     .main-content {
         grid-template-columns: 1fr;
