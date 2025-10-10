@@ -483,39 +483,39 @@ $(document).ready(function() {
         // Analisis drainase
         let drainageInfo = "";
         if (mixedProps.drainage < 20) {
-            drainageInfo = "Info Drainase: Sangat Lambat (Tanah Liat). Media cenderung tergenang air, berisiko busuk akar.";
+            drainageInfo = "Sangat Lambat (Tanah Liat). Media cenderung tergenang air, berisiko busuk akar.";
         } else if (mixedProps.drainage < 40) {
-            drainageInfo = "Info Drainase: Lambat. Media mempertahankan kelembaban cukup lama, cocok untuk Aglaonema yang suka lembab.";
+            drainageInfo = "Lambat. Media mempertahankan kelembaban cukup lama, cocok untuk Aglaonema yang suka lembab.";
         } else if (mixedProps.drainage < 60) {
-            drainageInfo = "Info Drainase: Sedang. Keseimbangan drainase dan retensi baik untuk Aglaonema.";
+            drainageInfo = "Sedang. Keseimbangan drainase dan retensi baik untuk Aglaonema.";
         } else if (mixedProps.drainage < 80) {
-            drainageInfo = "Info Drainase: Cepat. Media akan cepat kering, cocok untuk Aglaonema yang takut becek.";
+            drainageInfo = "Cepat. Media akan cepat kering, cocok untuk Aglaonema yang takut becek.";
         } else {
-            drainageInfo = "Info Drainase: Sangat Cepat (Sangat Poros). Media akan cepat kering, cocok untuk Aglaonema yang takut becek.";
+            drainageInfo = "Sangat Cepat (Sangat Poros). Media akan cepat kering, cocok untuk Aglaonema yang takut becek.";
         }
         
         // Analisis pH
         let phInfo = "";
         if (mixedProps.ph < 5.0) {
-            phInfo = `pH Media: Sangat Asam (${mixedProps.ph.toFixed(2)}). Aglaonema lebih menyukai pH sedikit asam hingga netral (5.5-6.5).`;
+            phInfo = `Sangat Asam (${mixedProps.ph.toFixed(2)}). Aglaonema lebih menyukai pH sedikit asam hingga netral (5.5-6.5).`;
         } else if (mixedProps.ph < 5.5) {
-            phInfo = `pH Media: Asam (${mixedProps.ph.toFixed(2)}). Cocok untuk Aglaonema, tetapi perhatikan jika pH terlalu rendah.`;
+            phInfo = `Asam (${mixedProps.ph.toFixed(2)}). Cocok untuk Aglaonema, tetapi perhatikan jika pH terlalu rendah.`;
         } else if (mixedProps.ph < 6.5) {
-            phInfo = `pH Media: Ideal (${mixedProps.ph.toFixed(2)}). Rentang pH terbaik untuk Aglaonema.`;
+            phInfo = `Ideal (${mixedProps.ph.toFixed(2)}). Rentang pH terbaik untuk Aglaonema.`;
         } else if (mixedProps.ph < 7.0) {
-            phInfo = `pH Media: Netral (${mixedProps.ph.toFixed(2)}). Masih dapat diterima untuk Aglaonema.`;
+            phInfo = `Netral (${mixedProps.ph.toFixed(2)}). Masih dapat diterima untuk Aglaonema.`;
         } else {
-            phInfo = `pH Media: Basa (${mixedProps.ph.toFixed(2)}). Aglaonema lebih menyukai pH sedikit asam.`;
+            phInfo = `Basa (${mixedProps.ph.toFixed(2)}). Aglaonema lebih menyukai pH sedikit asam.`;
         }
         
         // Analisis media
         let mediaAnalysis = "";
         if (mixedProps.retention < 30 && mixedProps.porosity > 70) {
-            mediaAnalysis = `Analisis Media: Campuran ini memiliki retensi air ${mixedProps.retention.toFixed(0)}% dan porositas ${mixedProps.porosity.toFixed(0)}%. Struktur sangat berongga, aerasi akar maksimal. Retensi air rendah, perlu penyiraman lebih sering.`;
+            mediaAnalysis = `Campuran ini memiliki retensi air ${mixedProps.retention.toFixed(0)}% dan porositas ${mixedProps.porosity.toFixed(0)}%. Struktur sangat berongga, aerasi akar maksimal. Retensi air rendah, perlu penyiraman lebih sering.`;
         } else if (mixedProps.retention > 60 && mixedProps.porosity < 50) {
-            mediaAnalysis = `Analisis Media: Campuran ini memiliki retensi air ${mixedProps.retention.toFixed(0)}% dan porositas ${mixedProps.porosity.toFixed(0)}%. Struktur padat, retensi air tinggi. Berisiko tergenang jika drainase tidak memadai.`;
+            mediaAnalysis = `Campuran ini memiliki retensi air ${mixedProps.retention.toFixed(0)}% dan porositas ${mixedProps.porosity.toFixed(0)}%. Struktur padat, retensi air tinggi. Berisiko tergenang jika drainase tidak memadai.`;
         } else {
-            mediaAnalysis = `Analisis Media: Campuran ini memiliki retensi air ${mixedProps.retention.toFixed(0)}% dan porositas ${mixedProps.porosity.toFixed(0)}%. Keseimbangan retensi air dan drainase baik untuk Aglaonema.`;
+            mediaAnalysis = `Campuran ini memiliki retensi air ${mixedProps.retention.toFixed(0)}% dan porositas ${mixedProps.porosity.toFixed(0)}%. Keseimbangan retensi air dan drainase baik untuk Aglaonema.`;
         }
         
         // Rekomendasi berdasarkan retensi
