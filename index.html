@@ -22,10 +22,9 @@
                 
                 <div class="note">
                     <strong><i class="fas fa-info-circle"></i> Catatan:</strong> Media tanam akan tercampur sempurna menjadi satu kesatuan homogen di dalam pot. 
-                    Sifat-sifat media (retensi, drainase, porositas, pH) merupakan rata-rata tertimbang dari bahan-bahan penyusunnya.
+                    Sifat-sifat media (retensi, drainase, porositas, pH, CEC) merupakan rata-rata tertimbang dari bahan-bahan penyusunnya.
                 </div>
                 
-                <!-- PERBAIKAN: Layout untuk Ukuran Pot dan Konfigurasi Penyiraman -->
                 <div class="config-row">
                     <div class="compact-card">
                         <h3 class="config-title"><i class="fas fa-fill-drip"></i> Ukuran Pot</h3>
@@ -81,7 +80,7 @@
                                 <option value="4">Humus Daun Bambu (Fermentasi)</option>
                                 <option value="5">Humus Daun Kaliandra (Fermentasi)</option>
                                 <option value="6">Humus Andam (Fermentasi)</option>
-                                <option value="7">Akar Pakis Cacah Kecil (Oven)</option>
+                                <option value="7">Akar Pakis Cacah (Oven)</option>
                                 <option value="8">Biji Kapuk / Klenteng (Oven)</option>
                                 <option value="9">Cocopeat (Fermentasi)</option>
                                 <option value="10">Cocofiber</option>
@@ -117,7 +116,6 @@
                         <i class="fas fa-calculator"></i> Total: 0%
                     </div>
                     
-                    <!-- PERBAIKAN: Tombol di tengah -->
                     <div class="action-buttons">
                         <button id="normalize-btn"><i class="fas fa-balance-scale"></i> Normalisasi ke 100%</button>
                         <button id="reset-composition-btn" class="secondary"><i class="fas fa-undo"></i> Reset Komposisi</button>
@@ -129,7 +127,6 @@
                             <label for="custom-material-name"><i class="fas fa-tag"></i> Nama Bahan</label>
                             <input type="text" id="custom-material-name" placeholder="Nama bahan">
                         </div>
-                        <!-- PERBAIKAN: Input sejajar untuk Retensi, Drainase, Porositas, dan pH -->
                         <div class="input-row">
                             <div class="input-group">
                                 <label for="custom-retention"><i class="fas fa-tint"></i> Retensi (%)</label>
@@ -147,6 +144,10 @@
                                 <label for="custom-ph"><i class="fas fa-vial"></i> pH</label>
                                 <input type="number" id="custom-ph" min="0" max="14" value="7.0" step="0.1" class="number-input">
                             </div>
+                            <div class="input-group">
+                                <label for="custom-cec"><i class="fas fa-exchange-alt"></i> CEC (meq/100g)</label>
+                                <input type="number" id="custom-cec" min="0" max="200" value="0" step="0.1" class="number-input">
+                            </div>
                         </div>
                         <button id="add-custom-btn"><i class="fas fa-plus"></i> Tambah Bahan Custom</button>
                     </div>
@@ -158,7 +159,6 @@
                         <label for="save-name"><i class="fas fa-file-signature"></i> Nama Simpanan</label>
                         <input type="text" id="save-name" placeholder="Nama untuk simpanan ini">
                     </div>
-                    <!-- PERBAIKAN: Tombol import dan simpan di tengah -->
                     <div class="save-buttons">
                         <button id="save-config-btn"><i class="fas fa-save"></i> Simpan Konfigurasi</button>
                         <div class="file-input-wrapper">
@@ -201,7 +201,7 @@
                                     <div class="drainage-hole"></div>
                                 </div>
                                 <div class="side-holes" id="side-holes">
-                                    <!-- Side holes will be generated here -->
+                                    <!-- Side holes akan digenerate oleh JavaScript -->
                                 </div>
                                 <div class="water-drops" id="water-drops"></div>
                             </div>
@@ -218,7 +218,19 @@
                         </div>
                     </div>
                     
-                    <!-- PERBAIKAN: Analisis Media & Rekomendasi yang lebih menarik -->
+                    <!-- Card baru untuk Komposisi Media Tanam -->
+                    <div class="composition-card" id="composition-card" style="display: none;">
+                        <div class="composition-header">
+                            <div class="composition-icon">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <div class="composition-title">Komposisi Media Tanam</div>
+                        </div>
+                        <div id="composition-details">
+                            <!-- Detail komposisi akan ditampilkan di sini -->
+                        </div>
+                    </div>
+                    
                     <div class="analysis-container" id="analysis-container" style="display: none;">
                         <h3 class="section-title"><i class="fas fa-chart-bar"></i> Analisis Media & Rekomendasi</h3>
                         
@@ -258,6 +270,18 @@
                                     <!-- Analisis media akan ditampilkan di sini -->
                                 </div>
                             </div>
+                            
+                            <div class="analysis-card cec">
+                                <div class="analysis-header">
+                                    <div class="analysis-icon cec">
+                                        <i class="fas fa-exchange-alt"></i>
+                                    </div>
+                                    <div class="analysis-title">Analisis CEC</div>
+                                </div>
+                                <div class="analysis-content" id="cec-analysis">
+                                    <!-- Analisis CEC akan ditampilkan di sini -->
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="recommendations-section">
@@ -274,7 +298,7 @@
                     </div>
                     
                     <div class="action-buttons">
-                        <!-- button id="delete-btn" class="danger"><i class="fas fa-trash-alt"></i> Hapus Semua Data</button -->
+                        <!-- <button id="delete-btn" class="danger"><i class="fas fa-trash-alt"></i> Hapus Semua Data</button> -->
                         <button id="export-btn" class="secondary"><i class="fas fa-file-export"></i> Export ke TXT</button>
                         <button id="reset-simulation-btn"><i class="fas fa-redo"></i> Reset Simulasi</button>
                     </div>

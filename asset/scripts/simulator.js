@@ -1,31 +1,31 @@
 $(document).ready(function() {
-    // Data bahan default dengan properti retensi, drainase, porositas, dan pH
+    // Data bahan default dengan properti retensi, drainase, porositas, pH, dan CEC
     const defaultMaterials = [
-        { "id" : 1, "name" : "Sekam Padi Mentah", "percentage" : 0, "retention" : 35, "drainage" : 40, "porosity" : 60, "ph" : 6.5 },
-        { "id" : 2, "name" : "Sekam Padi Mentah (Fermentasi)", "percentage" : 0, "retention" : 40, "drainage" : 35, "porosity" : 65, "ph" : 6.2 },
-        { "id" : 3, "name" : "Arang Sekam Padi", "percentage" : 0, "retention" : 70, "drainage" : 20, "porosity" : 75, "ph" : 7.8 },
-        { "id" : 4, "name" : "Humus Daun Bambu (Fermentasi)", "percentage" : 0, "retention" : 45, "drainage" : 30, "porosity" : 55, "ph" : 6.0 },
-        { "id" : 5, "name" : "Humus Daun Kaliandra (Fermentasi)", "percentage" : 0, "retention" : 45, "drainage" : 30, "porosity" : 55, "ph" : 5.5 },
-        { "id" : 6, "name" : "Humus Andam (Fermentasi)", "percentage" : 0, "retention" : 45, "drainage" : 30, "porosity" : 55, "ph" : 5.5 },
-        { "id" : 7, "name" : "Akar Pakis Cacah Kecil (Oven)", "percentage" : 0, "retention" : 40, "drainage" : 35, "porosity" : 60, "ph" : 5.5 },
-        { "id" : 8, "name" : "Biji Kapuk / Klenteng (Oven)", "percentage" : 0, "retention" : 30, "drainage" : 40, "porosity" : 50, "ph" : 6.0 },
-        { "id" : 9, "name" : "Cocopeat (Fermentasi)", "percentage" : 0, "retention" : 66, "drainage" : 25, "porosity" : 61, "ph" : 5.8 },
-        { "id" : 10, "name" : "Cocofiber", "percentage" : 0, "retention" : 40, "drainage" : 30, "porosity" : 60, "ph" : 5.5 },
-        { "id" : 11, "name" : "Perlite", "percentage" : 0, "retention" : 20, "drainage" : 80, "porosity" : 85, "ph" : 7.0 },
-        { "id" : 12, "name" : "Pasir Malang", "percentage" : 0, "retention" : 10, "drainage" : 90, "porosity" : 40, "ph" : 6.8 },
-        { "id" : 13, "name" : "Vermiculite", "percentage" : 0, "retention" : 50, "drainage" : 25, "porosity" : 70, "ph" : 6.8 },
-        { "id" : 14, "name" : "Zeolit", "percentage" : 0, "retention" : 20, "drainage" : 40, "porosity" : 55, "ph" : 7.0 },
-        { "id" : 15, "name" : "Top Soil", "percentage" : 0, "retention" : 25, "drainage" : 40, "porosity" : 50, "ph" : 6.0 },
-        { "id" : 16, "name" : "Pupuk Kandang Kambing (Fermentasi)", "percentage" : 0, "retention" : 35, "drainage" : 30, "porosity" : 60, "ph" : 6.5 },
-        { "id" : 17, "name" : "Vermicompost (Kascing)", "percentage" : 0, "retention" : 50, "drainage" : 25, "porosity" : 65, "ph" : 6.2 },
-        { "id" : 18, "name" : "Arang Kayu", "percentage" : 0, "retention" : 70, "drainage" : 20, "porosity" : 75, "ph" : 7.5 },
-        { "id" : 19, "name" : "Rockwool", "percentage" : 0, "retention" : 35, "drainage" : 30, "porosity" : 80, "ph" : 6.8 },
-        { "id" : 20, "name" : "Kerikil", "percentage" : 0, "retention" : 5, "drainage" : 95, "porosity" : 35, "ph" : 6.5 },
-        { "id" : 21, "name" : "Pasir Sungai", "percentage" : 0, "retention" : 8, "drainage" : 80, "porosity" : 40, "ph" : 6.5 },
-        { "id" : 22, "name" : "Hydroton", "percentage" : 0, "retention" : 10, "drainage" : 85, "porosity" : 70, "ph" : 7.0 },
-        { "id" : 23, "name" : "Spagnum Peat Moss", "percentage" : 0, "retention" : 65, "drainage" : 10, "porosity" : 75, "ph" : 4.0 },
-        { "id" : 24, "name" : "Biochar", "percentage" : 0, "retention" : 80, "drainage" : 15, "porosity" : 75, "ph" : 7.0 },
-        { "id" : 25, "name" : "Pumice", "percentage" : 0, "retention" : 20, "drainage" : 70, "porosity" : 75, "ph" : 7.0 }
+        { "id" : 1, "name" : "Sekam Padi Mentah", "percentage" : 0, "retention" : 35, "drainage" : 60, "porosity" : 45, "ph" : 6.8, "cec" : 10 },
+        { "id" : 2, "name" : "Sekam Padi Mentah (Fermentasi)", "percentage" : 0, "retention" : 45, "drainage" : 50, "porosity" : 55, "ph" : 6.5, "cec" : 15 },
+        { "id" : 3, "name" : "Arang Sekam Padi", "percentage" : 0, "retention" : 65, "drainage" : 30, "porosity" : 80, "ph" : 7.5, "cec" : 20 },
+        { "id" : 4, "name" : "Humus Daun Bambu (Fermentasi)", "percentage" : 0, "retention" : 55, "drainage" : 40, "porosity" : 60, "ph" : 6.2, "cec" : 25 },
+        { "id" : 5, "name" : "Humus Daun Kaliandra (Fermentasi)", "percentage" : 0, "retention" : 60, "drainage" : 35, "porosity" : 65, "ph" : 5.8, "cec" : 28 },
+        { "id" : 6, "name" : "Humus Andam (Fermentasi)", "percentage" : 0, "retention" : 60, "drainage" : 35, "porosity" : 65, "ph" : 5.7, "cec" : 30 },
+        { "id" : 7, "name" : "Akar Pakis Cacah (Oven)", "percentage" : 0, "retention" : 50, "drainage" : 45, "porosity" : 70, "ph" : 5.5, "cec" : 20 },
+        { "id" : 8, "name" : "Biji Kapuk / Klenteng (Oven)", "percentage" : 0, "retention" : 30, "drainage" : 65, "porosity" : 50, "ph" : 6.1, "cec" : 15 },
+        { "id" : 9, "name" : "Cocopeat (Fermentasi)", "percentage" : 0, "retention" : 75, "drainage" : 20, "porosity" : 85, "ph" : 6.0, "cec" : 30 },
+        { "id" : 10, "name" : "Cocofiber", "percentage" : 0, "retention" : 40, "drainage" : 55, "porosity" : 75, "ph" : 5.8, "cec" : 25 },
+        { "id" : 11, "name" : "Perlite", "percentage" : 0, "retention" : 30, "drainage" : 70, "porosity" : 90, "ph" : 7.2, "cec" : 1 },
+        { "id" : 12, "name" : "Pasir Malang", "percentage" : 0, "retention" : 15, "drainage" : 80, "porosity" : 50, "ph" : 6.9, "cec" : 2 },
+        { "id" : 13, "name" : "Vermiculite", "percentage" : 0, "retention" : 60, "drainage" : 30, "porosity" : 80, "ph" : 7.0, "cec" : 100 },
+        { "id" : 14, "name" : "Zeolit", "percentage" : 0, "retention" : 35, "drainage" : 40, "porosity" : 60, "ph" : 7.5, "cec" : 150 },
+        { "id" : 15, "name" : "Top Soil", "percentage" : 0, "retention" : 40, "drainage" : 30, "porosity" : 50, "ph" : 6.5, "cec" : 15 },
+        { "id" : 16, "name" : "Pupuk Kandang Kambing (Fermentasi)", "percentage" : 0, "retention" : 55, "drainage" : 35, "porosity" : 65, "ph" : 7.0, "cec" : 50 },
+        { "id" : 17, "name" : "Vermicompost (Kascing)", "percentage" : 0, "retention" : 65, "drainage" : 25, "porosity" : 70, "ph" : 6.8, "cec" : 60 },
+        { "id" : 18, "name" : "Arang Kayu", "percentage" : 0, "retention" : 20, "drainage" : 75, "porosity" : 80, "ph" : 8.0, "cec" : 20 },
+        { "id" : 19, "name" : "Rockwool", "percentage" : 0, "retention" : 80, "drainage" : 15, "porosity" : 95, "ph" : 7.0, "cec" : 5 },
+        { "id" : 20, "name" : "Kerikil", "percentage" : 0, "retention" : 5, "drainage" : 95, "porosity" : 40, "ph" : 7.0, "cec" : 1 },
+        { "id" : 21, "name" : "Pasir Sungai", "percentage" : 0, "retention" : 10, "drainage" : 85, "porosity" : 45, "ph" : 7.0, "cec" : 2 },
+        { "id" : 22, "name" : "Hydroton", "percentage" : 0, "retention" : 40, "drainage" : 55, "porosity" : 80, "ph" : 7.0, "cec" : 5 },
+        { "id" : 23, "name" : "Spagnum Peat Moss", "percentage" : 0, "retention" : 85, "drainage" : 10, "porosity" : 90, "ph" : 4.0, "cec" : 100 },
+        { "id" : 24, "name" : "Biochar", "percentage" : 0, "retention" : 70, "drainage" : 25, "porosity" : 85, "ph" : 7.8, "cec" : 40 },
+        { "id" : 25, "name" : "Pumice", "percentage" : 0, "retention" : 35, "drainage" : 60, "porosity" : 80, "ph" : 7.2, "cec" : 10 }
     ];
     
     let materials = [];
@@ -110,6 +110,7 @@ $(document).ready(function() {
             const drainageDesc = getDrainageDescription(material.drainage);
             const porosityDesc = getPorosityDescription(material.porosity);
             const phDesc = getPhDescription(material.ph);
+            const cecDesc = getCecDescription(material.cec);
             
             const card = $(`
                 <div class="material-card" data-id="${material.id}">
@@ -152,6 +153,14 @@ $(document).ready(function() {
                                 <div class="property-fill ph-fill" style="width: ${(material.ph / 14) * 100}%"></div>
                             </div>
                             <div class="property-indicator ph-indicator ${getPhClass(material.ph)}">${phDesc}</div>
+                        </div>
+                        <div class="property">
+                            <span class="property-label">CEC</span>
+                            <span class="property-value">${material.cec}</span>
+                            <div class="property-bar">
+                                <div class="property-fill cec-fill" style="width: ${Math.min(material.cec / 2, 100)}%"></div>
+                            </div>
+                            <div class="property-indicator cec-indicator ${getCecClass(material.cec)}">${cecDesc}</div>
                         </div>
                     </div>
                 </div>
@@ -221,11 +230,27 @@ $(document).ready(function() {
         return "Basa Kuat";
     }
     
+    // Fungsi untuk mendapatkan deskripsi CEC
+    function getCecDescription(cec) {
+        if (cec < 10) return "Sangat Rendah";
+        if (cec < 20) return "Rendah";
+        if (cec < 40) return "Sedang";
+        if (cec < 60) return "Tinggi";
+        return "Sangat Tinggi";
+    }
+    
     // Fungsi untuk mendapatkan kelas CSS untuk pH
     function getPhClass(ph) {
         if (ph < 6.5) return "ph-acid";
         if (ph > 7.5) return "ph-alkaline";
         return "ph-neutral";
+    }
+    
+    // Fungsi untuk mendapatkan kelas CSS untuk CEC
+    function getCecClass(cec) {
+        if (cec < 10) return "cec-low";
+        if (cec < 40) return "cec-medium";
+        return "cec-high";
     }
     
     // Hapus bahan berdasarkan ID
@@ -343,6 +368,7 @@ $(document).ready(function() {
         const drainage = parseFloat($("#custom-drainage").val());
         const porosity = parseFloat($("#custom-porosity").val());
         const ph = parseFloat($("#custom-ph").val());
+        const cec = parseFloat($("#custom-cec").val());
         
         if (name === "") {
             showAlert("Masukkan nama bahan terlebih dahulu", "Peringatan", "exclamation-triangle");
@@ -369,6 +395,11 @@ $(document).ready(function() {
             return;
         }
         
+        if (isNaN(cec) || cec < 0 || cec > 200) {
+            showAlert("Masukkan nilai CEC yang valid (0-200)", "Peringatan", "exclamation-triangle");
+            return;
+        }
+        
         materials.push({
             id: nextCustomId,
             name: name,
@@ -376,7 +407,8 @@ $(document).ready(function() {
             retention: retention,
             drainage: drainage,
             porosity: porosity,
-            ph: ph
+            ph: ph,
+            cec: cec
         });
         
         nextCustomId++;
@@ -385,6 +417,7 @@ $(document).ready(function() {
         $("#custom-drainage").val("0");
         $("#custom-porosity").val("0");
         $("#custom-ph").val("7.0");
+        $("#custom-cec").val("0");
         renderMaterialCards();
         updateTotalPercentage();
     }
@@ -430,6 +463,7 @@ $(document).ready(function() {
         let totalDrainage = 0;
         let totalPorosity = 0;
         let totalPh = 0;
+        let totalCec = 0;
         let totalPercentage = 0;
         
         materials.forEach(material => {
@@ -438,17 +472,19 @@ $(document).ready(function() {
                 totalDrainage += material.drainage * material.percentage;
                 totalPorosity += material.porosity * material.percentage;
                 totalPh += material.ph * material.percentage;
+                totalCec += material.cec * material.percentage;
                 totalPercentage += material.percentage;
             }
         });
         
-        if (totalPercentage === 0) return { retention: 0, drainage: 0, porosity: 0, ph: 0 };
+        if (totalPercentage === 0) return { retention: 0, drainage: 0, porosity: 0, ph: 0, cec: 0 };
         
         return {
             retention: totalRetention / totalPercentage,
             drainage: totalDrainage / totalPercentage,
             porosity: totalPorosity / totalPercentage,
-            ph: totalPh / totalPercentage
+            ph: totalPh / totalPercentage,
+            cec: totalCec / totalPercentage
         };
     }
     
@@ -476,7 +512,7 @@ $(document).ready(function() {
         }, 2000);
     }
     
-    // PERBAIKAN: Fungsi untuk menghasilkan rekomendasi dan analisis termasuk pH
+    // Fungsi untuk menghasilkan rekomendasi dan analisis termasuk pH dan CEC
     function generateAnalysis(mixedProps) {
         const recommendations = [];
         
@@ -506,6 +542,20 @@ $(document).ready(function() {
             phInfo = `Netral (${mixedProps.ph.toFixed(2)}). Masih dapat diterima untuk Aglaonema.`;
         } else {
             phInfo = `Basa (${mixedProps.ph.toFixed(2)}). Aglaonema lebih menyukai pH sedikit asam.`;
+        }
+        
+        // Analisis CEC
+        let cecInfo = "";
+        if (mixedProps.cec < 10) {
+            cecInfo = `Sangat Rendah (${mixedProps.cec.toFixed(1)} meq/100g). Kapasitas tukar kation rendah, nutrisi mudah tercuci.`;
+        } else if (mixedProps.cec < 20) {
+            cecInfo = `Rendah (${mixedProps.cec.toFixed(1)} meq/100g). Kapasitas tukar kation terbatas, nutrisi mudah hilang.`;
+        } else if (mixedProps.cec < 40) {
+            cecInfo = `Sedang (${mixedProps.cec.toFixed(1)} meq/100g). Kapasitas tukar katan cukup untuk Aglaonema.`;
+        } else if (mixedProps.cec < 60) {
+            cecInfo = `Tinggi (${mixedProps.cec.toFixed(1)} meq/100g). Kapasitas tukar kation baik, nutrisi tersimpan dengan baik.`;
+        } else {
+            cecInfo = `Sangat Tinggi (${mixedProps.cec.toFixed(1)} meq/100g). Kapasitas tukar kation sangat baik, nutrisi tersimpan optimal.`;
         }
         
         // Analisis media
@@ -546,15 +596,21 @@ $(document).ready(function() {
             recommendations.push("pH terlalu basa. Tambahkan belerang atau bahan organik asam seperti gambut.");
         }
         
+        // Rekomendasi untuk CEC
+        if (mixedProps.cec < 20) {
+            recommendations.push("CEC rendah. Tambahkan bahan dengan CEC tinggi seperti vermiculite, zeolit, atau bahan organik.");
+        }
+        
         return {
             drainageInfo: drainageInfo,
             phInfo: phInfo,
+            cecInfo: cecInfo,
             mediaAnalysis: mediaAnalysis,
             recommendations: recommendations
         };
     }
     
-    // PERBAIKAN: Tampilkan analisis dan rekomendasi dengan tampilan baru
+    // Tampilkan analisis dan rekomendasi
     function displayAnalysis(mixedProps) {
         const analysis = generateAnalysis(mixedProps);
         const analysisContainer = $("#analysis-container");
@@ -567,6 +623,9 @@ $(document).ready(function() {
         
         // Tampilkan analisis media
         $("#media-analysis").html(`<p>${analysis.mediaAnalysis}</p>`);
+        
+        // Tampilkan analisis CEC
+        $("#cec-analysis").html(`<p>${analysis.cecInfo}</p>`);
         
         // Tampilkan rekomendasi
         const recommendationList = $("#recommendation-list");
@@ -587,6 +646,67 @@ $(document).ready(function() {
         
         // Tampilkan container analisis
         analysisContainer.show();
+    }
+    
+    // Fungsi untuk menampilkan komposisi media tanam
+    function displayCompositionDetails(potVolume, soilVolume) {
+        const compositionCard = $("#composition-card");
+        const compositionDetails = $("#composition-details");
+        
+        if (materials.length === 0) {
+            compositionDetails.html(`
+                <div class="empty-composition">
+                    <i class="fas fa-box-open"></i>
+                    <p>Belum ada bahan yang ditambahkan</p>
+                </div>
+            `);
+            compositionCard.show();
+            return;
+        }
+        
+        let tableHTML = `
+            <table class="composition-table">
+                <thead>
+                    <tr>
+                        <th>Bahan</th>
+                        <th>Persentase</th>
+                        <th>Volume (cm³)</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+        
+        materials.forEach(material => {
+            if (material.percentage > 0) {
+                const materialVolume = (material.percentage / 100) * soilVolume;
+                tableHTML += `
+                    <tr>
+                        <td>${material.name}</td>
+                        <td>${material.percentage.toFixed(1)}%</td>
+                        <td>${materialVolume.toFixed(2)} cm³</td>
+                    </tr>
+                `;
+            }
+        });
+        
+        // Hitung total persentase
+        const totalPercentage = materials.reduce((sum, material) => sum + material.percentage, 0);
+        
+        tableHTML += `
+                    <tr class="total-row">
+                        <td><strong>Total</strong></td>
+                        <td><strong>${totalPercentage.toFixed(1)}%</strong></td>
+                        <td><strong>${soilVolume.toFixed(2)} cm³</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                <i class="fas fa-info-circle"></i> Volume pot: ${potVolume.toFixed(2)} cm³ | Persentase pengisian media: ${$("#soil-percentage").val()}%
+            </div>
+        `;
+        
+        compositionDetails.html(tableHTML);
+        compositionCard.show();
     }
     
     // Jalankan simulasi
@@ -630,7 +750,9 @@ $(document).ready(function() {
         // Delay untuk animasi
         setTimeout(() => {
             displayResults(potVolume, soilVolume, waterVolume, wateringDuration, retainedWater, drainedWater, mixedProps);
-            // PERBAIKAN: Tampilkan analisis dan rekomendasi
+            // Tampilkan komposisi media tanam
+            displayCompositionDetails(potVolume, soilVolume);
+            // Tampilkan analisis dan rekomendasi
             displayAnalysis(mixedProps);
             isSimulating = false;
             $("#simulate-btn").prop("disabled", false).html('<i class="fas fa-play"></i> Jalankan Simulasi');
@@ -688,6 +810,10 @@ $(document).ready(function() {
                 <div class="result-item">
                     <span class="result-label">pH Media:</span>
                     <span class="result-value">${mixedProps.ph.toFixed(2)}</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">CEC Media:</span>
+                    <span class="result-value">${mixedProps.cec.toFixed(2)} meq/100g</span>
                 </div>
             </div>
         `);
@@ -755,6 +881,7 @@ $(document).ready(function() {
                     <p>Klik "Jalankan Simulasi" untuk melihat hasil</p>
                 </div>
             `);
+            $("#composition-card").hide();
             $("#analysis-container").hide();
             
             showAlert(`Konfigurasi "${name}" berhasil dimuat!`, "Sukses", "check-circle");
@@ -842,6 +969,7 @@ $(document).ready(function() {
                             <p>Klik "Jalankan Simulasi" untuk melihat hasil</p>
                         </div>
                     `);
+                    $("#composition-card").hide();
                     $("#analysis-container").hide();
                     updateWateringInfo();
                     renderSavedConfigs();
@@ -895,7 +1023,8 @@ $(document).ready(function() {
         content += "KOMPOSISI MEDIA TANAM:\n";
         materials.forEach(material => {
             if (material.percentage > 0) {
-                content += `- ${material.name}: ${material.percentage.toFixed(1)}% (Retensi: ${material.retention}%, Drainase: ${material.drainage}%, Porositas: ${material.porosity}%, pH: ${material.ph})\n`;
+                const materialVolume = (material.percentage / 100) * soilVolume;
+                content += `- ${material.name}: ${material.percentage.toFixed(1)}% (${materialVolume.toFixed(2)} cm³) | Retensi: ${material.retention}%, Drainase: ${material.drainage}%, Porositas: ${material.porosity}%, pH: ${material.ph}, CEC: ${material.cec} meq/100g\n`;
             }
         });
         
@@ -905,7 +1034,8 @@ $(document).ready(function() {
         content += `- Retensi: ${mixedProps.retention.toFixed(2)}%\n`;
         content += `- Drainase: ${mixedProps.drainage.toFixed(2)}%\n`;
         content += `- Porositas: ${mixedProps.porosity.toFixed(2)}%\n`;
-        content += `- pH: ${mixedProps.ph.toFixed(2)}\n\n`;
+        content += `- pH: ${mixedProps.ph.toFixed(2)}\n`;
+        content += `- CEC: ${mixedProps.cec.toFixed(2)} meq/100g\n\n`;
         
         content += "HASIL SIMULASI:\n";
         const results = $("#results .result-item");
@@ -945,6 +1075,7 @@ $(document).ready(function() {
                 <p>Klik "Jalankan Simulasi" untuk melihat hasil</p>
             </div>
         `);
+        $("#composition-card").hide();
         $("#analysis-container").hide();
         updateWateringInfo();
     }
@@ -1013,8 +1144,8 @@ $(document).ready(function() {
                     
                     // Parse baris bahan
                     if (line.startsWith('- ') && line.includes('%')) {
-                        // Format: - [nama bahan]: [persentase]% (Retensi: [retensi]%, Drainase: [drainase]%, Porositas: [porositas]%, pH: [pH])
-                        const match = line.match(/^- (.+?): ([\d.]+)% \(Retensi: ([\d.]+)%, Drainase: ([\d.]+)%, Porositas: ([\d.]+)%, pH: ([\d.]+)\)/);
+                        // Format: - [nama bahan]: [persentase]% (Retensi: [retensi]%, Drainase: [drainase]%, Porositas: [porositas]%, pH: [pH], CEC: [cec] meq/100g)
+                        const match = line.match(/^- (.+?): ([\d.]+)% \(Retensi: ([\d.]+)%, Drainase: ([\d.]+)%, Porositas: ([\d.]+)%, pH: ([\d.]+), CEC: ([\d.]+) meq\/100g\)/);
                         if (match) {
                             const name = match[1].trim();
                             const percentage = parseFloat(match[2]);
@@ -1022,6 +1153,7 @@ $(document).ready(function() {
                             const drainage = parseFloat(match[4]);
                             const porosity = parseFloat(match[5]);
                             const ph = parseFloat(match[6]);
+                            const cec = parseFloat(match[7]);
                             
                             // Cek apakah bahan sudah ada dalam daftar default
                             const existingDefault = defaultMaterials.find(m => m.name === name);
@@ -1041,7 +1173,8 @@ $(document).ready(function() {
                                     retention: retention,
                                     drainage: drainage,
                                     porosity: porosity,
-                                    ph: ph
+                                    ph: ph,
+                                    cec: cec
                                 });
                             }
                         }

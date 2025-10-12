@@ -22,6 +22,9 @@
     --ph-acid: #e74c3c;
     --ph-neutral: #f39c12;
     --ph-alkaline: #3498db;
+    --cec-low: #e74c3c;
+    --cec-medium: #f39c12;
+    --cec-high: #27ae60;
 }
 
 * {
@@ -272,6 +275,10 @@ h1 {
     border-left-color: var(--secondary);
 }
 
+.analysis-card.cec {
+    border-left-color: var(--cec-high);
+}
+
 .analysis-header {
     display: flex;
     align-items: center;
@@ -300,6 +307,10 @@ h1 {
 
 .analysis-icon.media {
     background: var(--gradient-secondary);
+}
+
+.analysis-icon.cec {
+    background: linear-gradient(135deg, var(--cec-low) 0%, var(--cec-medium) 50%, var(--cec-high) 100%);
 }
 
 .analysis-title {
@@ -387,7 +398,6 @@ h1 {
     background: rgba(231, 76, 60, 0.1);
 }
 
-/* Compact Cards */
 .compact-card {
     margin-bottom: 20px;
     padding: 16px;
@@ -397,7 +407,6 @@ h1 {
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* PERBAIKAN: Layout untuk Ukuran Pot dan Konfigurasi Penyiraman */
 .config-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -435,7 +444,6 @@ label {
     font-size: 0.9rem;
 }
 
-/* PERBAIKAN: Lebar input number dibatasi 100px */
 input[type="number"], input[type="text"], select {
     width: 100%;
     padding: 10px 12px;
@@ -446,7 +454,6 @@ input[type="number"], input[type="text"], select {
     background: white;
 }
 
-/* Input number khusus dengan lebar terbatas */
 .number-input {
     width: 100px !important;
     max-width: 100px;
@@ -491,7 +498,6 @@ button.danger {
     background: var(--gradient-accent);
 }
 
-/* PERBAIKAN: Material Cards - Lebih Compact */
 .material-cards {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -623,7 +629,7 @@ button.danger {
 
 .properties {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 6px;
 }
 
@@ -675,6 +681,10 @@ button.danger {
     background: linear-gradient(135deg, #e74c3c 0%, #f39c12 50%, #3498db 100%);
 }
 
+.cec-fill {
+    background: linear-gradient(135deg, var(--cec-low) 0%, var(--cec-medium) 50%, var(--cec-high) 100%);
+}
+
 .property-indicator {
     font-size: 0.7rem;
     font-weight: bold;
@@ -703,6 +713,10 @@ button.danger {
     background-color: rgba(52, 152, 219, 0.1);
 }
 
+.cec-indicator {
+    background-color: rgba(39, 174, 96, 0.1);
+}
+
 .ph-acid {
     background-color: rgba(231, 76, 60, 0.1);
     color: var(--ph-acid);
@@ -716,6 +730,21 @@ button.danger {
 .ph-alkaline {
     background-color: rgba(52, 152, 219, 0.1);
     color: var(--ph-alkaline);
+}
+
+.cec-low {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: var(--cec-low);
+}
+
+.cec-medium {
+    background-color: rgba(243, 156, 18, 0.1);
+    color: var(--cec-medium);
+}
+
+.cec-high {
+    background-color: rgba(39, 174, 96, 0.1);
+    color: var(--cec-high);
 }
 
 .total-percentage {
@@ -736,7 +765,6 @@ button.danger {
     border-color: var(--danger);
 }
 
-/* PERBAIKAN: Posisi tombol di tengah */
 .action-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -745,7 +773,6 @@ button.danger {
     justify-content: center;
 }
 
-/* PERBAIKAN: Tombol untuk import dan simpan di tengah */
 .save-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -853,7 +880,6 @@ button.danger {
     font-size: 1.1rem;
 }
 
-/* PERBAIKAN: Card Rekomendasi dan Analisis */
 .info-card {
     margin-top: 16px;
     padding: 16px;
@@ -970,10 +996,9 @@ footer {
     font-size: 0.9rem;
 }
 
-/* PERBAIKAN: Input sejajar untuk Retensi, Drainase, Porositas, pH */
 .input-row {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 10px;
     margin-bottom: 14px;
 }
@@ -1127,6 +1152,82 @@ footer {
 .file-input-button:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-medium);
+}
+
+/* Styling untuk card komposisi media tanam */
+.composition-card {
+    margin-top: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+    border-top: 4px solid var(--primary);
+    width: 100%;
+}
+
+.composition-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.composition-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-primary);
+    color: white;
+    font-size: 1.1rem;
+}
+
+.composition-title {
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 1.2rem;
+}
+
+.composition-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.composition-table th,
+.composition-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.composition-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.composition-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.total-row {
+    font-weight: bold;
+    background-color: #e8f5e9;
+}
+
+.empty-composition {
+    text-align: center;
+    padding: 30px;
+    color: #7f8c8d;
+}
+
+.empty-composition i {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+    color: #bdc3c7;
 }
 
 @media (max-width: 1200px) {
