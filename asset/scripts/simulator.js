@@ -32,6 +32,52 @@ $(document).ready(function() {
     let nextCustomId = 26;
     let isSimulating = false;
     
+    // Fungsi untuk mendapatkan deskripsi Retensi
+    function getRetentionDescription(retention) {
+        if (retention < 20) return "Sangat Rendah";
+        if (retention < 40) return "Rendah";
+        if (retention < 60) return "Sedang";
+        if (retention < 80) return "Tinggi";
+        return "Sangat Tinggi";
+    }
+    
+    // Fungsi untuk mendapatkan deskripsi Drainase
+    function getDrainageDescription(drainage) {
+        if (drainage < 20) return "Sangat Lambat";
+        if (drainage < 40) return "Lambat";
+        if (drainage < 60) return "Sedang";
+        if (drainage < 80) return "Cepat";
+        return "Sangat Cepat";
+    }
+    
+    // Fungsi untuk mendapatkan deskripsi Porositas
+    function getPorosityDescription(porosity) {
+        if (porosity < 20) return "Sangat Padat";
+        if (porosity < 40) return "Padat";
+        if (porosity < 60) return "Sedang";
+        if (porosity < 80) return "Berongga";
+        return "Sangat Berongga";
+    }
+    
+    // Fungsi untuk mendapatkan deskripsi pH
+    function getPhDescription(ph) {
+        if (ph < 4.5) return "Sangat Asam";
+        if (ph < 5.5) return "Asam Kuat";
+        if (ph < 6.5) return "Asam Ringan";
+        if (ph < 7.5) return "Netral";
+        if (ph < 8.5) return "Basa Ringan";
+        return "Basa Kuat";
+    }
+    
+    // Fungsi untuk mendapatkan deskripsi CEC
+    function getCecDescription(cec) {
+        if (cec < 10) return "Sangat Rendah";
+        if (cec < 20) return "Rendah";
+        if (cec < 40) return "Sedang";
+        if (cec < 60) return "Tinggi";
+        return "Sangat Tinggi";
+    }
+    
     // Popup Functions
     function showAlert(message, title = "Informasi", icon = "info-circle") {
         $("#popup-icon").attr("class", `fas fa-${icon}`);
@@ -87,7 +133,7 @@ $(document).ready(function() {
         $("#import-file").on("change", handleFileImport);
     }
     
-    // Render material cards dengan deskripsi untuk semua properti
+    // Render material cards dengan tooltip yang diperbaiki
     function renderMaterialCards() {
         const container = $("#material-cards");
         
@@ -105,13 +151,6 @@ $(document).ready(function() {
         container.empty();
         
         materials.forEach(material => {
-            // Tentukan kelas dan deskripsi untuk setiap properti
-            const retentionDesc = getRetentionDescription(material.retention);
-            const drainageDesc = getDrainageDescription(material.drainage);
-            const porosityDesc = getPorosityDescription(material.porosity);
-            const phDesc = getPhDescription(material.ph);
-            const cecDesc = getCecDescription(material.cec);
-            
             const card = $(`
                 <div class="material-card" data-id="${material.id}">
                     <button class="delete-material" title="Hapus bahan"><i class="fas fa-times"></i></button>
@@ -123,44 +162,64 @@ $(document).ready(function() {
                     </div>
                     <div class="properties">
                         <div class="property">
-                            <span class="property-label">Retensi</span>
+                            <div class="tooltip">
+                                <div class="property-icon retention">
+                                    <i class="fas fa-tint"></i>
+                                    <span class="tooltiptext">Retensi: ${material.retention}% - ${getRetentionDescription(material.retention)}</span>
+                                </div>
+                            </div>
                             <span class="property-value">${material.retention}%</span>
                             <div class="property-bar">
                                 <div class="property-fill retention-fill" style="width: ${material.retention}%"></div>
                             </div>
-                            <div class="property-indicator retention-indicator">${retentionDesc}</div>
                         </div>
                         <div class="property">
-                            <span class="property-label">Drainase</span>
+                            <div class="tooltip">
+                                <div class="property-icon drainage">
+                                    <i class="fas fa-water"></i>
+                                    <span class="tooltiptext">Drainase: ${material.drainage}% - ${getDrainageDescription(material.drainage)}</span>
+                                </div>
+                            </div>
                             <span class="property-value">${material.drainage}%</span>
                             <div class="property-bar">
                                 <div class="property-fill drainage-fill" style="width: ${material.drainage}%"></div>
                             </div>
-                            <div class="property-indicator drainage-indicator">${drainageDesc}</div>
                         </div>
                         <div class="property">
-                            <span class="property-label">Poros</span>
+                            <div class="tooltip">
+                                <div class="property-icon porosity">
+                                    <i class="fas fa-filter"></i>
+                                    <span class="tooltiptext">Porositas: ${material.porosity}% - ${getPorosityDescription(material.porosity)}</span>
+                                </div>
+                            </div>
                             <span class="property-value">${material.porosity}%</span>
                             <div class="property-bar">
                                 <div class="property-fill porosity-fill" style="width: ${material.porosity}%"></div>
                             </div>
-                            <div class="property-indicator porosity-indicator">${porosityDesc}</div>
                         </div>
                         <div class="property">
-                            <span class="property-label">pH</span>
+                            <div class="tooltip">
+                                <div class="property-icon ph">
+                                    <i class="fas fa-vial"></i>
+                                    <span class="tooltiptext">pH: ${material.ph} - ${getPhDescription(material.ph)}</span>
+                                </div>
+                            </div>
                             <span class="property-value">${material.ph}</span>
                             <div class="property-bar">
                                 <div class="property-fill ph-fill" style="width: ${(material.ph / 14) * 100}%"></div>
                             </div>
-                            <div class="property-indicator ph-indicator ${getPhClass(material.ph)}">${phDesc}</div>
                         </div>
                         <div class="property">
-                            <span class="property-label">CEC</span>
+                            <div class="tooltip">
+                                <div class="property-icon cec">
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <span class="tooltiptext">CEC: ${material.cec} meq/100g - ${getCecDescription(material.cec)}</span>
+                                </div>
+                            </div>
                             <span class="property-value">${material.cec}</span>
                             <div class="property-bar">
                                 <div class="property-fill cec-fill" style="width: ${Math.min(material.cec / 2, 100)}%"></div>
                             </div>
-                            <div class="property-indicator cec-indicator ${getCecClass(material.cec)}">${cecDesc}</div>
                         </div>
                     </div>
                 </div>
@@ -191,66 +250,6 @@ $(document).ready(function() {
             
             container.append(card);
         });
-    }
-    
-    // Fungsi untuk mendapatkan deskripsi Retensi
-    function getRetentionDescription(retention) {
-        if (retention < 20) return "Sangat Rendah";
-        if (retention < 40) return "Rendah";
-        if (retention < 60) return "Sedang";
-        if (retention < 80) return "Tinggi";
-        return "Sangat Tinggi";
-    }
-    
-    // Fungsi untuk mendapatkan deskripsi Drainase
-    function getDrainageDescription(drainage) {
-        if (drainage < 20) return "Sangat Lambat";
-        if (drainage < 40) return "Lambat";
-        if (drainage < 60) return "Sedang";
-        if (drainage < 80) return "Cepat";
-        return "Sangat Cepat";
-    }
-    
-    // Fungsi untuk mendapatkan deskripsi Porositas
-    function getPorosityDescription(porosity) {
-        if (porosity < 20) return "Sangat Padat";
-        if (porosity < 40) return "Padat";
-        if (porosity < 60) return "Sedang";
-        if (porosity < 80) return "Berongga";
-        return "Sangat Berongga";
-    }
-    
-    // Fungsi untuk mendapatkan deskripsi pH
-    function getPhDescription(ph) {
-        if (ph < 4.5) return "Sangat Asam";
-        if (ph < 5.5) return "Asam Kuat";
-        if (ph < 6.5) return "Asam Ringan";
-        if (ph < 7.5) return "Netral";
-        if (ph < 8.5) return "Basa Ringan";
-        return "Basa Kuat";
-    }
-    
-    // Fungsi untuk mendapatkan deskripsi CEC
-    function getCecDescription(cec) {
-        if (cec < 10) return "Sangat Rendah";
-        if (cec < 20) return "Rendah";
-        if (cec < 40) return "Sedang";
-        if (cec < 60) return "Tinggi";
-        return "Sangat Tinggi";
-    }
-    
-    // Fungsi untuk mendapatkan kelas CSS untuk pH
-    function getPhClass(ph) {
-        if (ph < 6.5) return "ph-acid";
-        if (ph > 7.5) return "ph-alkaline";
-        return "ph-neutral";
-    }
-    
-    // Fungsi untuk mendapatkan kelas CSS untuk CEC
-    function getCecClass(cec) {
-        if (cec < 10) return "cec-low";
-        if (cec < 40) return "cec-medium";
-        return "cec-high";
     }
     
     // Hapus bahan berdasarkan ID
@@ -512,140 +511,129 @@ $(document).ready(function() {
         }, 2000);
     }
     
-    // Fungsi untuk menghasilkan rekomendasi dan analisis termasuk pH dan CEC
-    function generateAnalysis(mixedProps) {
-        const recommendations = [];
+    // Fungsi untuk menghasilkan kesimpulan analisa
+    function generateAIConclusion(mixedProps, retainedWater, drainedWater, waterVolume) {
+        let conclusion = "";
         
-        // Analisis drainase
-        let drainageInfo = "";
-        if (mixedProps.drainage < 20) {
-            drainageInfo = "Sangat Lambat (Tanah Liat). Media cenderung tergenang air, berisiko busuk akar.";
-        } else if (mixedProps.drainage < 40) {
-            drainageInfo = "Lambat. Media mempertahankan kelembaban cukup lama, cocok untuk Aglaonema yang suka lembab.";
-        } else if (mixedProps.drainage < 60) {
-            drainageInfo = "Sedang. Keseimbangan drainase dan retensi baik untuk Aglaonema.";
-        } else if (mixedProps.drainage < 80) {
-            drainageInfo = "Cepat. Media akan cepat kering, cocok untuk Aglaonema yang takut becek.";
-        } else {
-            drainageInfo = "Sangat Cepat (Sangat Poros). Media akan cepat kering, cocok untuk Aglaonema yang takut becek.";
+        // Evaluasi keseluruhan
+        const waterRetentionRate = (retainedWater / waterVolume) * 100;
+        
+        conclusion += "<p><strong>Analisis Komprehensif Media Tanam Aglaonema:</strong></p>";
+        
+        conclusion += "<p>Berdasarkan simulasi yang dilakukan, media tanam yang Anda racik memiliki karakteristik sebagai berikut:</p>";
+        
+        // Evaluasi retensi dan drainase
+        if (mixedProps.retention >= 40 && mixedProps.retention <= 60 && mixedProps.drainage >= 40 && mixedProps.drainage <= 60) {
+            conclusion += `<p>• <strong>Keseimbangan Retensi-Drainase Optimal:</strong> Media Anda memiliki retensi <span class="highlight">${mixedProps.retention.toFixed(1)}%</span> dan drainase <span class="highlight">${mixedProps.drainage.toFixed(1)}%</span>, yang merupakan kombinasi ideal untuk Aglaonema. Media ini akan mempertahankan kelembaban cukup lama tanpa menyebabkan genangan air.</p>`;
+        } else if (mixedProps.retention > 60) {
+            conclusion += `<p>• <strong>Retensi Terlalu Tinggi:</strong> Dengan retensi <span class="highlight">${mixedProps.retention.toFixed(1)}%</span>, media cenderung menahan air terlalu lama. Ini berisiko menyebabkan akar busuk, terutama jika drainase tidak memadai.</p>`;
+        } else if (mixedProps.retention < 40) {
+            conclusion += `<p>• <strong>Retensi Terlalu Rendah:</strong> Retensi <span class="highlight">${mixedProps.retention.toFixed(1)}%</span> berarti media akan cepat kering, memerlukan penyiraman lebih sering.</p>`;
         }
         
-        // Analisis pH
-        let phInfo = "";
-        if (mixedProps.ph < 5.0) {
-            phInfo = `Sangat Asam (${mixedProps.ph.toFixed(2)}). Aglaonema lebih menyukai pH sedikit asam hingga netral (5.5-6.5).`;
+        // Evaluasi pH
+        if (mixedProps.ph >= 5.5 && mixedProps.ph <= 6.5) {
+            conclusion += `<p>• <strong>pH Optimal:</strong> Nilai pH <span class="highlight">${mixedProps.ph.toFixed(2)}</span> berada dalam rentang ideal untuk Aglaonema, memastikan ketersediaan nutrisi yang optimal.</p>`;
         } else if (mixedProps.ph < 5.5) {
-            phInfo = `Asam (${mixedProps.ph.toFixed(2)}). Cocok untuk Aglaonema, tetapi perhatikan jika pH terlalu rendah.`;
-        } else if (mixedProps.ph < 6.5) {
-            phInfo = `Ideal (${mixedProps.ph.toFixed(2)}). Rentang pH terbaik untuk Aglaonema.`;
-        } else if (mixedProps.ph < 7.0) {
-            phInfo = `Netral (${mixedProps.ph.toFixed(2)}). Masih dapat diterima untuk Aglaonema.`;
+            conclusion += `<p>• <strong>pH Terlalu Asam:</strong> pH <span class="highlight">${mixedProps.ph.toFixed(2)}</span> dapat menghambat penyerapan beberapa nutrisi penting seperti fosfor dan kalsium.</p>`;
         } else {
-            phInfo = `Basa (${mixedProps.ph.toFixed(2)}). Aglaonema lebih menyukai pH sedikit asam.`;
+            conclusion += `<p>• <strong>pH Terlalu Basa:</strong> pH <span class="highlight">${mixedProps.ph.toFixed(2)}</span> dapat menyebabkan beberapa mikronutrien seperti besi dan mangan tidak tersedia untuk tanaman.</p>`;
         }
         
-        // Analisis CEC
-        let cecInfo = "";
-        if (mixedProps.cec < 10) {
-            cecInfo = `Sangat Rendah (${mixedProps.cec.toFixed(1)} meq/100g). Kapasitas tukar kation rendah, nutrisi mudah tercuci.`;
+        // Evaluasi CEC
+        if (mixedProps.cec >= 20 && mixedProps.cec <= 40) {
+            conclusion += `<p>• <strong>CEC Optimal:</strong> Kapasitas Tukar Kation (CEC) <span class="highlight">${mixedProps.cec.toFixed(1)} meq/100g</span> menunjukkan kemampuan media yang baik dalam menyimpan dan melepaskan nutrisi secara bertahap.</p>`;
         } else if (mixedProps.cec < 20) {
-            cecInfo = `Rendah (${mixedProps.cec.toFixed(1)} meq/100g). Kapasitas tukar kation terbatas, nutrisi mudah hilang.`;
-        } else if (mixedProps.cec < 40) {
-            cecInfo = `Sedang (${mixedProps.cec.toFixed(1)} meq/100g). Kapasitas tukar katan cukup untuk Aglaonema.`;
-        } else if (mixedProps.cec < 60) {
-            cecInfo = `Tinggi (${mixedProps.cec.toFixed(1)} meq/100g). Kapasitas tukar kation baik, nutrisi tersimpan dengan baik.`;
+            conclusion += `<p>• <strong>CEC Rendah:</strong> CEC <span class="highlight">${mixedProps.cec.toFixed(1)} meq/100g</span> berarti media memiliki kemampuan terbatas dalam menyimpan nutrisi, memerlukan pemupukan lebih sering.</p>`;
         } else {
-            cecInfo = `Sangat Tinggi (${mixedProps.cec.toFixed(1)} meq/100g). Kapasitas tukar kation sangat baik, nutrisi tersimpan optimal.`;
+            conclusion += `<p>• <strong>CEC Tinggi:</strong> CEC <span class="highlight">${mixedProps.cec.toFixed(1)} meq/100g</span> menunjukkan kemampuan media yang sangat baik dalam menyimpan nutrisi, mengurangi frekuensi pemupukan.</p>`;
         }
         
-        // Analisis media
-        let mediaAnalysis = "";
-        if (mixedProps.retention < 30 && mixedProps.porosity > 70) {
-            mediaAnalysis = `Campuran ini memiliki retensi air ${mixedProps.retention.toFixed(0)}% dan porositas ${mixedProps.porosity.toFixed(0)}%. Struktur sangat berongga, aerasi akar maksimal. Retensi air rendah, perlu penyiraman lebih sering.`;
-        } else if (mixedProps.retention > 60 && mixedProps.porosity < 50) {
-            mediaAnalysis = `Campuran ini memiliki retensi air ${mixedProps.retention.toFixed(0)}% dan porositas ${mixedProps.porosity.toFixed(0)}%. Struktur padat, retensi air tinggi. Berisiko tergenang jika drainase tidak memadai.`;
+        // Evaluasi porositas
+        if (mixedProps.porosity >= 50 && mixedProps.porosity <= 70) {
+            conclusion += `<p>• <strong>Porositas Baik:</strong> Porositas <span class="highlight">${mixedProps.porosity.toFixed(1)}%</span> memastikan aerasi akar yang cukup dan ruang untuk pertumbuhan akar yang sehat.</p>`;
+        } else if (mixedProps.porosity < 50) {
+            conclusion += `<p>• <strong>Porositas Rendah:</strong> Porositas <span class="highlight">${mixedProps.porosity.toFixed(1)}%</span> dapat membatasi pertumbuhan akar dan aerasi, berisiko menyebabkan akar kekurangan oksigen.</p>`;
         } else {
-            mediaAnalysis = `Campuran ini memiliki retensi air ${mixedProps.retention.toFixed(0)}% dan porositas ${mixedProps.porosity.toFixed(0)}%. Keseimbangan retensi air dan drainase baik untuk Aglaonema.`;
+            conclusion += `<p>• <strong>Porositas Tinggi:</strong> Porositas <span class="highlight">${mixedProps.porosity.toFixed(1)}%</span> memberikan aerasi maksimal, tetapi mungkin memerlukan penyiraman lebih sering.</p>`;
         }
         
-        // Rekomendasi berdasarkan retensi
-        if (mixedProps.retention < 30) {
-            recommendations.push("Retensi rendah. Tambah cocopeat, humus, atau vermicompost.");
-        } else if (mixedProps.retention > 70) {
-            recommendations.push("Retensi terlalu tinggi. Kurangi bahan dengan retensi tinggi dan tambah bahan drainase.");
+        // Evaluasi hasil simulasi penyiraman
+        conclusion += `<p><strong>Hasil Simulasi Penyiraman:</strong></p>`;
+        conclusion += `<p>Dari <span class="highlight">${waterVolume} mL</span> air yang diberikan, <span class="highlight">${retainedWater.toFixed(1)} mL (${waterRetentionRate.toFixed(1)}%)</span> tertahan dalam media, sementara <span class="highlight">${drainedWater.toFixed(1)} mL</span> mengalir keluar. `;
+        
+        if (waterRetentionRate >= 60 && waterRetentionRate <= 80) {
+            conclusion += `Rasio ini menunjukkan efisiensi penggunaan air yang baik.</p>`;
+        } else if (waterRetentionRate > 80) {
+            conclusion += `Rasio retensi yang tinggi menunjukkan media mungkin terlalu padat dan berisiko tergenang.</p>`;
+        } else {
+            conclusion += `Rasio retensi yang rendah menunjukkan media sangat porous dan mungkin memerlukan penyiraman lebih sering.</p>`;
         }
         
-        // Rekomendasi berdasarkan drainase
-        if (mixedProps.drainage < 30) {
-            recommendations.push("Drainase buruk! Tambah perlite, pasir, sekam bakar, atau biji kapuk.");
-        } else if (mixedProps.drainage > 70) {
-            recommendations.push("Drainase terlalu tinggi. Tambah bahan dengan retensi lebih tinggi.");
+        // Rekomendasi akhir
+        conclusion += `<p><strong>Rekomendasi Penggunaan:</strong></p>`;
+        
+        let score = 0;
+        if (mixedProps.retention >= 40 && mixedProps.retention <= 60) score += 1;
+        if (mixedProps.drainage >= 40 && mixedProps.drainage <= 60) score += 1;
+        if (mixedProps.ph >= 5.5 && mixedProps.ph <= 6.5) score += 1;
+        if (mixedProps.cec >= 20 && mixedProps.cec <= 40) score += 1;
+        if (mixedProps.porosity >= 50 && mixedProps.porosity <= 70) score += 1;
+        
+        let scoreClass = "score-poor";
+        let scoreText = "Perlu Perbaikan";
+        let stars = "★☆☆☆☆";
+        
+        if (score >= 4) {
+            scoreClass = "score-excellent";
+            scoreText = "Sangat Baik";
+            stars = "★★★★★";
+        } else if (score >= 3) {
+            scoreClass = "score-good";
+            scoreText = "Baik";
+            stars = "★★★★☆";
+        } else if (score >= 2) {
+            scoreClass = "score-fair";
+            scoreText = "Cukup";
+            stars = "★★★☆☆";
         }
         
-        // Rekomendasi berdasarkan porositas
-        if (mixedProps.porosity < 40) {
-            recommendations.push("Porositas rendah. Tambah perlite atau cocofiber.");
-        } else if (mixedProps.porosity > 80) {
-            recommendations.push("Porositas sangat tinggi. Pertimbangkan menambah bahan dengan kepadatan lebih tinggi.");
+        // Tambahkan skor visual
+        conclusion += `
+            <div class="ai-score">
+                <div class="score-label">Skor Kualitas Media:</div>
+                <div class="score-value ${scoreClass}">
+                    <span class="score-stars">${stars}</span>
+                    ${scoreText}
+                </div>
+            </div>
+        `;
+        
+        if (score >= 4) {
+            conclusion += `<p>✅ <strong>Media Sangat Direkomendasikan:</strong> Komposisi media ini sangat ideal untuk Aglaonema. Media memiliki keseimbangan yang hampir sempurna dari semua parameter penting. Aglaonema akan tumbuh dengan baik dengan media ini.</p>`;
+        } else if (score >= 3) {
+            conclusion += `<p>⚠️ <strong>Media Cukup Baik:</strong> Media ini memiliki sebagian besar karakteristik yang dibutuhkan Aglaonema. Beberapa penyesuaian kecil dapat meningkatkan performanya lebih lanjut.</p>`;
+        } else {
+            conclusion += `<p>❌ <strong>Perlu Perbaikan:</strong> Media ini memerlukan penyesuaian signifikan sebelum dapat digunakan untuk Aglaonema. Pertimbangkan untuk menyesuaikan komposisi bahan untuk meningkatkan kualitas media.</p>`;
         }
         
-        // Rekomendasi untuk pH
-        if (mixedProps.ph < 5.5) {
-            recommendations.push("pH terlalu asam. Tambahkan kapur pertanian/dolomit untuk menaikkan pH.");
-        } else if (mixedProps.ph > 6.5) {
-            recommendations.push("pH terlalu basa. Tambahkan belerang atau bahan organik asam seperti gambut.");
-        }
+        conclusion += `<p><em>Catatan: Media tanam yang optimal untuk Aglaonema harus memiliki keseimbangan antara retensi air, drainase, dan aerasi, dengan pH sedikit asam dan CEC yang memadai untuk menyimpan nutrisi.</em></p>`;
         
-        // Rekomendasi untuk CEC
-        if (mixedProps.cec < 20) {
-            recommendations.push("CEC rendah. Tambahkan bahan dengan CEC tinggi seperti vermiculite, zeolit, atau bahan organik.");
-        }
-        
-        return {
-            drainageInfo: drainageInfo,
-            phInfo: phInfo,
-            cecInfo: cecInfo,
-            mediaAnalysis: mediaAnalysis,
-            recommendations: recommendations
-        };
+        return conclusion;
     }
     
     // Tampilkan analisis dan rekomendasi
-    function displayAnalysis(mixedProps) {
-        const analysis = generateAnalysis(mixedProps);
-        const analysisContainer = $("#analysis-container");
+    function displayAnalysis(mixedProps, retainedWater, drainedWater, waterVolume) {
+        const analysisCard = $("#analysis-card");
+        const analysisContent = $("#analysis-content");
         
-        // Tampilkan analisis drainase
-        $("#drainage-analysis").html(`<p>${analysis.drainageInfo}</p>`);
+        // Tampilkan kesimpulan AI
+        const aiConclusion = generateAIConclusion(mixedProps, retainedWater, drainedWater, waterVolume);
         
-        // Tampilkan analisis pH
-        $("#ph-analysis").html(`<p>${analysis.phInfo}</p>`);
+        analysisContent.html(aiConclusion);
         
-        // Tampilkan analisis media
-        $("#media-analysis").html(`<p>${analysis.mediaAnalysis}</p>`);
-        
-        // Tampilkan analisis CEC
-        $("#cec-analysis").html(`<p>${analysis.cecInfo}</p>`);
-        
-        // Tampilkan rekomendasi
-        const recommendationList = $("#recommendation-list");
-        recommendationList.empty();
-        
-        analysis.recommendations.forEach(rec => {
-            let listItem = $("<li></li>").text(rec);
-            
-            // Tambahkan kelas berdasarkan jenis rekomendasi
-            if (rec.includes("buruk") || rec.includes("terlalu") || rec.includes("risiko")) {
-                listItem.addClass("warning");
-            } else if (rec.includes("ideal") || rec.includes("baik")) {
-                listItem.addClass("important");
-            }
-            
-            recommendationList.append(listItem);
-        });
-        
-        // Tampilkan container analisis
-        analysisContainer.show();
+        // Tampilkan card analisis
+        analysisCard.show();
     }
     
     // Fungsi untuk menampilkan komposisi media tanam
@@ -753,7 +741,7 @@ $(document).ready(function() {
             // Tampilkan komposisi media tanam
             displayCompositionDetails(potVolume, soilVolume);
             // Tampilkan analisis dan rekomendasi
-            displayAnalysis(mixedProps);
+            displayAnalysis(mixedProps, retainedWater, drainedWater, waterVolume);
             isSimulating = false;
             $("#simulate-btn").prop("disabled", false).html('<i class="fas fa-play"></i> Jalankan Simulasi');
         }, 2000);
@@ -882,7 +870,7 @@ $(document).ready(function() {
                 </div>
             `);
             $("#composition-card").hide();
-            $("#analysis-container").hide();
+            $("#analysis-card").hide();
             
             showAlert(`Konfigurasi "${name}" berhasil dimuat!`, "Sukses", "check-circle");
         }
@@ -970,7 +958,7 @@ $(document).ready(function() {
                         </div>
                     `);
                     $("#composition-card").hide();
-                    $("#analysis-container").hide();
+                    $("#analysis-card").hide();
                     updateWateringInfo();
                     renderSavedConfigs();
                     showAlert("Semua data berhasil dihapus!", "Sukses", "check-circle");
@@ -1006,6 +994,13 @@ $(document).ready(function() {
         const soilPercentage = parseFloat($("#soil-percentage").val()) / 100;
         const soilVolume = potVolume * soilPercentage;
         const mixedProps = calculateMixedProperties();
+        const waterVolume = parseFloat($("#water-volume").val());
+        
+        // Hitung hasil simulasi
+        const maxWaterRetention = soilVolume * (mixedProps.porosity / 100) * (mixedProps.retention / 100);
+        const retainedWater = Math.min(waterVolume, maxWaterRetention);
+        const drainedWater = waterVolume - retainedWater;
+        const waterRetentionRate = (retainedWater / waterVolume) * 100;
         
         let content = "LAPORAN SIMULASI PENYIRAMAN AGLAONEMA\n";
         content += "========================================\n\n";
@@ -1038,16 +1033,29 @@ $(document).ready(function() {
         content += `- CEC: ${mixedProps.cec.toFixed(2)} meq/100g\n\n`;
         
         content += "HASIL SIMULASI:\n";
-        const results = $("#results .result-item");
-        if (results.length > 0) {
-            results.each(function() {
-                const label = $(this).find(".result-label").text().replace(":", "");
-                const value = $(this).find(".result-value").text();
-                content += `- ${label}: ${value}\n`;
-            });
-        } else {
-            content += "Simulasi belum dijalankan\n";
-        }
+        content += `- Volume Pot: ${potVolume.toFixed(2)} cm³\n`;
+        content += `- Volume Media Tanam: ${soilVolume.toFixed(2)} cm³\n`;
+        content += `- Volume Air Dikucurkan: ${waterVolume.toFixed(2)} mL\n`;
+        content += `- Durasi Penyiraman: ${$("#watering-duration").val()} detik\n`;
+        content += `- Air yang Tertahan di Media: ${retainedWater.toFixed(2)} mL\n`;
+        content += `- Air yang Terserap Media: ${(retainedWater / soilVolume * 100).toFixed(2)}%\n`;
+        content += `- Air yang Mengalir Keluar: ${drainedWater.toFixed(2)} mL\n\n`;
+        
+        content += "ANALISIS AI MEDIA TANAM:\n";
+        
+        // Tambahkan analisis AI ke file TXT
+        const aiConclusion = generateAIConclusion(mixedProps, retainedWater, drainedWater, waterVolume);
+        const tempDiv = $('<div></div>').html(aiConclusion);
+        const textContent = tempDiv.text().replace(/\s+/g, ' ').trim();
+        
+        // Pisahkan teks menjadi paragraf
+        const paragraphs = textContent.split(/(?=Analisis Komprehensif|Keseimbangan Retensi|Retensi Terlalu|pH Optimal|pH Terlalu|CEC Optimal|CEC Rendah|Porositas Baik|Hasil Simulasi|Rekomendasi Penggunaan|Skor Kualitas Media|Media Sangat|Media Cukup|Perlu Perbaikan|Catatan:)/);
+        
+        paragraphs.forEach(paragraph => {
+            if (paragraph.trim()) {
+                content += `- ${paragraph.trim()}\n`;
+            }
+        });
         
         content += `\nTanggal: ${new Date().toLocaleString('id-ID')}\n`;
         
@@ -1076,7 +1084,7 @@ $(document).ready(function() {
             </div>
         `);
         $("#composition-card").hide();
-        $("#analysis-container").hide();
+        $("#analysis-card").hide();
         updateWateringInfo();
     }
     
