@@ -3,274 +3,407 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulasi Penyiraman Aglaonema</title>
-    <script type="text/javascript" src="asset/scripts/jquery-3.6.0.min.js"></script>    
+    <title>Simulasi Penyiraman Media Tanam Aglaonema</title>
     <link rel="icon" type="image/x-icon" href="asset/favicon.png">
+    <link rel="stylesheet" href="asset/npm/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
     <link rel="stylesheet" href="asset/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="asset/font-googleapis/poppins/css2.css">
+    <script type="text/javascript" src="asset/scripts/jquery-3.6.0.min.js"></script>    
     <link rel="stylesheet" href="asset/style.css">
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1><i class="fas fa-leaf"></i> Simulasi Penyiraman Aglaonema</h1>
-            <p class="subtitle">Optimalkan media tanam dan penyiraman untuk tanaman Aglaonema Anda</p>
-        </header>
-        
-        <div class="main-content">
-            <section class="config-section">
-                <h2 class="section-title"><i class="fas fa-cog"></i> Konfigurasi Pot dan Media</h2>
-                
-                <div class="note">
-                    <strong><i class="fas fa-info-circle"></i> Catatan:</strong> Media tanam akan tercampur sempurna menjadi satu kesatuan homogen di dalam pot. 
-                    Sifat-sifat media (retensi, drainase, porositas, pH, CEC) merupakan rata-rata tertimbang dari bahan-bahan penyusunnya.
-                </div>
-                
-                <div class="config-row">
-                    <div class="compact-card">
-                        <h3 class="config-title"><i class="fas fa-fill-drip"></i> Ukuran Pot</h3>
-                        <div class="input-group">
-                            <label for="pot-diameter"><i class="fas fa-ruler-horizontal"></i> Diameter Pot (cm)</label>
-                            <input type="number" id="pot-diameter" min="5" max="50" value="9.5" step="0.1" class="number-input">
-                        </div>
-                        <div class="input-group">
-                            <label for="pot-height"><i class="fas fa-ruler-vertical"></i> Tinggi Pot (cm)</label>
-                            <input type="number" id="pot-height" min="5" max="50" value="9.5" step="0.1" class="number-input">
-                        </div>
-                        <div class="input-group">
-                            <label for="soil-percentage"><i class="fas fa-percentage"></i> Persentase Pengisian Media (%)</label>
-                            <input type="number" id="soil-percentage" min="50" max="100" value="95" class="number-input">
-                        </div>
-                    </div>
-                    
-                    <div class="compact-card">
-                        <h3 class="config-title"><i class="fas fa-tint"></i> Konfigurasi Penyiraman</h3>
-                        <div class="input-group">
-                            <label for="water-volume"><i class="fas fa-water"></i> Volume Air (mL)</label>
-                            <input type="number" id="water-volume" min="0" max="2000" value="500" step="10" class="number-input">
-                        </div>
-                        <div class="input-group">
-                            <label for="watering-duration"><i class="fas fa-clock"></i> Durasi Penyiraman (detik)</label>
-                            <input type="number" id="watering-duration" min="0" max="600" value="5" step="0.1" class="number-input">
-                        </div>
-                        <div class="watering-info">
-                            <div class="info-card">
-                                <div><i class="fas fa-shower"></i> Volume Air Dikucurkan</div>
-                                <div class="info-value" id="water-poured">500 mL</div>
-                            </div>
-                            <div class="info-card">
-                                <div><i class="fas fa-hourglass-half"></i> Durasi Penyiraman</div>
-                                <div class="info-value" id="watering-duration-display">5 detik</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="material-config">
-                    <h3 class="config-title"><i class="fas fa-layer-group"></i> Komposisi Media Tanam</h3>
-                    
-                    <div class="material-selection">
-                        <h3 class="config-title"><i class="fas fa-list"></i> Pilih Bahan dari Daftar</h3>
-                        <div class="input-group">
-                            <label for="material-select"><i class="fas fa-cube"></i> Pilih Bahan:</label>
-                            <select id="material-select">
-                                <option value="">-- Pilih Bahan --</option>
-                                <option value="1">Sekam Padi Mentah</option>
-                                <option value="2">Sekam Padi Mentah (Fermentasi)</option>
-                                <option value="3">Arang Sekam Padi</option>
-                                <option value="4">Humus Daun Bambu (Fermentasi)</option>
-                                <option value="5">Humus Daun Kaliandra (Fermentasi)</option>
-                                <option value="6">Humus Andam (Fermentasi)</option>
-                                <option value="7">Akar Pakis Cacah (Oven)</option>
-                                <option value="8">Biji Kapuk / Klenteng (Oven)</option>
-                                <option value="9">Cocopeat (Fermentasi)</option>
-                                <option value="10">Cocofiber</option>
-                                <option value="11">Perlite</option>
-                                <option value="12">Pasir Malang</option>
-                                <option value="13">Vermiculite</option>
-                                <option value="14">Zeolit</option>
-                                <option value="15">Top Soil</option>
-                                <option value="16">Pupuk Kandang Kambing (Fermentasi)</option>
-                                <option value="17">Vermicompost (Kascing)</option>
-                                <option value="18">Arang Kayu</option>
-                                <option value="19">Rockwool</option>
-                                <option value="20">Kerikil</option>
-                                <option value="21">Pasir Sungai</option>
-                                <option value="22">Hydroton</option>
-                                <option value="23">Spagnum Peat Moss</option>
-                                <option value="24">Biochar</option>
-                                <option value="25">Pumice</option>
-                            </select>
-                        </div>
-                        <button id="add-material-btn"><i class="fas fa-plus-circle"></i> Tambah Bahan Terpilih</button>
-                    </div>
-                    
-                    <div class="material-cards" id="material-cards">
-                        <div class="empty-state">
-                            <i class="fas fa-box-open"></i>
-                            <p>Belum ada bahan yang ditambahkan</p>
-                            <p>Pilih bahan dari daftar di atas</p>
-                        </div>
-                    </div>
-                    
-                    <div class="total-percentage" id="total-percentage">
-                        <i class="fas fa-calculator"></i> Total: 0%
-                    </div>
-                    
-                    <div class="action-buttons">
-                        <button id="normalize-btn"><i class="fas fa-balance-scale"></i> Normalisasi ke 100%</button>
-                        <button id="reset-composition-btn" class="secondary"><i class="fas fa-undo"></i> Reset Komposisi</button>
-                    </div>
-                    
-                    <div class="compact-card">
-                        <h3 class="config-title"><i class="fas fa-plus-square"></i> Tambah Bahan Custom</h3>
-                        <div class="input-group">
-                            <label for="custom-material-name"><i class="fas fa-tag"></i> Nama Bahan</label>
-                            <input type="text" id="custom-material-name" placeholder="Nama bahan">
-                        </div>
-                        <div class="input-row">
-                            <div class="input-group">
-                                <label for="custom-retention"><i class="fas fa-tint"></i> Retensi (%)</label>
-                                <input type="number" id="custom-retention" min="0" max="100" value="0" class="number-input">
-                            </div>
-                            <div class="input-group">
-                                <label for="custom-drainage"><i class="fas fa-water"></i> Drainase (%)</label>
-                                <input type="number" id="custom-drainage" min="0" max="100" value="0" class="number-input">
-                            </div>
-                            <div class="input-group">
-                                <label for="custom-porosity"><i class="fas fa-filter"></i> Porositas (%)</label>
-                                <input type="number" id="custom-porosity" min="0" max="100" value="0" class="number-input">
-                            </div>
-                            <div class="input-group">
-                                <label for="custom-ph"><i class="fas fa-vial"></i> pH</label>
-                                <input type="number" id="custom-ph" min="0" max="14" value="7.0" step="0.1" class="number-input">
-                            </div>
-                            <div class="input-group">
-                                <label for="custom-cec"><i class="fas fa-exchange-alt"></i> CEC (meq/100g)</label>
-                                <input type="number" id="custom-cec" min="0" max="200" value="0" step="0.1" class="number-input">
-                            </div>
-                        </div>
-                        <button id="add-custom-btn"><i class="fas fa-plus"></i> Tambah Bahan Custom</button>
-                    </div>
-                </div>
-                
-                <div class="save-management">
-                    <h3 class="config-title"><i class="fas fa-save"></i> Manajemen Simpanan</h3>
-                    <div class="input-group">
-                        <label for="save-name"><i class="fas fa-file-signature"></i> Nama Simpanan</label>
-                        <input type="text" id="save-name" placeholder="Nama untuk simpanan ini">
-                    </div>
-                    <div class="save-buttons">
-                        <button id="save-config-btn"><i class="fas fa-save"></i> Simpan Konfigurasi</button>
-                        <div class="file-input-wrapper">
-                            <button class="file-input-button"><i class="fas fa-file-import"></i> Import dari TXT</button>
-                            <input type="file" id="import-file" accept=".txt">
-                        </div>
-                    </div>
-                    
-                    <div class="saved-configs" id="saved-configs">
-                        <div class="empty-state">
-                            <i class="fas fa-save"></i>
-                            <p>Belum ada simpanan</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section class="simulation-section">
-                <h2 class="section-title"><i class="fas fa-play-circle"></i> Simulasi Penyiraman</h2>
-                
-                <div class="note">
-                    <strong><i class="fas fa-flask"></i> Catatan:</strong> Simulasi ini memperhitungkan sifat-sifat media campuran yang homogen, bukan lapisan-lapisan bahan terpisah.
-                </div>
-                
-                <div class="simulation-container">
-                    <div class="pot-display">
-                        <div class="pot">
-                            <div class="pot-top"></div>
-                            <div class="pot-body">
-                                <div class="soil" id="soil-display"></div>
-                                <div class="water" id="water-display"></div>
-                                <div class="drainage-holes">
-                                    <div class="drainage-hole"></div>
-                                    <div class="drainage-hole"></div>
-                                    <div class="drainage-hole"></div>
-                                    <div class="drainage-hole"></div>
-                                    <div class="drainage-hole"></div>
-                                    <div class="drainage-hole"></div>
-                                    <div class="drainage-hole"></div>
-                                    <div class="drainage-hole"></div>
-                                </div>
-                                <div class="side-holes" id="side-holes">
-                                    <!-- Side holes akan digenerate oleh JavaScript -->
-                                </div>
-                                <div class="water-drops" id="water-drops"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button id="simulate-btn"><i class="fas fa-play"></i> Jalankan Simulasi</button>
-                    
-                    <div class="results" id="results">
-                        <div class="empty-state">
-                            <i class="fas fa-tint"></i>
-                            <p>Belum ada hasil simulasi</p>
-                            <p>Klik "Jalankan Simulasi" untuk melihat hasil</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Card untuk Komposisi Media Tanam -->
-                    <div class="composition-card" id="composition-card" style="display: none;">
-                        <div class="composition-header">
-                            <div class="composition-icon">
-                                <i class="fas fa-layer-group"></i>
-                            </div>
-                            <div class="composition-title">Komposisi Media Tanam</div>
-                        </div>
-                        <div id="composition-details">
-                            <!-- Detail komposisi akan ditampilkan di sini -->
-                        </div>
-                    </div>
-                    
-                    <!-- Card untuk Analisis Media & Rekomendasi -->
-                    <div class="analysis-card" id="analysis-card" style="display: none;">
-                        <div class="analysis-header">
-                            <div class="analysis-icon">
-                                <i class="fas fa-chart-bar"></i>
-                            </div>
-                            <div class="analysis-title">Analisis Media & Rekomendasi</div>
-                        </div>
-                        <div class="analysis-content" id="analysis-content">
-                            <!-- Konten analisis akan ditampilkan di sini -->
-                        </div>
-                    </div>
-                    
-                    <div class="action-buttons">
-                        <!-- <button id="delete-btn" class="danger"><i class="fas fa-trash-alt"></i> Hapus Semua Data</button> -->
-                        <button id="export-btn" class="secondary"><i class="fas fa-file-export"></i> Export ke TXT</button>
-                        <button id="reset-simulation-btn"><i class="fas fa-redo"></i> Reset Simulasi</button>
-                    </div>
-                </div>
-            </section>
-        </div>
-        
-        <footer>
-            <p><i class="fas fa-leaf"></i> Simulasi Penyiraman Aglaonema &copy; 2025 | Didesain dengan <i class="fas fa-heart" style="color: #e74c3c;"></i> untuk pecinta tanaman</p>
-        </footer>
+<body class="material-typography">
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
     </div>
 
-    <!-- Popup Structure -->
-    <div class="popup-overlay" id="popup-overlay">
-        <div class="popup">
-            <div class="popup-header">
-                <i class="fas fa-info-circle" id="popup-icon"></i>
-                <div class="popup-title" id="popup-title">Informasi</div>
+    <!-- Snackbar -->
+    <div class="snackbar" id="snackbar"></div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <div class="toast-header">
+            <h6 class="toast-title" id="toastTitle"></h6>
+            <button class="toast-close" id="toastClose">&times;</button>
+        </div>
+        <p id="toastMessage"></p>
+    </div>
+
+    <!-- Aglaonema leaf pattern background -->
+    <div class="aglaonema-pattern"></div>
+
+    <!-- Animasi tanaman Aglaonema -->
+    <div class="aglaonema-floating">
+        <div class="aglaonema-realistic">
+            <div class="aglaonema-real-leaf real-leaf-1"></div>
+            <div class="aglaonema-real-leaf real-leaf-2"></div>
+            <div class="aglaonema-real-leaf real-leaf-3"></div>
+            <div class="aglaonema-real-leaf real-leaf-4"></div>
+            <div class="aglaonema-real-leaf real-leaf-5"></div>
+            <div class="aglaonema-real-pot"></div>
+        </div>
+    </div>
+
+    <!-- Custom Alert -->
+    <div class="custom-alert" id="customAlert">
+        <div class="alert-header">
+            <h5 id="alertTitle"></h5>
+            <button class="alert-close" id="alertClose">&times;</button>
+        </div>
+        <p id="alertMessage"></p>
+        <div>
+            <button id="alertConfirm" class="btn btn-primary">OK</button>
+        </div>
+    </div>
+
+    <!-- Custom Prompt -->
+    <div class="custom-prompt" id="customPrompt">
+        <div class="prompt-header">
+            <h5 id="promptTitle"></h5>
+            <button class="prompt-close" id="promptClose">&times;</button>
+        </div>
+        <p id="promptMessage"></p>
+        <input type="text" class="form-control" id="promptInput">
+        <div class="text-right mt-3">
+            <button id="promptConfirm" class="btn btn-primary">OK</button>
+            <button id="promptCancel" class="btn btn-outline-primary">Batal</button>
+        </div>
+    </div>
+
+    <!-- Custom Confirm -->
+    <div class="custom-confirm" id="customConfirm">
+        <div class="confirm-header">
+            <h5 id="confirmTitle"></h5>
+            <button class="confirm-close" id="confirmClose">&times;</button>
+        </div>
+        <p id="confirmMessage"></p>
+        <div>
+            <button id="confirmYes" class="btn btn-primary">Ya</button>
+            <button id="confirmNo" class="btn btn-outline-primary">Tidak</button>
+        </div>
+    </div>
+
+    <!-- Modal untuk pesan -->
+    <div class="custom-modal material-modal" id="messageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="modalTitle" class="modal-title"></h5>
+                <button class="close-btn" id="modalClose">&times;</button>
             </div>
-            <div class="popup-body">
-                <div class="popup-message" id="popup-message">Pesan akan muncul di sini</div>
-                <div class="popup-buttons" id="popup-buttons">
-                    <!-- Buttons will be added dynamically -->
+            <div class="modal-body">
+                <p id="modalMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="modalCloseBtn" class="btn btn-primary">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal untuk simpanan -->
+    <div class="custom-modal material-modal" id="savedModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Komposisi Tersimpan</h5>
+                <button class="close-btn" id="savedModalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="saved-compositions" id="savedCompositionsList">
+                    <!-- Daftar simpanan akan diisi dengan JavaScript -->
                 </div>
             </div>
+            <div class="modal-footer">
+                <button id="savedModalCloseBtn" class="btn btn-primary">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal untuk import komposisi -->
+    <div class="custom-modal material-modal" id="importCompositionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Import Komposisi Media Tanam</h5>
+                <button class="close-btn" id="importCompositionModalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Pilih file JSON komposisi media tanam:</label>
+                    <input type="file" id="importCompositionFile" class="form-control" accept=".json">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="importCompositionConfirm" class="btn btn-primary">Import</button>
+                <button id="importCompositionModalCloseBtn" class="btn btn-outline-primary">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="header header-gradient text-center mb-5">
+        <div class="container">
+            <h1><i class="fas fa-leaf me-2"></i>Simulasi Penyiraman Media Tanam Aglaonema</h1>
+            <p class="lead">Analisis porositas, retensi air, dan drainase untuk media tanam optimal</p>
+        </div>
+        <div class="plant-decoration">
+            <svg viewBox="0 0 100 100">
+                <path d="M50,10 C60,20 65,35 60,50 C55,65 45,70 50,80 C55,90 65,85 70,75 C75,65 80,50 75,35 C70,20 60,15 50,10 Z" />
+                <path d="M50,80 L50,95" stroke-width="3" />
+                <path d="M40,60 L30,70" stroke-width="2" />
+                <path d="M60,60 L70,70" stroke-width="2" />
+            </svg>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Card BAHAN BAKU TERSEDIA -->
+        <div class="card elevation-2 card-hover mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-seedling me-2"></i>BAHAN BAKU TERSEDIA</h5>
+            </div>
+            <div class="card-body">
+                <div class="dropdown-wrapper">
+                    <div class="material-dropdown">
+                        <button class="dropdown-toggle" type="button" id="materialDropdownButton">
+                            <span id="selected-material-text">Pilih Bahan Baku</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="materialDropdownMenu">
+                            <!-- Daftar bahan akan diisi dengan JavaScript -->
+                        </div>
+                    </div>
+                    <button id="add-selected-material" class="add-material-btn" title="Tambah ke Komposisi">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Komposisi dan Simulasi -->
+        <div class="card elevation-2 card-hover">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-list-ul me-2"></i>KOMPOSISI MEDIA TANAM</h5>
+                <div class="composition-actions">
+                    <button id="export-composition" class="btn btn-sm btn-outline-light me-1">
+                        <i class="fas fa-download me-1"></i>Export
+                    </button>
+                    <button id="import-composition" class="btn btn-sm btn-outline-light">
+                        <i class="fas fa-upload me-1"></i>Import
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="composition-list">
+                    <p class="text-center text-muted p-4">Tambahkan bahan dari dropdown di atas untuk memulai</p>
+                </div>
+                <div class="divider"></div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>Total Bagian: <span id="total-percentage">0</span></strong>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="save-composition" class="btn btn-sm btn-outline-primary me-1">
+                            <i class="fas fa-save me-1"></i>Simpan
+                        </button>
+                        <button id="view-saved" class="btn btn-sm btn-outline-primary me-1">
+                            <i class="fas fa-folder me-1"></i>Lihat Simpanan
+                        </button>
+                        <button id="reset-composition" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-redo me-1"></i>Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card PENGATURAN POT -->
+        <div class="card elevation-2 card-hover mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-cogs me-2"></i>PENGATURAN POT</h5>
+            </div>
+            <div class="card-body">
+                <div class="pot-settings-row">
+                    <div class="pot-settings-group">
+                        <label class="form-label">Diameter Pot (cm)</label>
+                        <input type="number" class="form-control" id="pot-diameter" value="9.5" min="1" step="0.1">
+                    </div>
+                    <div class="pot-settings-group">
+                        <label class="form-label">Tinggi Pot (cm)</label>
+                        <input type="number" class="form-control" id="pot-height" value="9.5" min="1" step="0.1">
+                    </div>
+                    <div class="pot-settings-group">
+                        <label class="form-label">Media dalam Pot (%)</label>
+                        <input type="number" class="form-control" id="media-percentage" value="95" min="1" max="100" step="0.1">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card SIMULASI PENYIRAMAN -->
+        <div class="card elevation-2 mt-4 card-hover simulation-card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-tint me-2"></i>SIMULASI PENYIRAMAN</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="watering-controls mb-4">
+                            <div class="watering-control-group">
+                                <label class="form-label">Volume Air</label>
+                                <div class="water-input-group">
+                                    <input type="number" class="form-control" id="water-volume-input" min="0" max="5000" value="1000" step="0.1">
+                                    <span>mL</span>
+                                </div>
+                            </div>
+                            
+                            <div class="watering-control-group">
+                                <label class="form-label">Durasi Penyiraman</label>
+                                <div class="water-input-group">
+                                    <input type="number" class="form-control duration-input" id="watering-duration-input" value="20" min="1" max="600" step="0.1">
+                                    <span>detik</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button id="run-simulation" class="btn btn-primary btn-material">
+                                <i class="fas fa-play me-1"></i>Jalankan Simulasi
+                            </button>
+                            <button id="reset-simulation" class="btn btn-outline-primary btn-material">
+                                <i class="fas fa-undo me-1"></i>Reset Simulasi
+                            </button>
+                            <button id="export-simulation" class="btn btn-outline-primary btn-material">
+                                <i class="fas fa-download me-1"></i>Export Hasil Simulasi
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="pot-container">
+                            <div class="pot">
+                                <div class="watering-animation" id="watering-animation"></div>
+                                <div class="pot-rim"></div>
+                                <div class="pot-body">
+                                    <div class="media-composition" id="media-composition"></div>
+                                    <div class="water-level" id="water-level" style="height: 0%"></div>
+                                </div>
+                                <div class="pot-base"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="card result-card elevation-1" id="simulation-result" style="display: none;">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Hasil Simulasi</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="result-item">
+                                    <i class="fas fa-flask"></i>
+                                    <div>
+                                        <label>Volume Pot:</label>
+                                        <h5 id="pot-volume">0 mL</h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="result-item">
+                                    <i class="fas fa-tint"></i>
+                                    <div>
+                                        <label>Volume Air yang Digunakan:</label>
+                                        <h5 id="water-volume">0 mL</h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="result-item">
+                                    <i class="fas fa-clock"></i>
+                                    <div>
+                                        <label>Durasi Penyiraman:</label>
+                                        <h5 id="watering-duration">0 detik</h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="result-item">
+                                    <i class="fas fa-box"></i>
+                                    <div>
+                                        <label>Volume Media:</label>
+                                        <h5 id="media-volume">0 mL</h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="result-item">
+                                    <i class="fas fa-water"></i>
+                                    <div>
+                                        <label>Air yang Tertahan di Media:</label>
+                                        <h5 id="retained-water-value">0 mL</h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="result-item">
+                                    <i class="fas fa-absorb"></i>
+                                    <div>
+                                        <label>Air yang Terserap Media:</label>
+                                        <h5 id="absorbed-water-percentage">0%</h5>
+                                    </div>
+                                </div>
+                                
+                                <div class="result-item">
+                                    <i class="fas fa-faucet"></i>
+                                    <div>
+                                        <label>Air yang Mengalir Keluar:</label>
+                                        <h5 id="drained-water-value">0 mL</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card media-properties-card elevation-1" id="media-properties" style="display: none;">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-vial me-2"></i>Sifat Media Campuran (Rata-rata Tertimbang)</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="media-property">
+                                    <i class="fas fa-tint"></i>
+                                    <span>Retensi Media: <span id="avg-retention">0%</span></span>
+                                </div>
+                                <div class="media-property">
+                                    <i class="fas fa-water"></i>
+                                    <span>Drainase Media: <span id="avg-drainage">0%</span></span>
+                                </div>
+                                <div class="media-property">
+                                    <i class="fas fa-wind"></i>
+                                    <span>Porositas Media: <span id="avg-porosity">0%</span></span>
+                                </div>
+                                <div class="media-property">
+                                    <i class="fas fa-vial"></i>
+                                    <span>pH Media: <span id="avg-ph">0</span></span>
+                                </div>
+                                <div class="media-property">
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <span>CEC Media: <span id="avg-cec">0 meq/100g</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card analysis-card elevation-1 mt-4" id="analysis-card" style="display: none;">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-robot me-2"></i>Analisis Media & Rekomendasi</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="analysis-content">
+                            <!-- Analisis akan diisi dengan JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer text-center mt-5">
+        <div class="container">
+            <p class="mb-0">Aplikasi Simulasi Penyiraman Media Tanam Aglaonema &copy; 2025</p>
         </div>
     </div>
 
