@@ -262,65 +262,6 @@ body {
     transform: translateZ(1px);
 }
 
-/* Responsif untuk pot */
-@media (max-width: 768px) {
-    .pot-container {
-        width: 150px;
-        height: 200px;
-    }
-    
-    .pot-body {
-        width: 65%;
-        height: 60%;
-    }
-    
-    .pot-rim {
-        width: 75%;
-    }
-    
-    .pot-base {
-        width: 80%;
-    }
-    
-    .water-level, .media-composition {
-        width: 64%;
-        left: 18%;
-    }
-    
-    .watering-animation {
-        width: 75%;
-    }
-}
-
-@media (max-width: 576px) {
-    .pot-container {
-        width: 130px;
-        height: 180px;
-    }
-    
-    .pot-body {
-        width: 60%;
-        height: 55%;
-    }
-    
-    .pot-rim {
-        width: 70%;
-    }
-    
-    .pot-base {
-        width: 75%;
-    }
-    
-    .water-level, .media-composition {
-        width: 60%;
-        left: 20%;
-    }
-    
-    .watering-animation {
-        width: 70%;
-    }
-}
-
 /* Efek kilau pada pot */
 .pot-shine {
     position: absolute;
@@ -888,92 +829,6 @@ body {
 .p-4 { padding: 2rem; }
 .p-5 { padding: 3rem; }
 
-@media (max-width: 768px) {
-    .pot-container {
-        width: 150px;
-        height: 200px;
-    }
-    
-    .material-properties {
-        gap: 0.3rem;
-    }
-    
-    .property-icon, .property-value {
-        font-size: 0.7rem;
-    }
-    
-    .composition-properties {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-    
-    .composition-item {
-        flex-wrap: wrap;
-    }
-    
-    .composition-item > * {
-        margin-bottom: 0.5rem;
-    }
-    
-    .composition-actions {
-        width: 100%;
-        justify-content: flex-end;
-    }
-    
-    .header {
-        padding: 1.5rem 0;
-    }
-    
-    .card-header {
-        padding: 1rem 1.25rem;
-    }
-    
-    .watering-controls {
-        grid-template-columns: 1fr;
-    }
-    
-    .modal-content {
-        padding: 1.5rem;
-    }
-    
-    .custom-alert, .custom-prompt, .custom-confirm {
-        padding: 1.5rem;
-    }
-    
-    .fab {
-        width: 50px;
-        height: 50px;
-        bottom: 1rem;
-        right: 1rem;
-    }
-    
-    .composition-table {
-        display: block;
-        overflow-x: auto;
-    }
-    
-    .composition-table th,
-    .composition-table td {
-        padding: 0.75rem;
-        font-size: 0.875rem;
-    }
-    
-    .composition-table .property-item {
-        font-size: 0.75rem;
-    }
-    
-    .composition-properties-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.2rem;
-    }
-}
-
-@media (max-width: 576px) {
-    .composition-properties-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
 .plant-decoration {
     position: absolute;
     bottom: 0;
@@ -1153,104 +1008,6 @@ body {
     }
     100% {
         transform: rotate(15deg) rotate(1.5deg);
-    }
-}
-
-@media (max-width: 768px) {
-    .aglaonema-floating {
-        width: 80px;
-        height: 100px;
-    }
-    
-    .real-leaf-1 {
-        width: 43px;
-        height: 57px;
-        bottom: 10px;
-        left: 19px;
-    }
-    
-    .real-leaf-2 {
-        width: 37px;
-        height: 50px;
-        bottom: 13px;
-        left: 5px;
-    }
-    
-    .real-leaf-3 {
-        width: 33px;
-        height: 47px;
-        bottom: 17px;
-        right: 7px;
-    }
-    
-    .real-leaf-4 {
-        width: 30px;
-        height: 40px;
-        bottom: 20px;
-        left: 10px;
-    }
-    
-    .real-leaf-5 {
-        width: 27px;
-        height: 37px;
-        bottom: 23px;
-        right: 13px;
-    }
-    
-    .aglaonema-real-pot {
-        left: 17px;
-        width: 47px;
-        height: 30px;
-    }
-}
-
-@media (max-width: 576px) {
-    .aglaonema-floating {
-        width: 60px;
-        height: 80px;
-        bottom: 10px;
-        left: 10px;
-    }
-    
-    .real-leaf-1 {
-        width: 33px;
-        height: 43px;
-        bottom: 8px;
-        left: 14px;
-    }
-    
-    .real-leaf-2 {
-        width: 28px;
-        height: 38px;
-        bottom: 10px;
-        left: 4px;
-    }
-    
-    .real-leaf-3 {
-        width: 25px;
-        height: 35px;
-        bottom: 13px;
-        right: 5px;
-    }
-    
-    .real-leaf-4 {
-        width: 23px;
-        height: 30px;
-        bottom: 15px;
-        left: 7px;
-    }
-    
-    .real-leaf-5 {
-        width: 20px;
-        height: 28px;
-        bottom: 18px;
-        right: 10px;
-    }
-    
-    .aglaonema-real-pot {
-        left: 13px;
-        width: 35px;
-        height: 23px;
     }
 }
 
@@ -1568,46 +1325,6 @@ body {
     font-size: 1.1rem;
 }
 
-@media (max-width: 768px) {
-    .composition-table {
-        display: block;
-        overflow-x: auto;
-    }
-    
-    .composition-table th,
-    .composition-table td {
-        padding: 0.75rem;
-        font-size: 0.875rem;
-    }
-    
-    .composition-table .property-item {
-        font-size: 0.75rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .simulation-card .row {
-        flex-direction: column-reverse;
-    }
-    
-    .simulation-card .pot-container {
-        margin-bottom: 1.5rem;
-    }
-    
-    .watering-controls {
-        flex-direction: column;
-    }
-    
-    .water-input-group {
-        width: 100%;
-        justify-content: space-between;
-    }
-    
-    .water-input-group .form-control {
-        width: 70%;
-    }
-}
-
 .pot-settings-row {
     display: flex;
     flex-wrap: wrap;
@@ -1618,17 +1335,6 @@ body {
 .pot-settings-group {
     flex: 1;
     min-width: 150px;
-}
-
-@media (max-width: 768px) {
-    .pot-settings-row {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    
-    .pot-settings-group {
-        min-width: auto;
-    }
 }
 
 .aglaonema-animation {
@@ -1733,55 +1439,86 @@ body {
     }
 }
 
-@media (max-width: 768px) {
-    .aglaonema-animation {
-        width: 80px;
-        height: 100px;
-    }
-    
-    .leaf-1 {
-        width: 43px;
-        height: 57px;
+@media (max-width: 576px) {
+    .aglaonema-floating {
+        width: 60px;
+        height: 80px;
         bottom: 10px;
-        left: 19px;
-    }
-    
-    .leaf-2 {
-        width: 37px;
-        height: 50px;
-        bottom: 13px;
-        left: 5px;
-    }
-    
-    .leaf-3 {
-        width: 33px;
-        height: 47px;
-        bottom: 17px;
-        right: 7px;
-    }
-    
-    .leaf-4 {
-        width: 30px;
-        height: 40px;
-        bottom: 20px;
         left: 10px;
     }
     
-    .leaf-5 {
-        width: 27px;
-        height: 37px;
-        bottom: 23px;
-        right: 13px;
+    .real-leaf-1 {
+        width: 33px;
+        height: 43px;
+        bottom: 8px;
+        left: 14px;
     }
     
-    .aglaonema-pot {
-        left: 17px;
-        width: 47px;
-        height: 30px;
+    .real-leaf-2 {
+        width: 28px;
+        height: 38px;
+        bottom: 10px;
+        left: 4px;
     }
-}
+    
+    .real-leaf-3 {
+        width: 25px;
+        height: 35px;
+        bottom: 13px;
+        right: 5px;
+    }
+    
+    .real-leaf-4 {
+        width: 23px;
+        height: 30px;
+        bottom: 15px;
+        left: 7px;
+    }
+    
+    .real-leaf-5 {
+        width: 20px;
+        height: 28px;
+        bottom: 18px;
+        right: 10px;
+    }
+    
+    .aglaonema-real-pot {
+        left: 13px;
+        width: 35px;
+        height: 23px;
+    }
+    
+    .composition-properties-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-@media (max-width: 576px) {
+    .pot-container {
+        width: 130px;
+        height: 180px;
+    }
+    
+    .pot-body {
+        width: 60%;
+        height: 55%;
+    }
+    
+    .pot-rim {
+        width: 70%;
+    }
+    
+    .pot-base {
+        width: 75%;
+    }
+    
+    .water-level, .media-composition {
+        width: 60%;
+        left: 20%;
+    }
+    
+    .watering-animation {
+        width: 70%;
+    }
+
     .aglaonema-animation {
         width: 60px;
         height: 80px;
@@ -2044,6 +1781,249 @@ body {
 }
 
 @media (max-width: 768px) {
+    .aglaonema-animation {
+        width: 80px;
+        height: 100px;
+    }
+    
+    .leaf-1 {
+        width: 43px;
+        height: 57px;
+        bottom: 10px;
+        left: 19px;
+    }
+    
+    .leaf-2 {
+        width: 37px;
+        height: 50px;
+        bottom: 13px;
+        left: 5px;
+    }
+    
+    .leaf-3 {
+        width: 33px;
+        height: 47px;
+        bottom: 17px;
+        right: 7px;
+    }
+    
+    .leaf-4 {
+        width: 30px;
+        height: 40px;
+        bottom: 20px;
+        left: 10px;
+    }
+    
+    .leaf-5 {
+        width: 27px;
+        height: 37px;
+        bottom: 23px;
+        right: 13px;
+    }
+    
+    .aglaonema-pot {
+        left: 17px;
+        width: 47px;
+        height: 30px;
+    }
+
+    .pot-settings-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .pot-settings-group {
+        min-width: auto;
+    }
+
+    .composition-table {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .composition-table th,
+    .composition-table td {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
+    
+    .composition-table .property-item {
+        font-size: 0.75rem;
+    }
+
+    .simulation-card .row {
+        flex-direction: column-reverse;
+    }
+    
+    .simulation-card .pot-container {
+        margin-bottom: 1.5rem;
+    }
+    
+    .watering-controls {
+        flex-direction: column;
+    }
+    
+    .water-input-group {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .water-input-group .form-control {
+        width: 70%;
+    }
+
+    .aglaonema-floating {
+        width: 80px;
+        height: 100px;
+    }
+    
+    .real-leaf-1 {
+        width: 43px;
+        height: 57px;
+        bottom: 10px;
+        left: 19px;
+    }
+    
+    .real-leaf-2 {
+        width: 37px;
+        height: 50px;
+        bottom: 13px;
+        left: 5px;
+    }
+    
+    .real-leaf-3 {
+        width: 33px;
+        height: 47px;
+        bottom: 17px;
+        right: 7px;
+    }
+    
+    .real-leaf-4 {
+        width: 30px;
+        height: 40px;
+        bottom: 20px;
+        left: 10px;
+    }
+    
+    .real-leaf-5 {
+        width: 27px;
+        height: 37px;
+        bottom: 23px;
+        right: 13px;
+    }
+    
+    .aglaonema-real-pot {
+        left: 17px;
+        width: 47px;
+        height: 30px;
+    }
+
+    .pot-container {
+        width: 150px;
+        height: 200px;
+    }
+    
+    .material-properties {
+        gap: 0.3rem;
+    }
+    
+    .property-icon, .property-value {
+        font-size: 0.7rem;
+    }
+    
+    .composition-properties {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .composition-item {
+        flex-wrap: wrap;
+    }
+    
+    .composition-item > * {
+        margin-bottom: 0.5rem;
+    }
+    
+    .composition-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .header {
+        padding: 1.5rem 0;
+    }
+    
+    .card-header {
+        padding: 1rem 1.25rem;
+    }
+    
+    .watering-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        padding: 1.5rem;
+    }
+    
+    .custom-alert, .custom-prompt, .custom-confirm {
+        padding: 1.5rem;
+    }
+    
+    .fab {
+        width: 50px;
+        height: 50px;
+        bottom: 1rem;
+        right: 1rem;
+    }
+    
+    .composition-table {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .composition-table th,
+    .composition-table td {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
+    
+    .composition-table .property-item {
+        font-size: 0.75rem;
+    }
+    
+    .composition-properties-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.2rem;
+    }
+
+    /* Responsif untuk pot */
+    .pot-container {
+        width: 150px;
+        height: 200px;
+    }
+    
+    .pot-body {
+        width: 65%;
+        height: 60%;
+    }
+    
+    .pot-rim {
+        width: 75%;
+    }
+    
+    .pot-base {
+        width: 80%;
+    }
+    
+    .water-level, .media-composition {
+        width: 64%;
+        left: 18%;
+    }
+    
+    .watering-animation {
+        width: 75%;
+    }
+
     .dropdown-wrapper {
         flex-direction: column;
     }
