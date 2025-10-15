@@ -438,11 +438,11 @@ $(document).ready(function() {
             row.append($('<td>').addClass('text-center').append(portionInput));
             
             // Nilai properti - setiap properti dalam sel terpisah
-            row.append($('<td>').addClass('text-center').text(item.retention));
-            row.append($('<td>').addClass('text-center').text(item.drainage));
-            row.append($('<td>').addClass('text-center').text(item.porosity));
-            row.append($('<td>').addClass('text-center').text(item.ph));
-            row.append($('<td>').addClass('text-center').text(item.cec));
+            row.append($('<td>').addClass('text-center').text(item.retention.toFixed(1)));
+            row.append($('<td>').addClass('text-center').text(item.drainage.toFixed(1)));
+            row.append($('<td>').addClass('text-center').text(item.porosity.toFixed(1)));
+            row.append($('<td>').addClass('text-center').text(item.ph.toFixed(1)));
+            row.append($('<td>').addClass('text-center').text(item.cec.toFixed(1)));
             
             // Tombol hapus
             const deleteButton = $('<button>').addClass('delete-btn')
@@ -545,16 +545,20 @@ $(document).ready(function() {
             const waterVolume = parseFloat($('#water-volume-input').val());
             const wateringDuration = parseFloat($('#watering-duration-input').val());
             
-            const maxWaterRetention = mediaVolume * (avgRetention / 100);
+            const poreSpaceVolume = mediaVolume * (avgPorosity / 100);
+            const maxWaterRetention = poreSpaceVolume * (avgRetention / 100);
             const retainedWater = Math.min(waterVolume, maxWaterRetention);
             const absorbedWater = retainedWater * 0.7; // Asumsi 70% air terserap
             const drainedWater = waterVolume - retainedWater;
-            
+
             const absorbedPercentage = (absorbedWater / waterVolume) * 100;
+
+            // Hitung persentase seberapa "penuh" media dengan air dibandingkan kapasitas maksimumnya.
+            // const capacityReachedPercentage = maxWaterRetention > 0 ? (retainedWater / maxWaterRetention) * 100 : 0;
             
             // Tampilkan informasi tambahan di Hasil Simulasi
-            $('#water-volume').text(waterVolume.toFixed(2) + ' mL');
-            $('#watering-duration').text(wateringDuration.toFixed(1) + ' detik');
+            $('#water-volume').text(waterVolume + ' mL');
+            $('#watering-duration').text(wateringDuration + ' detik');
             $('#pot-volume').text(potVolume.toFixed(2) + ' mL');
             
             // Tampilkan hasil
@@ -568,7 +572,7 @@ $(document).ready(function() {
             $('#water-level').css('height', waterLevelHeight + '%');
             
             // Animasi media komposisi
-            $('#media-composition').css('height', '65%');
+            $('#media-composition').css('height', '75%');
             
             // Animasi penyiraman yang lebih menarik
             const wateringAnimation = $('#watering-animation');
@@ -576,26 +580,32 @@ $(document).ready(function() {
             
             // Tambahkan efek tetesan air
             const waterDrops = $('<div>').addClass('water-drops');
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 20; i++) {
                 const drop = $('<div>').addClass('water-drop');
                 drop.css({
-                    left: Math.random() * 100 + '%',
-                    animationDelay: (Math.random() * 1.5) + 's'
+                    left: Math.random() * 90 + 5 + '%',
+                    animationDelay: (Math.random() * 1.5) + 's',
+                    width: (Math.random() * 4 + 4) + 'px',
+                    height: (Math.random() * 4 + 4) + 'px'
                 });
                 waterDrops.append(drop);
             }
-            wateringAnimation.append(waterDrops);
+            wateringAnimation.empty().append(waterDrops);
             
             setTimeout(function() {
                 wateringAnimation.css('height', '0%');
-                
+
                 // Tambahkan efek riak air setelah penyiraman
-                const ripple = $('<div>').addClass('water-ripple');
-                $('.pot-body').append(ripple);
-                
-                setTimeout(function() {
-                    ripple.remove();
-                }, 1500);
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(function() {
+                        const ripple = $('<div>').addClass('water-ripple');
+                        $('.pot-body').append(ripple);
+                        
+                        setTimeout(function() {
+                            ripple.remove();
+                        }, 1500);
+                    }, i * 300);
+                }
             }, 1000);
             
             // Tampilkan hasil simulasi
@@ -629,7 +639,7 @@ $(document).ready(function() {
         analysisHTML += '<p>Total Volume Media: <strong>' + mediaVolume.toFixed(2) + ' mL</strong></p>';
         analysisHTML += '<table class="table table-sm composition-simulation-table">';
         analysisHTML += '<thead><tr>';
-        analysisHTML += '<th width="40%"><div class="tooltip-container"><i class="fas fa-seedling"></i><span class="tooltip-text tooltip-bottom">Nama Bahan</span></div></th>';
+        analysisHTML += '<th width="40%" style="text-align: center !important;"><div class="tooltip-container"><i class="fas fa-seedling"></i><span class="tooltip-text tooltip-bottom">Nama Bahan</span></div></th>';
         analysisHTML += '<th width="5%"><div class="tooltip-container"><i class="fas fa-weight"></i><span class="tooltip-text tooltip-bottom">Bagian (Proporsi)</span></div></th>';
         analysisHTML += '<th width="10%"><div class="tooltip-container"><i class="fas fa-vial"></i><span class="tooltip-text tooltip-bottom">Volume dalam mL</span></div></th>';
         analysisHTML += '<th width="10%"><div class="tooltip-container"><i class="fas fa-percentage"></i><span class="tooltip-text tooltip-bottom">Persentase dalam Komposisi (%)</span></div></th>';
@@ -647,14 +657,14 @@ $(document).ready(function() {
                 const itemVolume = mediaVolume * (percentage / 100);
                 analysisHTML += '<tr>';
                 analysisHTML += '<td>' + item.name + '</td>';
-                analysisHTML += '<td align="right">' + item.portion.toFixed(0) + '</td>';
-                analysisHTML += '<td align="right">' + itemVolume.toFixed(2) + '</td>';
-                analysisHTML += '<td align="right">' + percentage + '</td>';
-                analysisHTML += '<td align="right">' + item.retention.toFixed(0) + '</td>';
-                analysisHTML += '<td align="right">' + item.drainage.toFixed(0) + '</td>';
-                analysisHTML += '<td align="right">' + item.porosity.toFixed(0) + '</td>';
-                analysisHTML += '<td align="right">' + item.ph.toFixed(1) + '</td>';
-                analysisHTML += '<td align="right">' + item.cec.toFixed(2) + '</td>';
+                analysisHTML += '<td class="text-right">' + item.portion + '</td>';
+                analysisHTML += '<td class="text-right">' + itemVolume.toFixed(2) + '</td>';
+                analysisHTML += '<td class="text-right">' + percentage + '</td>';
+                analysisHTML += '<td class="text-right">' + item.retention + '</td>';
+                analysisHTML += '<td class="text-right">' + item.drainage + '</td>';
+                analysisHTML += '<td class="text-right">' + item.porosity + '</td>';
+                analysisHTML += '<td class="text-right">' + item.ph.toFixed(1) + '</td>';
+                analysisHTML += '<td class="text-right">' + item.cec.toFixed(2) + '</td>';
                 analysisHTML += '</tr>';
             }
         });
@@ -983,7 +993,7 @@ $(document).ready(function() {
         
         analysisHTML += '<p><strong>Rekomendasi Penyiraman:</strong></p>';
         analysisHTML += '<ul>';
-        analysisHTML += '<li>Volume air: ' + (mediaVolume * 0.3).toFixed(0) + '-' + (mediaVolume * 0.5).toFixed(0) + ' mL per penyiraman</li>';
+        analysisHTML += '<li>Volume air: ' + (mediaVolume * 0.3).toFixed(2) + ' - ' + (mediaVolume * 0.5).toFixed(2) + ' mL per penyiraman</li>';
         analysisHTML += '<li>Frekuensi: 5-7 hari sekali (periksa kelembaban media)</li>';
         analysisHTML += '<li>Waktu terbaik: Pagi hari (sebelum jam 10) atau sore hari (setelah jam 16)</li>';
         analysisHTML += '<li>Hindari: Penyiraman berlebihan dan genangan di dasar pot</li>';
@@ -1051,6 +1061,15 @@ $(document).ready(function() {
             return;
         }
         
+        // Mengurutkan komposisi berdasarkan nama (ascending)
+        savedCompositions.sort((a, b) => {
+            const nameA = a.name.toLowerCase();
+            const nameB = b.name.toLowerCase();
+            if (nameA < nameB) return -1;
+            if (nameA > nameB) return 1;
+            return 0;
+        });
+        
         savedCompositions.forEach((comp, index) => {
             const item = $('<div>').addClass('saved-item')
                 .click(() => loadComposition(comp))
@@ -1088,6 +1107,14 @@ $(document).ready(function() {
             if (!confirmed) return;
             
             const savedCompositions = getSavedCompositions();
+            // Mengurutkan daftar komposisi sebelum mencari index yang benar
+            savedCompositions.sort((a, b) => {
+                const nameA = a.name.toLowerCase();
+                const nameB = b.name.toLowerCase();
+                if (nameA < nameB) return -1;
+                if (nameA > nameB) return 1;
+                return 0;
+            });
             savedCompositions.splice(index, 1);
             localStorage.setItem('aglaonemaCompositions', JSON.stringify(savedCompositions));
             
@@ -1099,7 +1126,18 @@ $(document).ready(function() {
     // Dapatkan daftar komposisi tersimpan
     function getSavedCompositions() {
         const saved = localStorage.getItem('aglaonemaCompositions');
-        return saved ? JSON.parse(saved) : [];
+        const compositions = saved ? JSON.parse(saved) : [];
+        
+        // Mengurutkan komposisi berdasarkan nama (ascending)
+        compositions.sort((a, b) => {
+            const nameA = a.name.toLowerCase();
+            const nameB = b.name.toLowerCase();
+            if (nameA < nameB) return -1;
+            if (nameA > nameB) return 1;
+            return 0;
+        });
+        
+        return compositions;
     }
     
     // Muat komposisi dari localStorage
