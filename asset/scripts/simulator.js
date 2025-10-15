@@ -357,64 +357,63 @@ $(document).ready(function() {
             return;
         }
         
-        // Buat tabel dengan desain Material Design
-        const table = $('<table>').addClass('composition-table');
+        // Buat tabel dengan desain baru
+        const table = $('<table>').addClass('composition-table').css('width', '100%');
         const thead = $('<thead>');
         const tbody = $('<tbody>');
         
-        // Header tabel
-        const headerRow = $('<tr>');
-        headerRow.append($('<th width="30%">').text('BAHAN'));
-        headerRow.append($('<th width="6%">').text('PROPORSI'));
+        // Baris header pertama
+        const headerRow1 = $('<tr>');
+        headerRow1.append($('<th rowspan="2" width="55%">').text('BAHAN'));
+        headerRow1.append($('<th rowspan="2" width="15%">').text('PROPORSI'));
+        headerRow1.append($('<th colspan="5" width="25%">').text('KOMPONEN'));
+        headerRow1.append($('<th rowspan="2" width="5%">').text('AKSI'));
+        thead.append(headerRow1);
         
-        // // Bagian dengan tooltip
-        // const portionHeader = $('<th width="6%">');
-        // const portionTooltip = $('<div>').addClass('tooltip-container').append(
-        //     $('<i>').addClass('fas fa-weight table-header-icon'),
-        //     $('<span>').addClass('tooltip-text tooltip-bottom').text('Bagian (Proporsi)')
-        // );
-        // portionHeader.append(portionTooltip);
-        // headerRow.append(portionHeader);
+        // Baris header kedua (sub-kolom komponen)
+        const headerRow2 = $('<tr>');
         
-        // Properti dengan ikon dan tooltips
-        const propertiesHeader = $('<th width="60%">');
-        const propertiesContainer = $('<div>').addClass('d-flex justify-content-around');
-        
-        // Retensi
-        propertiesContainer.append($('<div>').addClass('tooltip-container').append(
-            $('<i>').addClass('fas fa-tint table-header-icon'),
-            $('<span>').addClass('tooltip-text tooltip-bottom').text('Retensi Air (%) - Kemampuan media menahan air')
+        // Retensi dengan tooltip
+        headerRow2.append($('<th width="5%">').append(
+            $('<div>').addClass('tooltip-container text-center').append(
+                $('<i>').addClass('fas fa-tint table-header-icon'),
+                $('<span>').addClass('tooltip-text tooltip-bottom').text('Retensi Air (%) - Kemampuan media menahan air')
+            )
         ));
         
-        // Drainase
-        propertiesContainer.append($('<div>').addClass('tooltip-container').append(
-            $('<i>').addClass('fas fa-water table-header-icon'),
-            $('<span>').addClass('tooltip-text tooltip-bottom').text('Drainase (%) - Kemampuan media mengalirkan air')
+        // Drainase dengan tooltip
+        headerRow2.append($('<th width="5%">').append(
+            $('<div>').addClass('tooltip-container text-center').append(
+                $('<i>').addClass('fas fa-water table-header-icon'),
+                $('<span>').addClass('tooltip-text tooltip-bottom').text('Drainase (%) - Kemampuan media mengalirkan air')
+            )
         ));
         
-        // Porositas
-        propertiesContainer.append($('<div>').addClass('tooltip-container').append(
-            $('<i>').addClass('fas fa-wind table-header-icon'),
-            $('<span>').addClass('tooltip-text tooltip-bottom').text('Porositas (%) - Ruang udara dalam media')
+        // Porositas dengan tooltip
+        headerRow2.append($('<th width="5%">').append(
+            $('<div>').addClass('tooltip-container text-center').append(
+                $('<i>').addClass('fas fa-wind table-header-icon'),
+                $('<span>').addClass('tooltip-text tooltip-bottom').text('Porositas (%) - Ruang udara dalam media')
+            )
         ));
         
-        // pH
-        propertiesContainer.append($('<div>').addClass('tooltip-container').append(
-            $('<i>').addClass('fas fa-vial table-header-icon'),
-            $('<span>').addClass('tooltip-text tooltip-bottom').text('Tingkat keasaman (pH)')
+        // pH dengan tooltip
+        headerRow2.append($('<th width="5%">').append(
+            $('<div>').addClass('tooltip-container text-center').append(
+                $('<i>').addClass('fas fa-vial table-header-icon'),
+                $('<span>').addClass('tooltip-text tooltip-bottom').text('Tingkat keasaman (pH)')
+            )
         ));
         
-        // CEC
-        propertiesContainer.append($('<div>').addClass('tooltip-container').append(
-            $('<i>').addClass('fas fa-exchange-alt table-header-icon'),
-            $('<span>').addClass('tooltip-text tooltip-bottom').text('Kapasitas Tukar Kation (CEC)')
+        // CEC dengan tooltip
+        headerRow2.append($('<th width="5%">').append(
+            $('<div>').addClass('tooltip-container text-center').append(
+                $('<i>').addClass('fas fa-exchange-alt table-header-icon'),
+                $('<span>').addClass('tooltip-text tooltip-bottom').text('Kapasitas Tukar Kation (CEC)')
+            )
         ));
         
-        propertiesHeader.append(propertiesContainer);
-        headerRow.append(propertiesHeader);
-        
-        headerRow.append($('<th width="4%">').text('AKSI'));
-        thead.append(headerRow);
+        thead.append(headerRow2);
         
         // Isi tabel
         composition.forEach((item, index) => {
@@ -423,7 +422,7 @@ $(document).ready(function() {
             // Nama bahan
             row.append($('<td>').addClass('material-name').text(item.name));
             
-            // Input bagian (bukan persentase)
+            // Input bagian (proposi)
             const portionInput = $('<input>').attr({
                 type: 'number',
                 min: '0',
@@ -435,47 +434,14 @@ $(document).ready(function() {
                 updateTotalPortion();
             });
             
-            row.append($('<td>').append(portionInput));
+            row.append($('<td>').addClass('text-center').append(portionInput));
             
-            // Properti - 5 kolom (retensi, drainase, porositas, pH, CEC)
-            const propertiesDiv = $('<div>').addClass('composition-properties-grid');
-            
-            // Retensi dengan tooltip
-            propertiesDiv.append($('<div>').addClass('property-item tooltip-container').append(
-                $('<i>').addClass('fas fa-tint property-icon'),
-                $('<span>').addClass('property-value').text(item.retention + '%'),
-                $('<span>').addClass('tooltip-text tooltip-bottom').text('Retensi Air (%) - Kemampuan media menahan air')
-            ));
-            
-            // Drainase dengan tooltip
-            propertiesDiv.append($('<div>').addClass('property-item tooltip-container').append(
-                $('<i>').addClass('fas fa-water property-icon'),
-                $('<span>').addClass('property-value').text(item.drainage + '%'),
-                $('<span>').addClass('tooltip-text tooltip-bottom').text('Drainase (%) - Kemampuan media mengalirkan air')
-            ));
-            
-            // Porositas dengan tooltip
-            propertiesDiv.append($('<div>').addClass('property-item tooltip-container').append(
-                $('<i>').addClass('fas fa-wind property-icon'),
-                $('<span>').addClass('property-value').text(item.porosity + '%'),
-                $('<span>').addClass('tooltip-text tooltip-bottom').text('Porositas (%) - Ruang udara dalam media')
-            ));
-            
-            // pH dengan tooltip
-            propertiesDiv.append($('<div>').addClass('property-item tooltip-container').append(
-                $('<i>').addClass('fas fa-vial property-icon'),
-                $('<span>').addClass('property-value').text(item.ph),
-                $('<span>').addClass('tooltip-text tooltip-bottom').text('pH - Tingkat keasaman media')
-            ));
-            
-            // CEC dengan tooltip
-            propertiesDiv.append($('<div>').addClass('property-item tooltip-container').append(
-                $('<i>').addClass('fas fa-exchange-alt property-icon'),
-                $('<span>').addClass('property-value').text(item.cec),
-                $('<span>').addClass('tooltip-text tooltip-bottom').text('CEC (meq/100g) - Kapasitas Tukar Kation')
-            ));
-            
-            row.append($('<td>').append(propertiesDiv));
+            // Nilai properti - setiap properti dalam sel terpisah
+            row.append($('<td>').addClass('text-center').text(item.retention));
+            row.append($('<td>').addClass('text-center').text(item.drainage));
+            row.append($('<td>').addClass('text-center').text(item.porosity));
+            row.append($('<td>').addClass('text-center').text(item.ph));
+            row.append($('<td>').addClass('text-center').text(item.cec));
             
             // Tombol hapus
             const deleteButton = $('<button>').addClass('delete-btn')
@@ -488,7 +454,7 @@ $(document).ready(function() {
                     showSnackbar('Bahan berhasil dihapus dari komposisi');
                 });
             
-            row.append($('<td>').append(deleteButton));
+            row.append($('<td>').addClass('text-center').append(deleteButton));
             
             tbody.append(row);
         });
@@ -586,16 +552,16 @@ $(document).ready(function() {
             const absorbedPercentage = (absorbedWater / waterVolume) * 100;
             
             // Tampilkan informasi tambahan di Hasil Simulasi
-            $('#pot-volume').text(potVolume.toFixed(2) + ' mL');
             $('#water-volume').text(waterVolume.toFixed(2) + ' mL');
             $('#watering-duration').text(wateringDuration.toFixed(1) + ' detik');
+            $('#pot-volume').text(potVolume.toFixed(2) + ' mL');
             
             // Tampilkan hasil
             $('#media-volume').text(mediaVolume.toFixed(2) + ' mL');
             $('#retained-water-value').text(retainedWater.toFixed(2) + ' mL');
             $('#absorbed-water-percentage').text(absorbedPercentage.toFixed(1) + '%');
             $('#drained-water-value').text(drainedWater.toFixed(2) + ' mL');
-            
+
             // Animasi level air di pot
             const waterLevelHeight = (retainedWater / maxWaterRetention) * 65;
             $('#water-level').css('height', waterLevelHeight + '%');
@@ -662,32 +628,32 @@ $(document).ready(function() {
         analysisHTML += '<p>Total Volume Media: <strong>' + mediaVolume.toFixed(2) + ' mL</strong></p>';
         analysisHTML += '<table class="table table-sm composition-simulation-table">';
         analysisHTML += '<thead><tr>';
-        analysisHTML += '<th><div class="tooltip-container"><i class="fas fa-seedling"></i><span class="tooltip-text tooltip-bottom">Nama Bahan</span></div></th>';
-        analysisHTML += '<th><div class="tooltip-container"><i class="fas fa-weight"></i><span class="tooltip-text tooltip-bottom">Bagian (Proporsi)</span></div></th>';
-        analysisHTML += '<th><div class="tooltip-container"><i class="fas fa-percentage"></i><span class="tooltip-text tooltip-bottom">Persentase dalam Komposisi</span></div></th>';
-        analysisHTML += '<th><div class="tooltip-container"><i class="fas fa-vial"></i><span class="tooltip-text tooltip-bottom">Volume dalam mL</span></div></th>';
-        analysisHTML += '<th><div class="tooltip-container"><i class="fas fa-tint"></i><span class="tooltip-text tooltip-bottom">Retensi Air (%)</span></div></th>';
-        analysisHTML += '<th><div class="tooltip-container"><i class="fas fa-water"></i><span class="tooltip-text tooltip-bottom">Drainase (%)</span></div></th>';
-        analysisHTML += '<th><div class="tooltip-container"><i class="fas fa-wind"></i><span class="tooltip-text tooltip-bottom">Porositas (%)</span></div></th>';
-        analysisHTML += '<th><div class="tooltip-container"><i class="fas fa-flask"></i><span class="tooltip-text tooltip-bottom">Tingkat keasaman (pH)</span></div></th>';
-        analysisHTML += '<th><div class="tooltip-container"><i class="fas fa-exchange-alt"></i><span class="tooltip-text tooltip-bottom">Kapasitas Tukar Kation (CEC)</span></div></th>';
+        analysisHTML += '<th width="40%"><div class="tooltip-container"><i class="fas fa-seedling"></i><span class="tooltip-text tooltip-bottom">Nama Bahan</span></div></th>';
+        analysisHTML += '<th width="5%"><div class="tooltip-container"><i class="fas fa-weight"></i><span class="tooltip-text tooltip-bottom">Bagian (Proporsi)</span></div></th>';
+        analysisHTML += '<th width="10%"><div class="tooltip-container"><i class="fas fa-vial"></i><span class="tooltip-text tooltip-bottom">Volume dalam mL</span></div></th>';
+        analysisHTML += '<th width="10%"><div class="tooltip-container"><i class="fas fa-percentage"></i><span class="tooltip-text tooltip-bottom">Persentase dalam Komposisi (%)</span></div></th>';
+        analysisHTML += '<th width="7%"><div class="tooltip-container"><i class="fas fa-tint"></i><span class="tooltip-text tooltip-bottom">Retensi Air (%)</span></div></th>';
+        analysisHTML += '<th width="7%"><div class="tooltip-container"><i class="fas fa-water"></i><span class="tooltip-text tooltip-bottom">Drainase (%)</span></div></th>';
+        analysisHTML += '<th width="7%"><div class="tooltip-container"><i class="fas fa-wind"></i><span class="tooltip-text tooltip-bottom">Porositas (%)</span></div></th>';
+        analysisHTML += '<th width="7%"><div class="tooltip-container"><i class="fas fa-flask"></i><span class="tooltip-text tooltip-bottom">Tingkat keasaman (pH)</span></div></th>';
+        analysisHTML += '<th width="7%"><div class="tooltip-container"><i class="fas fa-exchange-alt"></i><span class="tooltip-text tooltip-bottom">Kapasitas Tukar Kation (CEC)</span></div></th>';
         analysisHTML += '</tr></thead>';
         analysisHTML += '<tbody>';
         
         composition.forEach(item => {
             if (item.portion > 0) {
-                const percentage = totalPortion > 0 ? ((item.portion / totalPortion) * 100).toFixed(1) : 0;
+                const percentage = totalPortion > 0 ? ((item.portion / totalPortion) * 100).toFixed(2) : 0;
                 const itemVolume = mediaVolume * (percentage / 100);
                 analysisHTML += '<tr>';
                 analysisHTML += '<td>' + item.name + '</td>';
-                analysisHTML += '<td>' + item.portion + '</td>';
-                analysisHTML += '<td>' + percentage + '%</td>';
-                analysisHTML += '<td>' + itemVolume.toFixed(2) + ' mL</td>';
-                analysisHTML += '<td>' + item.retention + '%</td>';
-                analysisHTML += '<td>' + item.drainage + '%</td>';
-                analysisHTML += '<td>' + item.porosity + '%</td>';
-                analysisHTML += '<td>' + item.ph + '</td>';
-                analysisHTML += '<td>' + item.cec + ' meq/100g</td>';
+                analysisHTML += '<td align="right">' + item.portion.toFixed(0) + '</td>';
+                analysisHTML += '<td align="right">' + itemVolume.toFixed(2) + '</td>';
+                analysisHTML += '<td align="right">' + percentage + '</td>';
+                analysisHTML += '<td align="right">' + item.retention.toFixed(0) + '</td>';
+                analysisHTML += '<td align="right">' + item.drainage.toFixed(0) + '</td>';
+                analysisHTML += '<td align="right">' + item.porosity.toFixed(0) + '</td>';
+                analysisHTML += '<td align="right">' + item.ph.toFixed(1) + '</td>';
+                analysisHTML += '<td align="right">' + item.cec.toFixed(2) + '</td>';
                 analysisHTML += '</tr>';
             }
         });
@@ -1180,23 +1146,27 @@ $(document).ready(function() {
             }
         });
         
-        // Ambil data analisis
+        // Ambil data analisis - format sama seperti di aplikasi
         const analysisContent = $('#analysis-content');
         let analysisText = '';
         
-        // Ekstrak setiap bagian analisis
+        // Ambil setiap bagian analisis
         analysisContent.find('.analysis-point').each(function() {
             const title = $(this).find('h6').text();
             analysisText += `${title}\n`;
             
-            // Ambil semua paragraf
-            $(this).find('p').each(function() {
-                analysisText += `${$(this).text()}\n`;
-            });
-            
-            // Ambil semua list items
-            $(this).find('li').each(function() {
-                analysisText += `  • ${$(this).text()}\n`;
+            // Ambil semua konten dalam analysis-point
+            $(this).contents().each(function() {
+                if (this.nodeType === 3) { // Text node
+                    const text = $(this).text().trim();
+                    if (text) analysisText += `${text}\n`;
+                } else if (this.tagName === 'P') {
+                    analysisText += `${$(this).text()}\n`;
+                } else if (this.tagName === 'UL') {
+                    $(this).find('li').each(function() {
+                        analysisText += `• ${$(this).text()}\n`;
+                    });
+                }
             });
             
             analysisText += '\n';
@@ -1205,19 +1175,26 @@ $(document).ready(function() {
         // Ambil bagian pro dan kontra
         analysisText += "KELEBIHAN MEDIA INI:\n";
         analysisContent.find('.pros li').each(function() {
-            analysisText += `  • ${$(this).text()}\n`;
+            analysisText += `• ${$(this).text()}\n`;
         });
         
-        analysisText += "\nKEKURANGAN MEDIA INI:\n";
+        analysisText += "\nPERBAIKAN YANG DIPERLUKAN:\n";
         analysisContent.find('.cons li').each(function() {
-            analysisText += `  • ${$(this).text()}\n`;
+            analysisText += `• ${$(this).text()}\n`;
         });
         
-        // Ambil rekomendasi
-        analysisText += "\nREKOMENDASI UMUM BERDASARKAN RISET AGLAONEMA:\n";
+        // Ambil rekomendasi umum
         const lastAnalysisPoint = analysisContent.find('.analysis-point').last();
-        lastAnalysisPoint.find('p').each(function() {
-            analysisText += `  • ${$(this).text()}\n`;
+        analysisText += "\nREKOMENDASI UMUM BERDASARKAN PENELITIAN AGLAONEMA:\n";
+        
+        lastAnalysisPoint.find('p, ul').each(function() {
+            if ($(this).is('p')) {
+                analysisText += `${$(this).text()}\n`;
+            } else if ($(this).is('ul')) {
+                $(this).find('li').each(function() {
+                    analysisText += `• ${$(this).text()}\n`;
+                });
+            }
         });
         
         // Format data untuk ekspor ke TXT - SAMA PERSIS dengan tampilan di aplikasi
@@ -1232,8 +1209,13 @@ $(document).ready(function() {
         exportData += `Tinggi Pot: ${potHeight} cm\n`;
         exportData += `Persentase Media dalam Pot: ${mediaPercentage}%\n\n`;
         
-        // B. HASIL SIMULASI PENYIRAMAN
-        exportData += 'B. HASIL SIMULASI PENYIRAMAN:\n';
+        // B. KOMPOSISI MEDIA TANAM
+        exportData += 'B. KOMPOSISI MEDIA TANAM:\n';
+        exportData += '---------------------------------------------\n';
+        exportData += compositionText + '\n';
+        
+        // C. HASIL SIMULASI
+        exportData += 'C. HASIL SIMULASI:\n';
         exportData += '---------------------------------------------\n';
         exportData += `Volume Pot: ${potVolume}\n`;
         exportData += `Volume Air yang Digunakan: ${waterVolume}\n`;
@@ -1250,11 +1232,8 @@ $(document).ready(function() {
         exportData += `- pH Media: ${avgPH}\n`;
         exportData += `- CEC Media: ${avgCEC}\n\n`;
         
-        exportData += 'KOMPOSISI MEDIA TANAM:\n';
-        exportData += compositionText + '\n';
-        
-        // C. ANALISIS MEDIA & REKOMENDASI
-        exportData += 'C. ANALISIS MEDIA & REKOMENDASI:\n';
+        // D. ANALISIS MEDIA & REKOMENDASI
+        exportData += 'D. ANALISIS MEDIA & REKOMENDASI:\n';
         exportData += '---------------------------------------------\n';
         exportData += analysisText;
         
