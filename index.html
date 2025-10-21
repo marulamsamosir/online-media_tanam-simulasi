@@ -276,18 +276,19 @@
                     </div>
                     
                     <div class="col-md-6">
-                        <div class="pot-container">
-                            <div class="pot">
-                                <div class="watering-animation" id="watering-animation"></div>
-                                <div class="pot-rim"></div>
-                                <div class="pot-body">
-                                    <div class="pot-shine"></div>
-                                    <div class="media-composition" id="media-composition"></div>
-                                    <div class="water-level" id="water-level" style="height: 0%">
+                        <!-- Pot dengan animasi -->
+                        <div class="pot-container-enhanced">
+                            <div class="pot-enhanced">
+                                <div class="watering-animation-enhanced" id="watering-animation-enhanced"></div>
+                                <div class="pot-rim-enhanced"></div>
+                                <div class="pot-body-enhanced">
+                                    <div class="media-composition-enhanced" id="media-composition-enhanced"></div>
+                                    <div class="water-level-enhanced" id="water-level-enhanced" style="height: 0%">
                                         <div class="water-waves"></div>
                                     </div>
+                                    <div class="drainage-animation-enhanced" id="drainage-animation-enhanced"></div>
                                 </div>
-                                <div class="pot-base"></div>
+                                <div class="pot-base-enhanced"></div>
                             </div>
                         </div>
                     </div>
@@ -375,23 +376,38 @@
                             </div>
                             <div class="card-body">
                                 <div class="media-property">
-                                    <i class="fas fa-tint"></i>
+                                    <div class="icon-tooltip">
+                                        <i class="fas fa-tint"></i>
+                                        <span class="tooltip-text">Retensi Air (%) - Kemampuan media menahan air</span>
+                                    </div>
                                     <span>Retensi Media: <span id="avg-retention">0%</span></span>
                                 </div>
                                 <div class="media-property">
-                                    <i class="fas fa-water"></i>
+                                    <div class="icon-tooltip">
+                                        <i class="fas fa-water"></i>
+                                        <span class="tooltip-text">Drainase (%) - Kemampuan media mengalirkan air</span>
+                                    </div>
                                     <span>Drainase Media: <span id="avg-drainage">0%</span></span>
                                 </div>
                                 <div class="media-property">
-                                    <i class="fas fa-wind"></i>
+                                    <div class="icon-tooltip">
+                                        <i class="fas fa-wind"></i>
+                                        <span class="tooltip-text">Porositas (%) - Ruang udara dalam media</span>
+                                    </div>
                                     <span>Porositas Media: <span id="avg-porosity">0%</span></span>
                                 </div>
                                 <div class="media-property">
-                                    <i class="fas fa-flask"></i>
+                                    <div class="icon-tooltip">
+                                        <i class="fas fa-flask"></i>
+                                        <span class="tooltip-text">Tingkat keasaman (pH)</span>
+                                    </div>
                                     <span>pH Media: <span id="avg-ph">0</span></span>
                                 </div>
                                 <div class="media-property">
-                                    <i class="fas fa-exchange-alt"></i>
+                                    <div class="icon-tooltip">
+                                        <i class="fas fa-exchange-alt"></i>
+                                        <span class="tooltip-text">Kapasitas Tukar Kation (CEC)</span>
+                                    </div>
                                     <span>CEC Media: <span id="avg-cec">0 meq/100g</span></span>
                                 </div>
                             </div>

@@ -811,6 +811,10 @@ body {
     text-align: right;
 }
 
+.text-left {
+    text-align: left;
+}
+
 .mt-1 { margin-top: 0.5rem; }
 .mt-2 { margin-top: 1rem; }
 .mt-3 { margin-top: 1.5rem; }
@@ -1208,6 +1212,9 @@ body {
 }
 
 .spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
     width: 50px;
     height: 50px;
     border: 5px solid rgba(255, 255, 255, 0.3);
@@ -2046,4 +2053,724 @@ body {
 
 .add-material-btn i {
     font-size: 1.2rem;
+}
+
+/* Tambahan CSS untuk animasi media tanam */
+.media-composition-layers {
+    position: absolute;
+    bottom: 8%;
+    left: 16%;
+    width: 68%;
+    height: 0;
+    transition: height 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 5px 5px 0 0;
+}
+
+.media-layer {
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    transition: all 0.5s ease;
+}
+
+.drainage-animation {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: linear-gradient(to top, 
+        rgba(0, 191, 255, 0.7) 0%, 
+        transparent 100%);
+    transition: height 1s ease-in-out;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.drainage-drops {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.drainage-drop {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(0, 191, 255, 0.8);
+    border-radius: 50%;
+    animation: drainage-fall 1s linear infinite;
+    box-shadow: 0 0 4px rgba(0, 191, 255, 0.8);
+}
+
+@keyframes drainage-fall {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+}
+
+/* CSS untuk tabel komposisi baru */
+.composition-table-new {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.composition-table-new th {
+    background-color: var(--primary);
+    color: white;
+    padding: 0.75rem;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.composition-table-new td {
+    padding: 0.5rem;
+    border: 1px solid var(--light-gray);
+    vertical-align: top;
+}
+
+.composition-table-new .material-row {
+    background-color: var(--surface);
+}
+
+.composition-table-new .property-cell {
+    padding: 0.25rem;
+}
+
+.composition-table-new .property-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+}
+
+.composition-table-new .property-name {
+    color: var(--text-secondary);
+}
+
+.composition-table-new .property-value {
+    font-weight: 500;
+}
+
+.composition-table-new .nutrient-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+}
+
+.composition-table-new .nutrient-name {
+    color: var(--text-secondary);
+}
+
+.composition-table-new .nutrient-value {
+    font-weight: 500;
+}
+
+.composition-table-new .action-cell {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.composition-table-new .delete-btn {
+    background: none;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.composition-table-new .delete-btn:hover {
+    background-color: rgba(244, 67, 54, 0.1);
+    transform: scale(1.1);
+}
+
+.composition-table-new .portion-input {
+    width: 60px;
+    text-align: center;
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius-sm);
+    padding: 0.25rem;
+}
+
+/* CSS untuk tabel detail komposisi media */
+.composition-detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.composition-detail-table th {
+    background-color: var(--primary);
+    color: white;
+    padding: 0.75rem;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.composition-detail-table td {
+    padding: 0.5rem;
+    border: 1px solid var(--light-gray);
+    vertical-align: top;
+}
+
+.composition-detail-table .material-row {
+    background-color: var(--surface);
+}
+
+.composition-detail-table .property-cell {
+    padding: 0.25rem;
+}
+
+.composition-detail-table .property-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+}
+
+.composition-detail-table .property-name {
+    color: var(--text-secondary);
+}
+
+.composition-detail-table .property-value {
+    font-weight: 500;
+}
+
+.composition-detail-table .nutrient-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+}
+
+.composition-detail-table .nutrient-name {
+    color: var(--text-secondary);
+}
+
+.composition-detail-table .nutrient-value {
+    font-weight: 500;
+}
+
+/* CSS untuk animasi pot yang lebih realistis */
+.pot-container-enhanced {
+    position: relative;
+    width: 180px;
+    height: 220px;
+    margin: 0 auto;
+}
+
+.pot-enhanced {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.pot-body-enhanced {
+    width: 70%;
+    height: 65%;
+    background: linear-gradient(45deg, #8B4513, #A0522D, #8B4513);
+    border-radius: 8% 8% 0 0;
+    position: relative;
+    box-shadow: 
+        0 8px 16px rgba(0,0,0,0.2),
+        inset 0 2px 4px rgba(255,255,255,0.2);
+    border: 2px solid #5D4037;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.pot-rim-enhanced {
+    width: 80%;
+    height: 12%;
+    background: linear-gradient(to bottom, #A0522D, #8B4513);
+    border-radius: 50% 50% 0 0;
+    position: relative;
+    z-index: 3;
+    box-shadow: 
+        0 -5px 10px rgba(0,0,0,0.15),
+        0 4px 8px rgba(0,0,0,0.2);
+}
+
+.pot-base-enhanced {
+    width: 85%;
+    height: 8%;
+    background: #5D4037;
+    border-radius: 0 0 15% 15%;
+    position: relative;
+    z-index: 1;
+    box-shadow: 
+        0 5px 10px rgba(0,0,0,0.3),
+        0 -2px 4px rgba(0,0,0,0.1);
+}
+
+.media-composition-enhanced {
+    position: absolute;
+    bottom: 8%;
+    left: 16%;
+    width: 68%;
+    height: 0;
+    background: linear-gradient(to top, 
+        #8B4513 0%, 
+        #A0522D 20%, 
+        #CD853F 40%, 
+        #DEB887 60%, 
+        #F5DEB3 80%, 
+        #FFF8DC 100%);
+    border-radius: 5px 5px 0 0;
+    transition: height 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
+}
+
+.water-level-enhanced {
+    width: 68%;
+    background: linear-gradient(to top, 
+        rgba(30, 144, 255, 0.9) 0%, 
+        rgba(0, 191, 255, 0.95) 30%,
+        rgba(135, 206, 250, 0.8) 100%);
+    border-radius: 5px 5px 0 0;
+    transition: height 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    bottom: 8%;
+    left: 16%;
+    z-index: 0;
+    box-shadow: 
+        inset 0 0 10px rgba(255, 255, 255, 0.5),
+        0 0 15px rgba(0, 191, 255, 0.5);
+}
+
+.watering-animation-enhanced {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 0;
+    background: linear-gradient(to bottom, 
+        rgba(30, 144, 255, 0.7), 
+        transparent 80%);
+    border-radius: 0 0 50% 50%;
+    transition: height 1s ease-in-out;
+    z-index: 4;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.drainage-animation-enhanced {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: linear-gradient(to top, 
+        rgba(0, 191, 255, 0.7) 0%, 
+        transparent 100%);
+    transition: height 1s ease-in-out;
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* CSS untuk tooltip ikon */
+.icon-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.icon-tooltip .tooltip-text {
+    visibility: hidden;
+    width: max-content;
+    max-width: 200px;
+    background-color: var(--dark);
+    color: white;
+    text-align: left;
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1000;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    font-size: 0.8rem;
+    font-weight: 400;
+    box-shadow: var(--shadow-md);
+    line-height: 1.4;
+}
+
+.icon-tooltip .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--dark) transparent transparent transparent;
+}
+
+.icon-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.media-layer-enhanced {
+    position: absolute;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+
+/* CSS untuk tabel komposisi yang diperbaiki */
+.composition-table-improved {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.composition-table-improved th {
+    background-color: var(--primary);
+    color: white;
+    padding: 0.75rem;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.composition-table-improved td {
+    padding: 0.5rem;
+    border: 1px solid var(--light-gray);
+    vertical-align: top;
+}
+
+.composition-table-improved .material-row {
+    background-color: var(--surface);
+}
+
+.composition-table-improved .property-cell {
+    padding: 0.25rem;
+}
+
+.composition-table-improved .property-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+}
+
+.composition-table-improved .property-name {
+    color: var(--text-secondary);
+}
+
+.composition-table-improved .property-value {
+    font-weight: 500;
+}
+
+.composition-table-improved .nutrient-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+}
+
+.composition-table-improved .nutrient-name {
+    color: var(--text-secondary);
+}
+
+.composition-table-improved .nutrient-value {
+    font-weight: 500;
+}
+
+.composition-table-improved .action-cell {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.composition-table-improved .delete-btn {
+    background: none;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.composition-table-improved .delete-btn:hover {
+    background-color: rgba(244, 67, 54, 0.1);
+    transform: scale(1.1);
+}
+
+.composition-table-improved .portion-input {
+    width: 60px;
+    text-align: center;
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius-sm);
+    padding: 0.25rem;
+}
+
+/* CSS untuk tabel detail komposisi media */
+.composition-detail-table-improved {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    box-shadow: var(--shadow-sm);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.composition-detail-table-improved th {
+    background-color: var(--primary);
+    color: white;
+    padding: 0.75rem;
+    text-align: center;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.composition-detail-table-improved td {
+    padding: 0.5rem;
+    border: 1px solid var(--light-gray);
+    vertical-align: top;
+}
+
+.composition-detail-table-improved .material-row {
+    background-color: var(--surface);
+}
+
+.composition-detail-table-improved .property-cell {
+    padding: 0.25rem;
+}
+
+.composition-detail-table-improved .property-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+}
+
+.composition-detail-table-improved .property-name {
+    color: var(--text-secondary);
+}
+
+.composition-detail-table-improved .property-value {
+    font-weight: 500;
+}
+
+.composition-detail-table-improved .nutrient-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+}
+
+.composition-detail-table-improved .nutrient-name {
+    color: var(--text-secondary);
+}
+
+.composition-detail-table-improved .nutrient-value {
+    font-weight: 500;
+}
+
+/* CSS untuk tooltip ikon */
+.icon-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.icon-tooltip .tooltip-text {
+    visibility: hidden;
+    width: max-content;
+    max-width: 200px;
+    background-color: var(--dark);
+    color: white;
+    text-align: left;
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1000;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0.3s;
+    font-size: 0.8rem;
+    font-weight: 400;
+    box-shadow: var(--shadow-md);
+    line-height: 1.4;
+}
+
+.icon-tooltip .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--dark) transparent transparent transparent;
+}
+
+.icon-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* CSS untuk animasi pot yang lebih realistis */
+.pot-container-enhanced {
+    position: relative;
+    width: 180px;
+    height: 220px;
+    margin: 0 auto;
+}
+
+.pot-enhanced {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.pot-body-enhanced {
+    width: 70%;
+    height: 65%;
+    background: linear-gradient(45deg, #8B4513, #A0522D, #8B4513);
+    border-radius: 8% 8% 0 0;
+    position: relative;
+    box-shadow: 
+        0 8px 16px rgba(0,0,0,0.2),
+        inset 0 2px 4px rgba(255,255,255,0.2);
+    border: 2px solid #5D4037;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.pot-rim-enhanced {
+    width: 80%;
+    height: 12%;
+    background: linear-gradient(to bottom, #A0522D, #8B4513);
+    border-radius: 50% 50% 0 0;
+    position: relative;
+    z-index: 3;
+    box-shadow: 
+        0 -5px 10px rgba(0,0,0,0.15),
+        0 4px 8px rgba(0,0,0,0.2);
+}
+
+.pot-base-enhanced {
+    width: 85%;
+    height: 8%;
+    background: #5D4037;
+    border-radius: 0 0 15% 15%;
+    position: relative;
+    z-index: 1;
+    box-shadow: 
+        0 5px 10px rgba(0,0,0,0.3),
+        0 -2px 4px rgba(0,0,0,0.1);
+}
+
+.media-composition-enhanced {
+    position: absolute;
+    bottom: 8%;
+    left: 16%;
+    width: 68%;
+    height: 0;
+    background: linear-gradient(to top, 
+        #8B4513 0%, 
+        #A0522D 20%, 
+        #CD853F 40%, 
+        #DEB887 60%, 
+        #F5DEB3 80%, 
+        #FFF8DC 100%);
+    border-radius: 5px 5px 0 0;
+    transition: height 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
+}
+
+.water-level-enhanced {
+    width: 68%;
+    background: linear-gradient(to top, 
+        rgba(30, 144, 255, 0.9) 0%, 
+        rgba(0, 191, 255, 0.95) 30%,
+        rgba(135, 206, 250, 0.8) 100%);
+    border-radius: 5px 5px 0 0;
+    transition: height 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    bottom: 8%;
+    left: 16%;
+    z-index: 0;
+    box-shadow: 
+        inset 0 0 10px rgba(255, 255, 255, 0.5),
+        0 0 15px rgba(0, 191, 255, 0.5);
+}
+
+.watering-animation-enhanced {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 0;
+    background: linear-gradient(to bottom, 
+        rgba(30, 144, 255, 0.7), 
+        transparent 80%);
+    border-radius: 0 0 50% 50%;
+    transition: height 1s ease-in-out;
+    z-index: 4;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.drainage-animation-enhanced {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: linear-gradient(to top, 
+        rgba(0, 191, 255, 0.7) 0%, 
+        transparent 100%);
+    transition: height 1s ease-in-out;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.media-layer-enhanced {
+    position: absolute;
+    width: 100%;
+    transition: all 0.5s ease;
 }

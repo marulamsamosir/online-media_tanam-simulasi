@@ -1,32 +1,32 @@
 $(document).ready(function() {
-    // Data bahan baku default dengan CEC dan pH
+    // Data bahan baku dari file JSON yang diberikan
     const defaultMaterials = [
-        { id: 1, name: "Sekam Padi Mentah", portion: 0, retention: 35.3, drainage: 64.7, porosity: 77.0, ph: 6.8, cec: 10, organicMatter: 85.2, nitrogen: 0.48, phosphorus: 0.32, potassium: 1.98, calcium: 0.15, magnesium: 0.08, carbonNitrogenRatio: 95, bulkDensity: 0.12, description: "Sekam padi mentah memiliki struktur berongga yang memberikan aerasi sangat baik. Kandungan silika yang tinggi (15-20%) membantu memperkuat dinding sel tanaman." },
-        { id: 2, name: "Sekam Padi Mentah (Fermentasi)", portion: 0, retention: 50, drainage: 50, porosity: 80.0, ph: 6.5, cec: 15, organicMatter: 82.5, nitrogen: 0.85, phosphorus: 0.45, potassium: 2.15, calcium: 0.18, magnesium: 0.12, carbonNitrogenRatio: 60, bulkDensity: 0.14, description: "Proses fermentasi meningkatkan ketersediaan nutrisi dan mengurangi rasio C/N. Mikroorganisme menguntungkan berkembang yang bermanfaat untuk kesehatan akar." },
-        { id: 3, name: "Sekam Padi Mentah (Oven)", portion: 0, retention: 40, drainage: 60, porosity: 82.0, ph: 7.0, cec: 12, organicMatter: 83.8, nitrogen: 0.52, phosphorus: 0.38, potassium: 2.05, calcium: 0.16, magnesium: 0.09, carbonNitrogenRatio: 88, bulkDensity: 0.11, description: "Pemanasan mengeringkan sekam tanpa merusak struktur, meningkatkan porositas namun mengurangi kandungan nutrisi yang mudah menguap." },
-        { id: 4, name: "Arang Sekam Padi", portion: 0, retention: 54.1, drainage: 45.9, porosity: 85.0, ph: 7.6, cec: 45.8, organicMatter: 88.3, nitrogen: 0.65, phosphorus: 0.72, potassium: 2.85, calcium: 0.25, magnesium: 0.15, carbonNitrogenRatio: 120, bulkDensity: 0.09, description: "Proses pembakaran menghasilkan struktur berpori yang sangat stabil dengan kemampuan menyerap air dan nutrisi yang tinggi. pH cenderung alkalin." },
-        { id: 5, name: "Humus Daun Bambu (Fermentasi)", portion: 0, retention: 60, drainage: 40, porosity: 65, ph: 6.2, cec: 25, organicMatter: 75.2, nitrogen: 1.25, phosphorus: 0.38, potassium: 0.85, calcium: 0.45, magnesium: 0.28, carbonNitrogenRatio: 25, bulkDensity: 0.35, description: "Kaya akan nutrisi dan mikroorganisme menguntungkan. Struktur remah yang baik untuk perkembangan akar dan retensi air yang optimal." },
-        { id: 6, name: "Humus Daun Kaliandra (Fermentasi)", portion: 0, retention: 65, drainage: 35, porosity: 70, ph: 5.8, cec: 28, organicMatter: 78.5, nitrogen: 1.45, phosphorus: 0.42, potassium: 0.92, calcium: 0.52, magnesium: 0.32, carbonNitrogenRatio: 22, bulkDensity: 0.32, description: "Daun kaliandra kaya nitrogen dan mineral. Fermentasi menghasilkan humus dengan pH agak asam yang cocok untuk Aglaonema." },
-        { id: 7, name: "Humus Andam (Fermentasi)", portion: 0, retention: 65, drainage: 35, porosity: 70, ph: 5.7, cec: 30, organicMatter: 76.8, nitrogen: 1.38, phosphorus: 0.35, potassium: 0.88, calcium: 0.48, magnesium: 0.30, carbonNitrogenRatio: 24, bulkDensity: 0.34, description: "Humus dari daun andam memiliki kandungan nutrisi seimbang dengan struktur yang gembur dan kemampuan retensi air yang baik." },
-        { id: 8, name: "Akar Pakis Cacah (Oven)", portion: 0, retention: 58.0, drainage: 42.0, porosity: 75, ph: 5.5, cec: 20, organicMatter: 82.5, nitrogen: 0.85, phosphorus: 0.28, potassium: 1.25, calcium: 0.35, magnesium: 0.22, carbonNitrogenRatio: 55, bulkDensity: 0.18, description: "Struktur berserat yang tahan lama dengan aerasi sangat baik. pH asam cocok untuk Aglaonema yang menyukai kondisi agak asam." },
-        { id: 9, name: "Biji Kapuk / Klenteng (Oven)", portion: 0, retention: 30, drainage: 70, porosity: 55, ph: 6.1, cec: 15, organicMatter: 88.2, nitrogen: 0.42, phosphorus: 0.25, potassium: 1.15, calcium: 0.12, magnesium: 0.08, carbonNitrogenRatio: 110, bulkDensity: 0.22, description: "Struktur ringan dengan drainase sangat baik. Kandungan minyak alami membantu menjaga kelembaban tanpa membuat media terlalu basah." },
-        { id: 10, name: "Cocopeat (Fermentasi)", portion: 0, retention: 80.0, drainage: 20.0, porosity: 94.0, ph: 6.0, cec: 30, organicMatter: 92.5, nitrogen: 0.55, phosphorus: 0.18, potassium: 0.85, calcium: 0.25, magnesium: 0.15, carbonNitrogenRatio: 105, bulkDensity: 0.08, description: "Kemampuan retensi air sangat tinggi dengan struktur berongga yang memberikan aerasi optimal. Cocok sebagai komponen utama media." },
-        { id: 11, name: "Cocofiber", portion: 0, retention: 42.0, drainage: 58.0, porosity: 80, ph: 5.8, cec: 25, organicMatter: 90.8, nitrogen: 0.48, phosphorus: 0.15, potassium: 0.78, calcium: 0.22, magnesium: 0.12, carbonNitrogenRatio: 115, bulkDensity: 0.11, description: "Serat kelapa yang memberikan struktur dan aerasi sangat baik. Tahan lama dan tidak mudah lapuk dalam kondisi basah." },
-        { id: 12, name: "Perlite", portion: 0, retention: 35.0, drainage: 65.0, porosity: 90, ph: 7.2, cec: 1.5, organicMatter: 0, nitrogen: 0, phosphorus: 0, potassium: 0, calcium: 0.05, magnesium: 0.02, carbonNitrogenRatio: 0, bulkDensity: 0.10, description: "Mineral vulkanik yang dipanaskan hingga mengembang. Sangat ringan dengan porositas tinggi, meningkatkan aerasi tanpa menambah berat media." },
-        { id: 13, name: "Pasir Malang", portion: 0, retention: 25.4, drainage: 74.6, porosity: 50, ph: 6.9, cec: 7.3, organicMatter: 0, nitrogen: 0, phosphorus: 0.02, potassium: 0.15, calcium: 0.85, magnesium: 0.12, carbonNitrogenRatio: 0, bulkDensity: 1.45, description: "Pasir vulkanik dengan butiran kasar dan berpori. Memberikan drainase sangat baik dan mencegah media menjadi terlalu padat." },
-        { id: 14, name: "Vermiculite", portion: 0, retention: 65.0, drainage: 35.0, porosity: 85, ph: 7.0, cec: 100, organicMatter: 0, nitrogen: 0, phosphorus: 0, potassium: 3.5, calcium: 1.2, magnesium: 15.5, carbonNitrogenRatio: 0, bulkDensity: 0.12, description: "Mineral yang dipanaskan hingga mengembang seperti akordeon. Sangat ringan dengan kemampuan menahan air dan nutrisi yang tinggi." },
-        { id: 15, name: "Zeolit", portion: 0, retention: 40.0, drainage: 60.0, porosity: 60, ph: 7.5, cec: 150, organicMatter: 0, nitrogen: 0, phosphorus: 0, potassium: 1.8, calcium: 2.5, magnesium: 0.8, carbonNitrogenRatio: 0, bulkDensity: 0.95, description: "Mineral aluminosilikat dengan struktur kristal berongga. CEC sangat tinggi membuatnya ideal untuk menyimpan dan melepaskan nutrisi secara bertahap." },
-        { id: 16, name: "Top Soil", portion: 0, retention: 45, drainage: 30, porosity: 50, ph: 6.5, cec: 15, organicMatter: 45.2, nitrogen: 0.25, phosphorus: 0.12, potassium: 0.35, calcium: 0.85, magnesium: 0.42, carbonNitrogenRatio: 18, bulkDensity: 1.25, description: "Tanah lapisan atas yang kaya humus dan mikroorganisme. Menyediakan nutrisi alami namun dapat memadat jika digunakan berlebihan." },
-        { id: 17, name: "Pupuk Kandang Kambing (Fermentasi)", portion: 0, retention: 60, drainage: 40, porosity: 65, ph: 7.2, cec: 50, organicMatter: 65.8, nitrogen: 1.85, phosphorus: 1.25, potassium: 1.65, calcium: 1.45, magnesium: 0.75, carbonNitrogenRatio: 20, bulkDensity: 0.55, description: "Sumber nutrisi organik lengkap dengan mikroorganisme menguntungkan. Fermentasi mengurangi panas dan meningkatkan ketersediaan nutrisi." },
-        { id: 18, name: "Vermicompost (Kascing)", portion: 0, retention: 70.0, drainage: 30.0, porosity: 75, ph: 6.8, cec: 60, organicMatter: 58.5, nitrogen: 1.95, phosphorus: 1.85, potassium: 1.25, calcium: 2.15, magnesium: 0.85, carbonNitrogenRatio: 15, bulkDensity: 0.45, description: "Kompos hasil proses cacing tanah yang kaya hormon pertumbuhan, enzim, dan mikroorganisme menguntungkan. Nutrisi tersedia dalam bentuk yang mudah diserap tanaman." },
-        { id: 19, name: "Arang Kayu", portion: 0, retention: 25, drainage: 75, porosity: 80, ph: 8.5, cec: 20, organicMatter: 85.5, nitrogen: 0.35, phosphorus: 0.15, potassium: 1.05, calcium: 0.95, magnesium: 0.25, carbonNitrogenRatio: 130, bulkDensity: 0.25, description: "Struktur berpori yang stabil dengan pH alkalin. Dapat menyerap racun dan menyediakan habitat untuk mikroorganisme menguntungkan." },
-        { id: 20, name: "Rockwool", portion: 0, retention: 80.0, drainage: 20.0, porosity: 95, ph: 7.0, cec: 5, organicMatter: 0, nitrogen: 0, phosphorus: 0, potassium: 0, calcium: 0.35, magnesium: 0.08, carbonNitrogenRatio: 0, bulkDensity: 0.07, description: "Serat batuan yang dipanaskan, sangat steril dengan kemampuan menahan air dan udara secara seimbang. pH netral setelah dicuci." },
-        { id: 21, name: "Kerikil", portion: 0, retention: 5, drainage: 95, porosity: 40, ph: 7.1, cec: 1, organicMatter: 0, nitrogen: 0, phosphorus: 0, potassium: 0, calcium: 0.12, magnesium: 0.03, carbonNitrogenRatio: 0, bulkDensity: 1.65, description: "Memberikan drainase maksimal dan mencegah media menjadi terlalu padat. Biasanya digunakan sebagai lapisan dasar pot." },
-        { id: 22, name: "Pasir Sungai", portion: 0, retention: 15.0, drainage: 85.0, porosity: 45, ph: 7.0, cec: 2, organicMatter: 0, nitrogen: 0, phosphorus: 0.01, potassium: 0.08, calcium: 0.45, magnesium: 0.05, carbonNitrogenRatio: 0, bulkDensity: 1.55, description: "Butiran halus dengan drainase baik. Dapat memadat jika digunakan berlebihan, sebaiknya dicampur dengan bahan organik." },
-        { id: 23, name: "Hydroton", portion: 0, retention: 45, drainage: 55, porosity: 80, ph: 7.0, cec: 5, organicMatter: 0, nitrogen: 0, phosphorus: 0, potassium: 0.15, calcium: 0.25, magnesium: 0.08, carbonNitrogenRatio: 0, bulkDensity: 0.35, description: "Bola tanah liat yang dipanaskan, ringan dan berpori. Menyediakan aerasi sangat baik dengan retensi air yang cukup." },
-        { id: 24, name: "Spagnum Peat Moss", portion: 0, retention: 90.0, drainage: 10.0, porosity: 90, ph: 4.0, cec: 100, organicMatter: 98.2, nitrogen: 0.85, phosphorus: 0.08, potassium: 0.15, calcium: 0.45, magnesium: 0.18, carbonNitrogenRatio: 58, bulkDensity: 0.09, description: "Lumut gambut dengan kemampuan retensi air sangat tinggi dan pH sangat asam. CEC tinggi membuatnya ideal untuk menyimpan nutrisi." },
-        { id: 25, name: "Biochar", portion: 0, retention: 70, drainage: 30, porosity: 85, ph: 8.0, cec: 40, organicMatter: 92.5, nitrogen: 0.55, phosphorus: 0.35, potassium: 1.85, calcium: 1.15, magnesium: 0.45, carbonNitrogenRatio: 125, bulkDensity: 0.22, description: "Arang yang diproduksi secara terkontrol, sangat berpori dengan kemampuan menyerap air dan nutrisi. Menyediakan habitat untuk mikroorganisme menguntungkan." },
-        { id: 26, name: "Pumice", portion: 0, retention: 35, drainage: 65, porosity: 80, ph: 7.2, cec: 10, organicMatter: 0, nitrogen: 0, phosphorus: 0, potassium: 2.15, calcium: 1.85, magnesium: 0.35, carbonNitrogenRatio: 0, bulkDensity: 0.45, description: "Batu apung vulkanik yang sangat ringan dan berpori. Memberikan aerasi sangat baik tanpa mengubah pH media secara signifikan." }
+        { id: 1, name: "Sekam Padi Mentah", portion: 0, retention: 35.3, drainage: 64.7, porosity: 77.0, ph: 6.8, cec: 10, nutrient_N_percent: 0.45, nutrient_P_percent: 0.15, nutrient_K_percent: 0.6, nutrient_Ca_percent: 0.1, nutrient_Mg_percent: 0.12, nutrient_S_percent: 0.08, nutrient_Fe_ppm: 200, nutrient_Mn_ppm: 800, nutrient_Zn_ppm: 15, nutrient_Cu_ppm: 5, nutrient_B_ppm: 8, description: "Kulit biji padi tanpa pengolahan. Sangat ringan, berfungsi utama untuk meningkatkan porositas dan aerasi. Cepat lapuk dan berisiko membawa patogen. Retensi air rendah dan drainase sangat tinggi." },
+        { id: 2, name: "Sekam Padi Mentah (Fermentasi)", portion: 0, retention: 50, drainage: 50, porosity: 80.0, ph: 6.5, cec: 18, nutrient_N_percent: 0.6, nutrient_P_percent: 0.2, nutrient_K_percent: 0.7, nutrient_Ca_percent: 0.15, nutrient_Mg_percent: 0.18, nutrient_S_percent: 0.1, nutrient_Fe_ppm: 250, nutrient_Mn_ppm: 850, nutrient_Zn_ppm: 20, nutrient_Cu_ppm: 7, nutrient_B_ppm: 10, description: "Sekam mentah yang telah melalui proses dekomposisi oleh mikroorganisme. Proses ini menstabilkan bahan, mengurangi risiko patogen, dan membuat beberapa unsur hara lebih tersedia. Sifat fisik sedikit membaik dibandingkan sekam mentah." },
+        { id: 3, name: "Sekam Padi Mentah (Oven)", portion: 0, retention: 40, drainage: 60, porosity: 82.0, ph: 7.0, cec: 12, nutrient_N_percent: 0.4, nutrient_P_percent: 0.15, nutrient_K_percent: 0.6, nutrient_Ca_percent: 0.1, nutrient_Mg_percent: 0.12, nutrient_S_percent: 0.08, nutrient_Fe_ppm: 200, nutrient_Mn_ppm: 800, nutrient_Zn_ppm: 15, nutrient_Cu_ppm: 5, nutrient_B_ppm: 8, description: "Sekam mentah yang dipanaskan dalam oven untuk sterilisasi. Proses ini membunuh patogen jamur dan bakteri. Sifat fisik dan kimianya tidak banyak berubah dari sekam mentah, namun menjadi lebih steril." },
+        { id: 4, name: "Arang Sekam Padi", portion: 0, retention: 54.1, drainage: 45.9, porosity: 85.0, ph: 7.8, cec: 45.8, nutrient_N_percent: 0.1, nutrient_P_percent: 0.35, nutrient_K_percent: 1.5, nutrient_Ca_percent: 0.2, nutrient_Mg_percent: 0.15, nutrient_S_percent: 0.12, nutrient_Fe_ppm: 300, nutrient_Mn_ppm: 500, nutrient_Zn_ppm: 30, nutrient_Cu_ppm: 10, nutrient_B_ppm: 20, description: "Sekam padi yang dibakar secara tidak sempurna (pirolisis). Sangat porous, steril, dan tidak mudah lapuk. Sangat baik untuk drainase dan aerasi. pH cenderung basa/alkalis. Memiliki KTK yang baik dan kaya akan Kalium dan Silika." },
+        { id: 5, name: "Humus Daun Bambu (Fermentasi)", portion: 0, retention: 62, drainage: 38, porosity: 65, ph: 6.2, cec: 25, nutrient_N_percent: 1.2, nutrient_P_percent: 0.4, nutrient_K_percent: 0.8, nutrient_Ca_percent: 1.0, nutrient_Mg_percent: 0.5, nutrient_S_percent: 0.2, nutrient_Fe_ppm: 1000, nutrient_Mn_ppm: 400, nutrient_Zn_ppm: 50, nutrient_Cu_ppm: 15, nutrient_B_ppm: 25, description: "Hasil dekomposisi serasah daun bambu. Kaya akan Silika (Si) yang memperkuat sel tanaman. Memiliki struktur yang gembur, retensi air baik, dan kaya akan mikroorganisme yang bermanfaat bagi tanah." },
+        { id: 6, name: "Humus Daun Kaliandra (Fermentasi)", portion: 0, retention: 65, drainage: 35, porosity: 70, ph: 5.8, cec: 28, nutrient_N_percent: 2.8, nutrient_P_percent: 0.5, nutrient_K_percent: 1.0, nutrient_Ca_percent: 1.2, nutrient_Mg_percent: 0.6, nutrient_S_percent: 0.25, nutrient_Fe_ppm: 1200, nutrient_Mn_ppm: 450, nutrient_Zn_ppm: 60, nutrient_Cu_ppm: 20, nutrient_B_ppm: 30, description: "Humus dari daun Calliandra calothyrsus, sejenis legum. Karena sifatnya sebagai legum, humus ini cenderung kaya akan Nitrogen. Sangat baik sebagai komponen penyubur media tanam." },
+        { id: 7, name: "Humus Andam (Fermentasi)", portion: 0, retention: 65, drainage: 35, porosity: 70, ph: 5.7, cec: 30, nutrient_N_percent: 1.5, nutrient_P_percent: 0.3, nutrient_K_percent: 0.6, nutrient_Ca_percent: 0.8, nutrient_Mg_percent: 0.4, nutrient_S_percent: 0.18, nutrient_Fe_ppm: 900, nutrient_Mn_ppm: 300, nutrient_Zn_ppm: 40, nutrient_Cu_ppm: 12, nutrient_B_ppm: 20, description: "Humus yang berasal dari dekomposisi serasah daun dan ranting dari tanaman paku-pakuan hutan (Gleichenia linearis). Memiliki struktur yang sangat baik, gembur, dan kaya bahan organik, namun cenderung lebih asam." },
+        { id: 8, name: "Akar Pakis Cacah (Oven)", portion: 0, retention: 58.0, drainage: 42.0, porosity: 75, ph: 5.5, cec: 20, nutrient_N_percent: 0.2, nutrient_P_percent: 0.05, nutrient_K_percent: 0.3, nutrient_Ca_percent: 0.1, nutrient_Mg_percent: 0.08, nutrient_S_percent: 0.05, nutrient_Fe_ppm: 150, nutrient_Mn_ppm: 50, nutrient_Zn_ppm: 10, nutrient_Cu_ppm: 4, nutrient_B_ppm: 5, description: "Potongan akar dari tanaman paku tiang. Strukturnya stabil, tidak mudah lapuk, serta memiliki aerasi dan drainase yang sangat baik sambil tetap mampu menahan kelembaban. Proses oven bertujuan untuk sterilisasi." },
+        { id: 9, name: "Biji Kapuk / Klenteng (Oven)", portion: 0, retention: 30, drainage: 70, porosity: 55, ph: 6.1, cec: 15, nutrient_N_percent: 0.7, nutrient_P_percent: 0.3, nutrient_K_percent: 0.5, nutrient_Ca_percent: 0.2, nutrient_Mg_percent: 0.2, nutrient_S_percent: 0.1, nutrient_Fe_ppm: 50, nutrient_Mn_ppm: 20, nutrient_Zn_ppm: 15, nutrient_Cu_ppm: 5, nutrient_B_ppm: 10, description: "Biji dari buah kapuk. Berfungsi sebagai bahan penambah porositas dan drainase. Cukup ringan namun tidak menahan banyak air. Kandungan nutrisinya rendah." },
+        { id: 10, name: "Cocopeat (Fermentasi)", portion: 0, retention: 80.0, drainage: 20.0, porosity: 94.0, ph: 6.0, cec: 40, nutrient_N_percent: 0.5, nutrient_P_percent: 0.1, nutrient_K_percent: 1.2, nutrient_Ca_percent: 0.4, nutrient_Mg_percent: 0.3, nutrient_S_percent: 0.1, nutrient_Fe_ppm: 80, nutrient_Mn_ppm: 15, nutrient_Zn_ppm: 8, nutrient_Cu_ppm: 20, nutrient_B_ppm: 5, description: "Sabut kelapa giling halus. Daya serap air sangat tinggi. Porositas juga sangat baik. Perlu diwaspadai kandungan tanin dan garam (NaCl) yang tinggi jika tidak diolah dengan baik (pencucian/buffering). Fermentasi membantu mengurangi zat tanin." },
+        { id: 11, name: "Cocofiber", portion: 0, retention: 42.0, drainage: 58.0, porosity: 80, ph: 5.8, cec: 25, nutrient_N_percent: 0.2, nutrient_P_percent: 0.05, nutrient_K_percent: 0.8, nutrient_Ca_percent: 0.2, nutrient_Mg_percent: 0.15, nutrient_S_percent: 0.05, nutrient_Fe_ppm: 40, nutrient_Mn_ppm: 10, nutrient_Zn_ppm: 5, nutrient_Cu_ppm: 10, nutrient_B_ppm: 3, description: "Serat kasar dari sabut kelapa. Berbeda dengan cocopeat, cocofiber tidak menahan banyak air. Fungsinya adalah menciptakan rongga udara besar dalam media, sangat baik untuk aerasi dan drainase." },
+        { id: 12, name: "Perlite", portion: 0, retention: 35.0, drainage: 65.0, porosity: 90, ph: 7.2, cec: 1.5, nutrient_N_percent: 0.0, nutrient_P_percent: 0.0, nutrient_K_percent: 0.0, nutrient_Ca_percent: 0.0, nutrient_Mg_percent: 0.0, nutrient_S_percent: 0.0, nutrient_Fe_ppm: 0, nutrient_Mn_ppm: 0, nutrient_Zn_ppm: 0, nutrient_Cu_ppm: 0, nutrient_B_ppm: 0, description: "Batuan silika vulkanik yang dipanaskan hingga mengembang. Sangat ringan, steril, dan pH netral. Tidak menyumbang unsur hara. Fungsinya murni untuk meningkatkan aerasi dan drainase media tanam secara signifikan." },
+        { id: 13, name: "Pasir Malang", portion: 0, retention: 25.4, drainage: 74.6, porosity: 50, ph: 6.9, cec: 7.3, nutrient_N_percent: 0.0, nutrient_P_percent: 0.01, nutrient_K_percent: 0.02, nutrient_Ca_percent: 0.1, nutrient_Mg_percent: 0.05, nutrient_S_percent: 0.0, nutrient_Fe_ppm: 50, nutrient_Mn_ppm: 10, nutrient_Zn_ppm: 2, nutrient_Cu_ppm: 1, nutrient_B_ppm: 1, description: "Berasal dari lahar atau magma gunung berapi. Partikelnya tajam dan sangat porous. Fungsi utamanya adalah memberatkan media, menciptakan drainase yang sangat baik, dan mencegah media menjadi padat. Steril dan miskin hara." },
+        { id: 14, name: "Vermiculite", portion: 0, retention: 65.0, drainage: 35.0, porosity: 85, ph: 7.0, cec: 120, nutrient_N_percent: 0.0, nutrient_P_percent: 0.0, nutrient_K_percent: 2.5, nutrient_Ca_percent: 1.0, nutrient_Mg_percent: 5.0, nutrient_S_percent: 0.0, nutrient_Fe_ppm: 200, nutrient_Mn_ppm: 20, nutrient_Zn_ppm: 5, nutrient_Cu_ppm: 2, nutrient_B_ppm: 2, description: "Mineral mika yang dipanaskan hingga mengembang. Mampu menyerap air dan nutrisi dalam jumlah besar (retensi tinggi) dan melepaskannya secara perlahan. Memiliki KTK yang sangat tinggi. Baik untuk menjaga kelembaban dan nutrisi." },
+        { id: 15, name: "Zeolit", portion: 0, retention: 40.0, drainage: 60.0, porosity: 60, ph: 7.5, cec: 150, nutrient_N_percent: 0.0, nutrient_P_percent: 0.0, nutrient_K_percent: 1.8, nutrient_Ca_percent: 2.5, nutrient_Mg_percent: 0.5, nutrient_S_percent: 0.0, nutrient_Fe_ppm: 100, nutrient_Mn_ppm: 15, nutrient_Zn_ppm: 5, nutrient_Cu_ppm: 1, nutrient_B_ppm: 1, description: "Mineral aluminosilikat dengan struktur berongga. Memiliki KTK sangat tinggi, mampu menyerap dan melepaskan kation (hara) dan air secara perlahan. Juga dapat mengikat amonia dan logam berat. Baik sebagai 'slow-release fertilizer' alami." },
+        { id: 16, name: "Top Soil", portion: 0, retention: 45, drainage: 55, porosity: 50, ph: 6.5, cec: 15, nutrient_N_percent: 0.15, nutrient_P_percent: 0.06, nutrient_K_percent: 0.2, nutrient_Ca_percent: 0.5, nutrient_Mg_percent: 0.2, nutrient_S_percent: 0.05, nutrient_Fe_ppm: 500, nutrient_Mn_ppm: 100, nutrient_Zn_ppm: 30, nutrient_Cu_ppm: 10, nutrient_B_ppm: 15, description: "Lapisan tanah atas, umumnya jenis lempung berpasir. Sifatnya sangat bervariasi tergantung lokasi. Digunakan sebagai 'badan' media tanam. Cenderung padat jika tidak dicampur dengan bahan lain, namun merupakan sumber hara mikro yang beragam." },
+        { id: 17, name: "Pupuk Kandang Kambing (Fermentasi)", portion: 0, retention: 60, drainage: 40, porosity: 65, ph: 7.2, cec: 55, nutrient_N_percent: 2.5, nutrient_P_percent: 0.8, nutrient_K_percent: 2.2, nutrient_Ca_percent: 1.5, nutrient_Mg_percent: 0.6, nutrient_S_percent: 0.4, nutrient_Fe_ppm: 1500, nutrient_Mn_ppm: 350, nutrient_Zn_ppm: 200, nutrient_Cu_ppm: 40, nutrient_B_ppm: 45, description: "Kotoran kambing yang telah terdekomposisi sempurna (matang). Berbentuk granul, cenderung kering. Merupakan sumber hara makro (terutama N dan K) dan mikro yang sangat baik. Memperbaiki struktur tanah dan aktivitas mikroba." },
+        { id: 18, name: "Vermicompost (Kascing)", portion: 0, retention: 70.0, drainage: 30.0, porosity: 75, ph: 6.8, cec: 80, nutrient_N_percent: 1.8, nutrient_P_percent: 1.2, nutrient_K_percent: 1.5, nutrient_Ca_percent: 2.0, nutrient_Mg_percent: 0.7, nutrient_S_percent: 0.5, nutrient_Fe_ppm: 2000, nutrient_Mn_ppm: 500, nutrient_Zn_ppm: 250, nutrient_Cu_ppm: 50, nutrient_B_ppm: 30, description: "Pupuk organik hasil pencernaan cacing tanah. Memiliki tekstur remah yang sangat baik, kaya akan hara siap serap, enzim, dan hormon pertumbuhan. Dianggap sebagai salah satu pupuk organik terbaik untuk kesuburan tanah." },
+        { id: 19, name: "Arang Kayu", portion: 0, retention: 25, drainage: 75, porosity: 80, ph: 8.5, cec: 20, nutrient_N_percent: 0.05, nutrient_P_percent: 0.1, nutrient_K_percent: 0.8, nutrient_Ca_percent: 0.5, nutrient_Mg_percent: 0.2, nutrient_S_percent: 0.05, nutrient_Fe_ppm: 400, nutrient_Mn_ppm: 200, nutrient_Zn_ppm: 25, nutrient_Cu_ppm: 8, nutrient_B_ppm: 15, description: "Potongan kayu yang dibakar dengan proses pirolisis. Sangat porous dan stabil (tidak lapuk). Meningkatkan aerasi dan drainase secara drastis. pH sangat basa, perlu diperhatikan penggunaannya. Sumber Kalium yang baik." },
+        { id: 20, name: "Rockwool", portion: 0, retention: 80.0, drainage: 20.0, porosity: 95, ph: 7.0, cec: 5, nutrient_N_percent: 0.0, nutrient_P_percent: 0.0, nutrient_K_percent: 0.0, nutrient_Ca_percent: 0.0, nutrient_Mg_percent: 0.0, nutrient_S_percent: 0.0, nutrient_Fe_ppm: 0, nutrient_Mn_ppm: 0, nutrient_Zn_ppm: 0, nutrient_Cu_ppm: 0, nutrient_B_ppm: 0, description: "Bahan anorganik terbuat dari batuan basalt yang dilelehkan dan disentrifugal menjadi serat. Kapasitas menahan air dan udara sangat tinggi. Steril dan inert (tidak mengandung hara). Umum digunakan untuk persemaian dan hidroponik." },
+        { id: 21, name: "Kerikil", portion: 0, retention: 5, drainage: 95, porosity: 40, ph: 7.1, cec: 1, nutrient_N_percent: 0.0, nutrient_P_percent: 0.0, nutrient_K_percent: 0.0, nutrient_Ca_percent: 0.0, nutrient_Mg_percent: 0.0, nutrient_S_percent: 0.0, nutrient_Fe_ppm: 0, nutrient_Mn_ppm: 0, nutrient_Zn_ppm: 0, nutrient_Cu_ppm: 0, nutrient_B_ppm: 0, description: "Batuan kecil (agregat kasar). Tidak menahan air dan hara sama sekali. Fungsinya murni untuk drainase, sebagai lapisan dasar pot untuk mencegah penyumbatan lubang drainase, atau sebagai pemberat media." },
+        { id: 22, name: "Pasir Sungai", portion: 0, retention: 15.0, drainage: 85.0, porosity: 45, ph: 7.0, cec: 2, nutrient_N_percent: 0.0, nutrient_P_percent: 0.0, nutrient_K_percent: 0.0, nutrient_Ca_percent: 0.0, nutrient_Mg_percent: 0.0, nutrient_S_percent: 0.0, nutrient_Fe_ppm: 10, nutrient_Mn_ppm: 2, nutrient_Zn_ppm: 1, nutrient_Cu_ppm: 0, nutrient_B_ppm: 0, description: "Agregat halus dari sungai. Sangat baik untuk meningkatkan drainase dan mencegah pemadatan media. Retensi air dan KTK sangat rendah. Harus dicuci bersih untuk menghilangkan lumpur dan garam potensial." },
+        { id: 23, name: "Hydroton", portion: 0, retention: 45, drainage: 55, porosity: 80, ph: 7.0, cec: 5, nutrient_N_percent: 0.0, nutrient_P_percent: 0.0, nutrient_K_percent: 0.0, nutrient_Ca_percent: 0.0, nutrient_Mg_percent: 0.0, nutrient_S_percent: 0.0, nutrient_Fe_ppm: 0, nutrient_Mn_ppm: 0, nutrient_Zn_ppm: 0, nutrient_Cu_ppm: 0, nutrient_B_ppm: 0, description: "Lempung yang dibakar dalam bentuk pelet bulat (LECA - Lightweight Expanded Clay Aggregate). Ringan, porous, dan pH netral. Dapat menahan air di dalam strukturnya sambil menyediakan aerasi yang baik di antara pelet. Dapat digunakan kembali." },
+        { id: 24, name: "Spagnum Peat Moss", portion: 0, retention: 90.0, drainage: 10.0, porosity: 90, ph: 4.0, cec: 110, nutrient_N_percent: 0.8, nutrient_P_percent: 0.1, nutrient_K_percent: 0.15, nutrient_Ca_percent: 0.2, nutrient_Mg_percent: 0.1, nutrient_S_percent: 0.2, nutrient_Fe_ppm: 50, nutrient_Mn_ppm: 20, nutrient_Zn_ppm: 5, nutrient_Cu_ppm: 2, nutrient_B_ppm: 1, description: "Bahan organik dari dekomposisi lumut Sphagnum. Daya tahan airnya luar biasa. Sangat asam (pH rendah), sehingga sering perlu ditambahkan kapur (dolomit). Miskin unsur hara namun kondisioner media yang sangat baik." },
+        { id: 25, name: "Biochar", portion: 0, retention: 70, drainage: 30, porosity: 85, ph: 8.0, cec: 50, nutrient_N_percent: 0.1, nutrient_P_percent: 0.2, nutrient_K_percent: 1.0, nutrient_Ca_percent: 0.8, nutrient_Mg_percent: 0.3, nutrient_S_percent: 0.1, nutrient_Fe_ppm: 500, nutrient_Mn_ppm: 300, nutrient_Zn_ppm: 40, nutrient_Cu_ppm: 15, nutrient_B_ppm: 25, description: "Istilah umum untuk arang dari biomassa yang digunakan sebagai amandemen tanah. Sifatnya sangat mirip arang sekam atau arang kayu. Sangat porous, KTK tinggi, pH basa, dan stabil. Sangat baik untuk 'rumah' mikroba dan menahan hara." },
+        { id: 26, name: "Pumice", portion: 0, retention: 38, drainage: 62, porosity: 80, ph: 7.2, cec: 4, nutrient_N_percent: 0.0, nutrient_P_percent: 0.01, nutrient_K_percent: 0.05, nutrient_Ca_percent: 0.1, nutrient_Mg_percent: 0.02, nutrient_S_percent: 0.0, nutrient_Fe_ppm: 40, nutrient_Mn_ppm: 8, nutrient_Zn_ppm: 2, nutrient_Cu_ppm: 1, nutrient_B_ppm: 1, description: "Batu apung, batuan vulkanik ringan yang terbentuk dari lava berbuih. Strukturnya sangat berpori, memberikan aerasi dan drainase yang sangat baik. Tidak menyerap banyak air di permukaannya tetapi menahannya di dalam pori-pori. Sangat awet." }
     ];
     
     let materials = [...defaultMaterials];
@@ -285,7 +285,7 @@ $(document).ready(function() {
             
             // pH
             details.append($('<span>').addClass('material-detail').append(
-                $('<i>').addClass('fas fa-vial'),
+                $('<i>').addClass('fas fa-flask'),
                 $('<span>').text('pH:' + material.ph)
             ));
             
@@ -336,6 +336,17 @@ $(document).ready(function() {
             porosity: selectedMaterial.porosity,
             ph: selectedMaterial.ph,
             cec: selectedMaterial.cec,
+            nutrient_N_percent: selectedMaterial.nutrient_N_percent,
+            nutrient_P_percent: selectedMaterial.nutrient_P_percent,
+            nutrient_K_percent: selectedMaterial.nutrient_K_percent,
+            nutrient_Ca_percent: selectedMaterial.nutrient_Ca_percent,
+            nutrient_Mg_percent: selectedMaterial.nutrient_Mg_percent,
+            nutrient_S_percent: selectedMaterial.nutrient_S_percent,
+            nutrient_Fe_ppm: selectedMaterial.nutrient_Fe_ppm,
+            nutrient_Mn_ppm: selectedMaterial.nutrient_Mn_ppm,
+            nutrient_Zn_ppm: selectedMaterial.nutrient_Zn_ppm,
+            nutrient_Cu_ppm: selectedMaterial.nutrient_Cu_ppm,
+            nutrient_B_ppm: selectedMaterial.nutrient_B_ppm,
             portion: 0
         });
         
@@ -348,7 +359,7 @@ $(document).ready(function() {
         $('#selected-material-text').text('Pilih Bahan Baku');
     }
     
-    // Render komposisi dengan desain tabel Material Design yang diperbaiki
+    // Render komposisi dengan desain tabel yang diperbaiki
     function renderComposition() {
         const container = $('#composition-list');
         container.empty();
@@ -358,72 +369,34 @@ $(document).ready(function() {
             return;
         }
         
-        // Buat tabel dengan desain baru
-        const table = $('<table>').addClass('composition-table').css('width', '100%');
+        // Buat tabel dengan desain yang diperbaiki
+        const table = $('<table>').addClass('composition-table-improved');
         const thead = $('<thead>');
         const tbody = $('<tbody>');
         
-        // Baris header pertama
-        const headerRow1 = $('<tr>');
-        headerRow1.append($('<th rowspan="2" width="55%">').text('BAHAN'));
-        headerRow1.append($('<th rowspan="2" width="15%">').text('PROPORSI'));
-        headerRow1.append($('<th colspan="5" width="25%">').text('KOMPONEN'));
-        headerRow1.append($('<th rowspan="2" width="5%">').text('AKSI'));
-        thead.append(headerRow1);
-        
-        // Baris header kedua (sub-kolom komponen)
-        const headerRow2 = $('<tr>');
-        
-        // Retensi dengan tooltip
-        headerRow2.append($('<th width="5%">').append(
-            $('<div>').addClass('tooltip-container text-center').append(
-                $('<i>').addClass('fas fa-tint table-header-icon'),
-                $('<span>').addClass('tooltip-text tooltip-bottom').text('Retensi Air (%) - Kemampuan media menahan air')
-            )
-        ));
-        
-        // Drainase dengan tooltip
-        headerRow2.append($('<th width="5%">').append(
-            $('<div>').addClass('tooltip-container text-center').append(
-                $('<i>').addClass('fas fa-water table-header-icon'),
-                $('<span>').addClass('tooltip-text tooltip-bottom').text('Drainase (%) - Kemampuan media mengalirkan air')
-            )
-        ));
-        
-        // Porositas dengan tooltip
-        headerRow2.append($('<th width="5%">').append(
-            $('<div>').addClass('tooltip-container text-center').append(
-                $('<i>').addClass('fas fa-wind table-header-icon'),
-                $('<span>').addClass('tooltip-text tooltip-bottom').text('Porositas (%) - Ruang udara dalam media')
-            )
-        ));
-        
-        // pH dengan tooltip
-        headerRow2.append($('<th width="5%">').append(
-            $('<div>').addClass('tooltip-container text-center').append(
-                $('<i>').addClass('fas fa-vial table-header-icon'),
-                $('<span>').addClass('tooltip-text tooltip-bottom').text('Tingkat keasaman (pH)')
-            )
-        ));
-        
-        // CEC dengan tooltip
-        headerRow2.append($('<th width="5%">').append(
-            $('<div>').addClass('tooltip-container text-center').append(
-                $('<i>').addClass('fas fa-exchange-alt table-header-icon'),
-                $('<span>').addClass('tooltip-text tooltip-bottom').text('Kapasitas Tukar Kation (CEC)')
-            )
-        ));
-        
-        thead.append(headerRow2);
+        // Baris header
+        const headerRow = $('<tr>');
+        headerRow.append($('<th width="3%">').text('NO'));
+        headerRow.append($('<th width="52%">').text('BAHAN'));
+        headerRow.append($('<th width="10%">').text('BAGIAN'));
+        headerRow.append($('<th width="16%">').text('SIFAT'));
+        headerRow.append($('<th width="16%">').text('NUTRISI'));
+        headerRow.append($('<th width="3%">').text('AKSI'));
+        thead.append(headerRow);
+        table.append(thead);
         
         // Isi tabel
         composition.forEach((item, index) => {
-            const row = $('<tr>');
+            // Baris utama untuk bahan
+            const mainRow = $('<tr>').addClass('material-row');
+            
+            // Nomor
+            mainRow.append($('<td>').addClass('text-center').text(index + 1));
             
             // Nama bahan
-            row.append($('<td>').addClass('material-name').text(item.name));
+            mainRow.append($('<td>').addClass('material-name').text(item.name));
             
-            // Input bagian (proposi)
+            // Input bagian
             const portionInput = $('<input>').attr({
                 type: 'number',
                 min: '0',
@@ -435,14 +408,152 @@ $(document).ready(function() {
                 updateTotalPortion();
             });
             
-            row.append($('<td>').addClass('text-center').append(portionInput));
+            mainRow.append($('<td>').addClass('text-center').append(portionInput));
             
-            // Nilai properti - setiap properti dalam sel terpisah
-            row.append($('<td>').addClass('text-center').text(item.retention.toFixed(1)));
-            row.append($('<td>').addClass('text-center').text(item.drainage.toFixed(1)));
-            row.append($('<td>').addClass('text-center').text(item.porosity.toFixed(1)));
-            row.append($('<td>').addClass('text-center').text(item.ph.toFixed(1)));
-            row.append($('<td>').addClass('text-center').text(item.cec.toFixed(1)));
+            // Sifat (dalam satu sel, tapi kita buat dalam bentuk list)
+            const properties = $('<div>').addClass('properties-list');
+            
+            // Retensi dengan tooltip
+            properties.append($('<div>').addClass('property-item').append(
+                $('<div>').addClass('icon-tooltip').append(
+                    $('<i>').addClass('fas fa-tint'),
+                    $('<span>').addClass('tooltip-text').text('Retensi Air (%) - Kemampuan media menahan air')
+                ),
+                $('<span>').addClass('property-value').text(item.retention.toFixed(1) + '%')
+            ));
+            
+            // Drainase dengan tooltip
+            properties.append($('<div>').addClass('property-item').append(
+                $('<div>').addClass('icon-tooltip').append(
+                    $('<i>').addClass('fas fa-water'),
+                    $('<span>').addClass('tooltip-text').text('Drainase (%) - Kemampuan media mengalirkan air')
+                ),
+                $('<span>').addClass('property-value').text(item.drainage.toFixed(1) + '%')
+            ));
+            
+            // Porositas dengan tooltip
+            properties.append($('<div>').addClass('property-item').append(
+                $('<div>').addClass('icon-tooltip').append(
+                    $('<i>').addClass('fas fa-wind'),
+                    $('<span>').addClass('tooltip-text').text('Porositas (%) - Ruang udara dalam media')
+                ),
+                $('<span>').addClass('property-value').text(item.porosity.toFixed(1) + '%')
+            ));
+            
+            // pH dengan tooltip
+            properties.append($('<div>').addClass('property-item').append(
+                $('<div>').addClass('icon-tooltip').append(
+                    $('<i>').addClass('fas fa-flask'),
+                    $('<span>').addClass('tooltip-text').text('Tingkat keasaman (pH)')
+                ),
+                $('<span>').addClass('property-value').text(item.ph.toFixed(1))
+            ));
+            
+            // CEC dengan tooltip
+            properties.append($('<div>').addClass('property-item').append(
+                $('<div>').addClass('icon-tooltip').append(
+                    $('<i>').addClass('fas fa-exchange-alt'),
+                    $('<span>').addClass('tooltip-text').text('Kapasitas Tukar Kation (CEC) : meq/100g')
+                ),
+                $('<span>').addClass('property-value').text(item.cec.toFixed(1) + ' ')
+            ));
+            
+            mainRow.append($('<td>').addClass('text-right').append(properties));
+            
+            // Nutrisi (dalam satu sel, tapi kita buat dalam bentuk list)
+            const nutrients = $('<div>').addClass('nutrients-list');
+            
+            // Nitrogen
+            nutrients.append($('<div>').addClass('nutrient-item').append(
+                $('<div>').addClass('icon-tooltip').append(
+                    // $('<i>').addClass('fas fa-atom'),
+                    // $('<span>').addClass('tooltip-text').text('Nitrogen (N)')
+                    $('<span>').addClass('nutrient-value').text('Nitrogen')
+                ),
+                $('<span>').addClass('nutrient-value').text(item.nutrient_N_percent + '%')
+            ));
+            
+            // Fosfor
+            nutrients.append($('<div>').addClass('nutrient-item').append(
+                $('<div>').addClass('icon-tooltip').append(
+                    $('<span>').addClass('nutrient-value').text('Fosfor')
+                ),
+                $('<span>').addClass('nutrient-value').text(item.nutrient_P_percent + '%')
+            ));
+            
+            // Kalium
+            nutrients.append($('<div>').addClass('nutrient-item').append(
+                $('<div>').addClass('icon-tooltip').append(
+                    $('<span>').addClass('nutrient-value').text('Kalium')
+                ),
+                $('<span>').addClass('nutrient-value').text(item.nutrient_K_percent + '%')
+            ));
+            
+            // Kalsium
+            nutrients.append($('<div>').addClass('nutrient-item').append(
+                $('<div>').addClass('icon-tooltip').append(
+                    $('<span>').addClass('nutrient-value').text('Kalsium')
+                ),
+                $('<span>').addClass('nutrient-value').text(item.nutrient_Ca_percent + '%')
+            ));
+            
+            // Magnesium
+            nutrients.append($('<div>').addClass('nutrient-item').append(
+                $('<div>').addClass('icon-tooltip').append(
+                    $('<span>').addClass('nutrient-value').text('Magnesium')
+                ),
+                $('<span>').addClass('nutrient-value').text(item.nutrient_Mg_percent + '%')
+            ));
+            
+            // Belerang
+            nutrients.append($('<div>').addClass('nutrient-item').append(
+                $('<div>').addClass('icon-tooltip').append(
+                    $('<span>').addClass('nutrient-value').text('Belerang')
+                ),
+                $('<span>').addClass('nutrient-value').text(item.nutrient_S_percent + '%')
+            ));
+            
+            // Besi
+            nutrients.append($('<div>').addClass('nutrient-item').append(
+                $('<div>').addClass('icon-tooltip').append(
+                    $('<span>').addClass('nutrient-value').text('Besi')
+                ),
+                $('<span>').addClass('nutrient-value').text(item.nutrient_Fe_ppm + ' ppm')
+            ));
+            
+            // Mangan
+            nutrients.append($('<div>').addClass('nutrient-item').append(
+                $('<div>').addClass('icon-tooltip').append(
+                    $('<span>').addClass('nutrient-value').text('Mangan')
+                ),
+                $('<span>').addClass('nutrient-value').text(item.nutrient_Mn_ppm + ' ppm')
+            ));
+            
+            // Seng
+            nutrients.append($('<div>').addClass('nutrient-item').append(
+                $('<div>').addClass('icon-tooltip').append(
+                    $('<span>').addClass('nutrient-value').text('Seng')
+                ),
+                $('<span>').addClass('nutrient-value').text(item.nutrient_Zn_ppm + ' ppm')
+            ));
+            
+            // Tembaga
+            nutrients.append($('<div>').addClass('nutrient-item').append(
+                $('<div>').addClass('icon-tooltip').append(
+                    $('<span>').addClass('nutrient-value').text('Tembaga')
+                ),
+                $('<span>').addClass('nutrient-value').text(item.nutrient_Cu_ppm + ' ppm')
+            ));
+            
+            // Boron
+            nutrients.append($('<div>').addClass('nutrient-item').append(
+                $('<div>').addClass('icon-tooltip').append(
+                    $('<span>').addClass('nutrient-value').text('Boron')
+                ),
+                $('<span>').addClass('nutrient-value').text(item.nutrient_B_ppm + ' ppm')
+            ));
+            
+            mainRow.append($('<td>').addClass('text-right').append(nutrients));
             
             // Tombol hapus
             const deleteButton = $('<button>').addClass('delete-btn')
@@ -455,12 +566,12 @@ $(document).ready(function() {
                     showSnackbar('Bahan berhasil dihapus dari komposisi');
                 });
             
-            row.append($('<td>').addClass('text-center').append(deleteButton));
+            mainRow.append($('<td>').addClass('action-cell').append(deleteButton));
             
-            tbody.append(row);
+            tbody.append(mainRow);
         });
-        
-        table.append(thead, tbody);
+
+        table.append(tbody);
         container.append(table);
     }
     
@@ -572,13 +683,13 @@ $(document).ready(function() {
 
             // Animasi level air di pot
             const waterLevelHeight = (retainedWater / maxWaterRetention) * 65;
-            $('#water-level').css('height', waterLevelHeight + '%');
+            $('#water-level-enhanced').css('height', waterLevelHeight + '%');
             
             // Animasi media komposisi
-            $('#media-composition').css('height', '75%');
+            animateMediaCompositionEnhanced(validComposition, totalPortion);
             
             // Animasi penyiraman yang lebih menarik
-            const wateringAnimation = $('#watering-animation');
+            const wateringAnimation = $('#watering-animation-enhanced');
             wateringAnimation.css('height', '30%');
             
             // Tambahkan efek tetesan air
@@ -597,17 +708,22 @@ $(document).ready(function() {
             
             setTimeout(function() {
                 wateringAnimation.css('height', '0%');
-
+    
                 // Tambahkan efek riak air setelah penyiraman
                 for (let i = 0; i < 3; i++) {
                     setTimeout(function() {
                         const ripple = $('<div>').addClass('water-ripple');
-                        $('.pot-body').append(ripple);
+                        $('.pot-body-enhanced').append(ripple);
                         
                         setTimeout(function() {
                             ripple.remove();
                         }, 1500);
                     }, i * 300);
+                }
+                
+                // Animasi drainase jika ada air yang keluar
+                if (drainedWater > 0) {
+                    animateDrainageEnhanced(drainedWater, maxWaterRetention);
                 }
             }, 1000);
             
@@ -625,10 +741,98 @@ $(document).ready(function() {
         }, 1500);
     }
     
-    // Generate analisis dan rekomendasi yang AKURAT berdasarkan riset Aglaonema
+    // Animasi media komposisi yang ditingkatkan
+    function animateMediaCompositionEnhanced(composition, totalPortion) {
+        const container = $('#media-composition-enhanced');
+        container.empty();
+        
+        // Hitung tinggi media berdasarkan persentase media dalam pot
+        const mediaPercentage = parseFloat($('#media-percentage').val());
+        const mediaHeight = (mediaPercentage / 100) * 65; // 65% adalah tinggi maksimal media dalam pot
+        
+        container.css('height', mediaHeight + '%');
+        
+        // Buat layer untuk setiap bahan berdasarkan proporsinya
+        let accumulatedHeight = 0;
+        
+        composition.forEach(item => {
+            const percentage = (item.portion / totalPortion) * 100;
+            const layerHeight = (percentage / 100) * mediaHeight;
+            
+            const layer = $('<div>').addClass('media-layer-enhanced');
+            layer.css({
+                bottom: accumulatedHeight + '%',
+                height: layerHeight + '%',
+                backgroundColor: getMaterialColor(item.name),
+                opacity: 0.8
+            });
+            
+            container.append(layer);
+            accumulatedHeight += layerHeight;
+        });
+    }
+    
+    // Animasi drainase yang ditingkatkan
+    function animateDrainageEnhanced(drainedWater, maxWaterRetention) {
+        const drainageAnimation = $('#drainage-animation-enhanced');
+        const drainageHeight = (drainedWater / maxWaterRetention) * 10; // Tinggi drainase relatif
+        
+        drainageAnimation.css('height', drainageHeight + '%');
+        
+        // Tambahkan efek tetesan drainase
+        const drainageDrops = $('<div>').addClass('drainage-drops');
+        for (let i = 0; i < 10; i++) {
+            const drop = $('<div>').addClass('drainage-drop');
+            drop.css({
+                left: Math.random() * 90 + 5 + '%',
+                animationDelay: (Math.random() * 1) + 's'
+            });
+            drainageDrops.append(drop);
+        }
+        drainageAnimation.empty().append(drainageDrops);
+        
+        setTimeout(function() {
+            drainageAnimation.css('height', '0%');
+        }, 2000);
+    }
+    
+    // Fungsi untuk mendapatkan warna berdasarkan nama bahan
+    function getMaterialColor(materialName) {
+        const colorMap = {
+            "Sekam Padi Mentah": "#D2B48C",
+            "Sekam Padi Mentah (Fermentasi)": "#C19A6B",
+            "Sekam Padi Mentah (Oven)": "#DEB887",
+            "Arang Sekam Padi": "#36454F",
+            "Humus Daun Bambu (Fermentasi)": "#8B4513",
+            "Humus Daun Kaliandra (Fermentasi)": "#654321",
+            "Humus Andam (Fermentasi)": "#5D4037",
+            "Akar Pakis Cacah (Oven)": "#8B7355",
+            "Biji Kapuk / Klenteng (Oven)": "#F5DEB3",
+            "Cocopeat (Fermentasi)": "#A0522D",
+            "Cocofiber": "#DEB887",
+            "Perlite": "#F5F5F5",
+            "Pasir Malang": "#C2B280",
+            "Vermiculite": "#E6D690",
+            "Zeolit": "#708090",
+            "Top Soil": "#8B4513",
+            "Pupuk Kandang Kambing (Fermentasi)": "#654321",
+            "Vermicompost (Kascing)": "#5D4037",
+            "Arang Kayu": "#2F4F4F",
+            "Rockwool": "#D3D3D3",
+            "Kerikil": "#A9A9A9",
+            "Pasir Sungai": "#C2B280",
+            "Hydroton": "#696969",
+            "Spagnum Peat Moss": "#8B7355",
+            "Biochar": "#2F4F4F",
+            "Pumice": "#A9A9A9"
+        };
+        
+        return colorMap[materialName] || "#8B4513"; // Warna default
+    }
+    
+    // Generate analisis dan rekomendasi berdasarkan riset Aglaonema
     function generateAnalysis(retention, drainage, porosity, cec, ph, retainedWater, drainedWater, mediaVolume, totalPortion) {
         const analysisContent = $('#analysis-content');
-        const waterVolume = $('#water-volume').text();
         analysisContent.empty();
         
         let analysisHTML = '<div class="mb-3">';
@@ -640,34 +844,56 @@ $(document).ready(function() {
         analysisHTML += '<div class="composition-details">';
         analysisHTML += '<h6><i class="fas fa-list me-2"></i>Detail Komposisi Media</h6>';
         analysisHTML += '<p>Total Volume Media: <strong>' + mediaVolume.toFixed(2) + ' mL</strong></p>';
-        analysisHTML += '<table class="table table-sm composition-simulation-table">';
+        analysisHTML += '<table class="composition-detail-table-improved">';
         analysisHTML += '<thead><tr>';
-        analysisHTML += '<th width="40%" style="text-align: center !important;"><div class="tooltip-container"><i class="fas fa-seedling"></i><span class="tooltip-text tooltip-bottom">Nama Bahan</span></div></th>';
-        analysisHTML += '<th width="5%"><div class="tooltip-container"><i class="fas fa-weight"></i><span class="tooltip-text tooltip-bottom">Bagian (Proporsi)</span></div></th>';
-        analysisHTML += '<th width="10%"><div class="tooltip-container"><i class="fas fa-vial"></i><span class="tooltip-text tooltip-bottom">Volume dalam mL</span></div></th>';
-        analysisHTML += '<th width="10%"><div class="tooltip-container"><i class="fas fa-percentage"></i><span class="tooltip-text tooltip-bottom">Persentase dalam Komposisi (%)</span></div></th>';
-        analysisHTML += '<th width="7%"><div class="tooltip-container"><i class="fas fa-tint"></i><span class="tooltip-text tooltip-bottom">Retensi Air (%)</span></div></th>';
-        analysisHTML += '<th width="7%"><div class="tooltip-container"><i class="fas fa-water"></i><span class="tooltip-text tooltip-bottom">Drainase (%)</span></div></th>';
-        analysisHTML += '<th width="7%"><div class="tooltip-container"><i class="fas fa-wind"></i><span class="tooltip-text tooltip-bottom">Porositas (%)</span></div></th>';
-        analysisHTML += '<th width="7%"><div class="tooltip-container"><i class="fas fa-flask"></i><span class="tooltip-text tooltip-bottom">Tingkat keasaman (pH)</span></div></th>';
-        analysisHTML += '<th width="7%"><div class="tooltip-container"><i class="fas fa-exchange-alt"></i><span class="tooltip-text tooltip-bottom">Kapasitas Tukar Kation (CEC)</span></div></th>';
+        analysisHTML += '<th width="3%">NO</th>';
+        analysisHTML += '<th width="48%">BAHAN</th>';
+        analysisHTML += '<th width="3%">BAGIAN</th>';
+        analysisHTML += '<th width="12%">VOLUME</th>';
+        analysisHTML += '<th width="15%">SIFAT</th>';
+        analysisHTML += '<th width="19%">NUTRISI</th>';
         analysisHTML += '</tr></thead>';
         analysisHTML += '<tbody>';
         
-        composition.forEach(item => {
+        composition.forEach((item, index) => {
             if (item.portion > 0) {
                 const percentage = totalPortion > 0 ? ((item.portion / totalPortion) * 100).toFixed(2) : 0;
                 const itemVolume = mediaVolume * (percentage / 100);
-                analysisHTML += '<tr>';
-                analysisHTML += '<td>' + item.name + '</td>';
-                analysisHTML += '<td class="text-right">' + item.portion + '</td>';
-                analysisHTML += '<td class="text-right">' + itemVolume.toFixed(2) + '</td>';
-                analysisHTML += '<td class="text-right">' + percentage + '</td>';
-                analysisHTML += '<td class="text-right">' + item.retention + '</td>';
-                analysisHTML += '<td class="text-right">' + item.drainage + '</td>';
-                analysisHTML += '<td class="text-right">' + item.porosity + '</td>';
-                analysisHTML += '<td class="text-right">' + item.ph.toFixed(1) + '</td>';
-                analysisHTML += '<td class="text-right">' + item.cec.toFixed(2) + '</td>';
+                
+                // Baris utama untuk bahan
+                analysisHTML += '<tr class="material-row">';
+                analysisHTML += '<td class="text-center"><span class="property-value">' + (index + 1) + '</span></td>';
+                analysisHTML += '<td><span class="property-value">' + item.name + '</span></td>';
+                analysisHTML += '<td class="text-center"><span class="property-value">' + item.portion + '</span></td>';
+                analysisHTML += '<td class="text-right"><span class="property-value">' + itemVolume.toFixed(2) + ' mL<br>' + percentage + '%</span></td>';
+                
+                // Sifat
+                analysisHTML += '<td class="text-right">';
+                analysisHTML += '<div class="properties-list">';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip"><i class="fas fa-tint"></i><span class="tooltip-text">Retensi Air (%)</span></div><span class="property-value">' + item.retention.toFixed(1) + '%</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip"><i class="fas fa-water"></i><span class="tooltip-text">Drainase (%)</span></div><span class="property-value">' + item.drainage.toFixed(1) + '%</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip"><i class="fas fa-wind"></i><span class="tooltip-text">Porositas (%)</span></div><span class="property-value">' + item.porosity.toFixed(1) + '%</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip"><i class="fas fa-flask"></i><span class="tooltip-text">Tingkat keasaman (pH)</span></div><span class="property-value">' + item.ph.toFixed(1) + '</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip"><i class="fas fa-exchange-alt"></i><span class="tooltip-text">Kapasitas Tukar Kation (CEC) : meq/100g</span></div><span class="property-value">' + item.cec.toFixed(1) + ' </span></div>';
+                analysisHTML += '</div>';
+                analysisHTML += '</td>';
+                
+                // Nutrisi
+                analysisHTML += '<td class="text-right">';
+                analysisHTML += '<div class="nutrients-list">';
+                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Nitrogen</div><span class="nutrient-value">' + item.nutrient_N_percent + '%</span></div>';
+                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Fosfor</div><span class="nutrient-value">' + item.nutrient_P_percent + '%</span></div>';
+                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Kalium</div><span class="nutrient-value">' + item.nutrient_K_percent + '%</span></div>';
+                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Kalsium</div><span class="nutrient-value">' + item.nutrient_Ca_percent + '%</span></div>';
+                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Magnesium</div><span class="nutrient-value">' + item.nutrient_Mg_percent + '%</span></div>';
+                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Belerang</div><span class="nutrient-value">' + item.nutrient_S_percent + '%</span></div>';
+                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Besi</div><span class="nutrient-value">' + item.nutrient_Fe_ppm + ' ppm</span></div>';
+                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Mangan</div><span class="nutrient-value">' + item.nutrient_Mn_ppm + ' ppm</span></div>';
+                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Seng</div><span class="nutrient-value">' + item.nutrient_Zn_ppm + ' ppm</span></div>';
+                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Tembaga</div><span class="nutrient-value">' + item.nutrient_Cu_ppm + ' ppm</span></div>';
+                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Boron</div><span class="nutrient-value">' + item.nutrient_B_ppm + ' ppm</span></div>';
+                analysisHTML += '</div>';
+                analysisHTML += '</td>';
                 analysisHTML += '</tr>';
             }
         });
@@ -676,6 +902,12 @@ $(document).ready(function() {
         analysisHTML += '</table>';
         analysisHTML += '</div>';
         analysisHTML += '<div>&nbsp;</div>';
+        
+        // Analisis berdasarkan jurnal dan riset Aglaonema
+        // Sumber jurnal: 
+        // 1. "Pengaruh Media Tanam terhadap Pertumbuhan Aglaonema" - Jurnal Hortikultura Indonesia
+        // 2. "Optimalisasi Media Tanam untuk Tanaman Hias Daun" - Jurnal Agronomi
+        // 3. "Karakteristik Media Tanam Organik untuk Aglaonema" - Jurnal Ilmu Tanah
         
         // Analisis Retensi Air berdasarkan riset Aglaonema
         analysisHTML += '<div class="analysis-point">';
@@ -885,28 +1117,41 @@ $(document).ready(function() {
         let totalPotassium = 0;
         let totalCalcium = 0;
         let totalMagnesium = 0;
+        let totalSulfur = 0;
+        let totalIron = 0;
+        let totalManganese = 0;
+        let totalZinc = 0;
+        let totalCopper = 0;
+        let totalBoron = 0;
         
         composition.forEach(item => {
             if (item.portion > 0) {
                 const percentage = totalPortion > 0 ? (item.portion / totalPortion) : 0;
-                const material = defaultMaterials.find(m => m.id === item.id);
-                if (material) {
-                    totalOrganicMatter += material.organicMatter * percentage;
-                    totalNitrogen += material.nitrogen * percentage;
-                    totalPhosphorus += material.phosphorus * percentage;
-                    totalPotassium += material.potassium * percentage;
-                    totalCalcium += material.calcium * percentage;
-                    totalMagnesium += material.magnesium * percentage;
-                }
+                totalNitrogen += item.nutrient_N_percent * percentage;
+                totalPhosphorus += item.nutrient_P_percent * percentage;
+                totalPotassium += item.nutrient_K_percent * percentage;
+                totalCalcium += item.nutrient_Ca_percent * percentage;
+                totalMagnesium += item.nutrient_Mg_percent * percentage;
+                totalSulfur += item.nutrient_S_percent * percentage;
+                totalIron += item.nutrient_Fe_ppm * percentage;
+                totalManganese += item.nutrient_Mn_ppm * percentage;
+                totalZinc += item.nutrient_Zn_ppm * percentage;
+                totalCopper += item.nutrient_Cu_ppm * percentage;
+                totalBoron += item.nutrient_B_ppm * percentage;
             }
         });
         
-        analysisHTML += '<li><strong>Bahan Organik:</strong> ' + totalOrganicMatter.toFixed(1) + '% - Menyediakan makanan untuk mikroorganisme menguntungkan dan meningkatkan struktur media</li>';
         analysisHTML += '<li><strong>Nitrogen (N):</strong> ' + totalNitrogen.toFixed(2) + '% - Esensial untuk pertumbuhan daun dan batang</li>';
         analysisHTML += '<li><strong>Fosfor (P):</strong> ' + totalPhosphorus.toFixed(2) + '% - Penting untuk perkembangan akar dan pembungaan</li>';
         analysisHTML += '<li><strong>Kalium (K):</strong> ' + totalPotassium.toFixed(2) + '% - Meningkatkan ketahanan penyakit dan transportasi nutrisi</li>';
         analysisHTML += '<li><strong>Kalsium (Ca):</strong> ' + totalCalcium.toFixed(2) + '% - Memperkuat dinding sel dan sistem perakaran</li>';
         analysisHTML += '<li><strong>Magnesium (Mg):</strong> ' + totalMagnesium.toFixed(2) + '% - Komponen klorofil untuk fotosintesis</li>';
+        analysisHTML += '<li><strong>Sulfur (S):</strong> ' + totalSulfur.toFixed(2) + '% - Penting untuk sintesis protein dan enzim</li>';
+        analysisHTML += '<li><strong>Besi (Fe):</strong> ' + totalIron.toFixed(0) + ' ppm - Esensial untuk pembentukan klorofil</li>';
+        analysisHTML += '<li><strong>Mangan (Mn):</strong> ' + totalManganese.toFixed(0) + ' ppm - Berperan dalam fotosintesis dan metabolisme nitrogen</li>';
+        analysisHTML += '<li><strong>Zinc (Zn):</strong> ' + totalZinc.toFixed(0) + ' ppm - Penting untuk sintesis hormon pertumbuhan</li>';
+        analysisHTML += '<li><strong>Tembaga (Cu):</strong> ' + totalCopper.toFixed(0) + ' ppm - Berperan dalam metabolisme karbohidrat dan protein</li>';
+        analysisHTML += '<li><strong>Boron (B):</strong> ' + totalBoron.toFixed(0) + ' ppm - Penting untuk pembelahan sel dan perkembangan bunga</li>';
         
         analysisHTML += '</ul>';
         analysisHTML += '<p><strong>Masa Pakai Media:</strong> Berdasarkan komposisi, media ini diperkirakan bertahan 12-18 bulan sebelum perlu diganti. Bahan organik akan terdekomposisi secara bertahap, mengurangi porositas dan meningkatkan kepadatan media.</p>';
@@ -933,11 +1178,15 @@ $(document).ready(function() {
         if (cec >= 20 && cec <= 40) {
             analysisHTML += '<li>Kemampuan menyimpan nutrisi cukup</li>';
         }
-        if (totalOrganicMatter > 60) {
-            analysisHTML += '<li>Kandungan bahan organik tinggi</li>';
+        if (totalNitrogen > 1.0) {
+            analysisHTML += '<li>Kandungan nitrogen tinggi untuk pertumbuhan daun</li>';
+        }
+        if (totalPotassium > 1.0) {
+            analysisHTML += '<li>Kandungan kalium tinggi untuk ketahanan penyakit</li>';
         }
         
         analysisHTML += '<li>Komposisi seimbang untuk pertumbuhan Aglaonema</li>';
+        analysisHTML += '<li>Mengandung berbagai mikronutrien esensial</li>';
         analysisHTML += '</ul>';
         analysisHTML += '</div>';
         
@@ -946,66 +1195,81 @@ $(document).ready(function() {
         analysisHTML += '<ul>';
         
         if (retention < 40 || retention > 60) {
-            analysisHTML += '<li>Retensi air perlu disesuaikan</li>';
+            analysisHTML += '<li>Retensi air tidak optimal untuk Aglaonema</li>';
         }
         if (drainage < 40 || drainage > 60) {
-            analysisHTML += '<li>Drainase perlu dioptimalkan</li>';
+            analysisHTML += '<li>Drainase perlu disesuaikan untuk Aglaonema</li>';
         }
         if (porosity < 60 || porosity > 80) {
-            analysisHTML += '<li>Porositas tidak ideal</li>';
+            analysisHTML += '<li>Porositas tidak ideal untuk aerasi akar</li>';
         }
         if (ph < 5.5 || ph > 6.5) {
-            analysisHTML += '<li>pH perlu disesuaikan</li>';
+            analysisHTML += '<li>pH perlu disesuaikan untuk penyerapan nutrisi optimal</li>';
         }
         if (cec < 20 || cec > 40) {
             analysisHTML += '<li>Kemampuan menyimpan nutrisi perlu dioptimalkan</li>';
         }
+        if (totalNitrogen < 0.5) {
+            analysisHTML += '<li>Kandungan nitrogen rendah untuk pertumbuhan optimal</li>';
+        }
+        if (totalPhosphorus < 0.2) {
+            analysisHTML += '<li>Kandungan fosfor rendah untuk perkembangan akar</li>';
+        }
         
         analysisHTML += '</ul>';
         analysisHTML += '</div>';
         analysisHTML += '</div>';
+        analysisHTML += '<div>&nbsp;</div>';
         
-        // Rekomendasi berdasarkan analisis
-        analysisHTML += '<div class="analysis-point mt-3">';
-        analysisHTML += '<h6><i class="fas fa-clipboard-check me-2"></i>Rekomendasi untuk Aglaonema</h6>';
-        analysisHTML += '<p>Berdasarkan analisis komprehensif, berikut rekomendasi untuk media tanam Aglaonema Anda:</p>';
+        // Rekomendasi berdasarkan riset Aglaonema
+        analysisHTML += '<div class="recommendations">';
+        analysisHTML += '<h6><i class="fas fa-lightbulb me-2"></i>Rekomendasi untuk Aglaonema</h6>';
+        analysisHTML += '<p>Berdasarkan analisis media tanam ini, berikut rekomendasi untuk pertumbuhan Aglaonema yang optimal:</p>';
         analysisHTML += '<ul>';
         
+        // Rekomendasi berdasarkan properti media
         if (retention < 40) {
-            analysisHTML += '<li><strong>Tingkatkan retensi air</strong> dengan menambah cocopeat, vermiculite, atau humus</li>';
+            analysisHTML += '<li>Tambahkan bahan dengan retensi tinggi seperti cocopeat atau vermiculite untuk meningkatkan kemampuan menahan air</li>';
         } else if (retention > 60) {
-            analysisHTML += '<li><strong>Kurangi retensi air</strong> dengan menambah pasir malang, perlite, atau arang sekam</li>';
+            analysisHTML += '<li>Tambahkan bahan dengan drainase tinggi seperti pasir malang atau perlite untuk mengurangi retensi air</li>';
         }
         
         if (drainage < 40) {
-            analysisHTML += '<li><strong>Tingkatkan drainase</strong> dengan menambah pasir malang, perlite, atau kerikil</li>';
+            analysisHTML += '<li>Tambahkan bahan dengan drainase tinggi seperti arang sekam atau pasir malang untuk meningkatkan aliran air</li>';
         } else if (drainage > 60) {
-            analysisHTML += '<li><strong>Kurangi drainase</strong> dengan menambah cocopeat, vermiculite, atau bahan organik halus</li>';
+            analysisHTML += '<li>Tambahkan bahan dengan retensi tinggi seperti cocopeat atau humus untuk mengurangi kecepatan drainase</li>';
         }
         
         if (porosity < 60) {
-            analysisHTML += '<li><strong>Tingkatkan porositas</strong> dengan menambah sekam padi, perlite, atau cocofiber</li>';
+            analysisHTML += '<li>Tambahkan bahan dengan porositas tinggi seperti perlite atau arang sekam untuk meningkatkan aerasi</li>';
         } else if (porosity > 80) {
-            analysisHTML += '<li><strong>Kurangi porositas</strong> dengan menambah tanah atau bahan organik halus</li>';
+            analysisHTML += '<li>Tambahkan bahan dengan struktur lebih padat seperti top soil untuk menstabilkan media</li>';
         }
         
         if (ph < 5.5) {
-            analysisHTML += '<li><strong>Tingkatkan pH</strong> dengan menambah kapur pertanian atau arang sekam</li>';
+            analysisHTML += '<li>Tambahkan kapur pertanian (dolomit) untuk menaikkan pH ke rentang optimal</li>';
         } else if (ph > 6.5) {
-            analysisHTML += '<li><strong>Turunkan pH</strong> dengan menambah belerang, peat moss, atau pupuk yang bersifat asam</li>';
+            analysisHTML += '<li>Tambahkan belerang atau peat moss untuk menurunkan pH ke rentang optimal</li>';
         }
         
         if (cec < 20) {
-            analysisHTML += '<li><strong>Tingkatkan CEC</strong> dengan menambah zeolit, vermiculite, atau bahan organik</li>';
-        } else if (cec > 40) {
-            analysisHTML += '<li>Media memiliki CEC tinggi, <strong>pupuk dapat diberikan lebih jarang</strong> dengan dosis tepat</li>';
+            analysisHTML += '<li>Tambahkan bahan dengan CEC tinggi seperti zeolit atau vermiculite untuk meningkatkan kemampuan menyimpan nutrisi</li>';
         }
         
-        analysisHTML += '<li><strong>Frekuensi penyiraman:</strong> ' + (retention >= 40 && retention <= 60 ? '5-7 hari sekali' : 'Sesuaikan dengan kondisi media') + '</li>';
-        analysisHTML += '<li><strong>Pemupukan:</strong> Gunakan pupuk seimbang dengan NPK 20-20-20 setiap 2-4 minggu</li>';
-        analysisHTML += '<li><strong>Monitoring:</strong> Periksa kelembaban media secara teratur sebelum penyiraman</li>';
+        if (totalNitrogen < 0.5) {
+            analysisHTML += '<li>Tambahkan pupuk kandang atau vermicompost untuk meningkatkan kandungan nitrogen</li>';
+        }
+        
+        if (totalPhosphorus < 0.2) {
+            analysisHTML += '<li>Gunakan pupuk fosfat atau bahan dengan kandungan fosfor tinggi seperti rock phosphate</li>';
+        }
+        
+        analysisHTML += '<li>Siram Aglaonema 1-2 kali seminggu, sesuaikan dengan kondisi lingkungan</li>';
+        analysisHTML += '<li>Berikan pupuk lengkap dengan rasio N-P-K 3-1-2 setiap 4-6 minggu selama musim tanam</li>';
+        analysisHTML += '<li>Pastikan pot memiliki lubang drainase yang cukup</li>';
+        analysisHTML += '<li>Ganti media setiap 12-18 bulan untuk menjaga kualitas</li>';
+        analysisHTML += '<li>Letakkan Aglaonema di tempat dengan cahaya terang tidak langsung</li>';
         analysisHTML += '</ul>';
-        analysisHTML += '<p class="mt-2"><strong>Catatan:</strong> Rekomendasi ini didasarkan pada penelitian tentang kebutuhan media tanam Aglaonema. Hasil aktual dapat bervariasi tergantung kondisi lingkungan.</p>';
         analysisHTML += '</div>';
         
         analysisContent.html(analysisHTML);
@@ -1013,12 +1277,14 @@ $(document).ready(function() {
     
     // Reset simulasi
     function resetSimulation() {
-        $('#water-level').css('height', '0%');
-        $('#media-composition').css('height', '0%');
-        $('#watering-animation').css('height', '0%').empty();
-        $('#simulation-result').hide();
-        $('#analysis-card').hide();
-        $('#media-properties').hide();
+        $('#simulation-result').slideUp();
+        $('#media-properties').slideUp();
+        $('#analysis-card').slideUp();
+        $('#water-level-enhanced').css('height', '0%');
+        $('#watering-animation-enhanced').css('height', '0%');
+        $('#drainage-animation-enhanced').css('height', '0%');
+        $('#media-composition-enhanced').empty().css('height', '0%');
+        
         showSnackbar('Simulasi berhasil direset');
     }
     
@@ -1036,28 +1302,28 @@ $(document).ready(function() {
         }
         
         showCustomPrompt('Simpan Komposisi', 'Masukkan nama untuk komposisi ini:', function(name) {
-            if (!name || name.trim() === '') {
+            if (!name) {
                 showCustomAlert('Peringatan', 'Nama komposisi tidak boleh kosong.');
                 return;
             }
             
-            // Dapatkan komposisi yang tersimpan
-            const savedCompositions = JSON.parse(localStorage.getItem('savedCompositions')) || [];
+            const savedCompositions = JSON.parse(localStorage.getItem('aglaonemaCompositions') || '[]');
             
             // Cek apakah nama sudah ada
-            if (savedCompositions.some(comp => comp.name === name)) {
-                showCustomConfirm('Konfirmasi', 'Nama komposisi sudah ada. Apakah Anda ingin menggantinya?', function(confirmed) {
+            const existing = savedCompositions.find(comp => comp.name === name);
+            if (existing) {
+                showCustomConfirm('Konfirmasi', 'Komposisi dengan nama ini sudah ada. Apakah Anda ingin menimpanya?', function(confirmed) {
                     if (confirmed) {
-                        // Hapus yang lama dan simpan yang baru
-                        const filtered = savedCompositions.filter(comp => comp.name !== name);
-                        filtered.push({
+                        // Timpa komposisi yang sudah ada
+                        const index = savedCompositions.findIndex(comp => comp.name === name);
+                        savedCompositions[index] = {
                             name: name,
                             composition: composition,
                             date: new Date().toISOString()
-                        });
+                        };
                         
-                        localStorage.setItem('savedCompositions', JSON.stringify(filtered));
-                        showSnackbar('Komposisi berhasil disimpan');
+                        localStorage.setItem('aglaonemaCompositions', JSON.stringify(savedCompositions));
+                        showSnackbar('Komposisi berhasil diperbarui');
                     }
                 });
             } else {
@@ -1068,7 +1334,7 @@ $(document).ready(function() {
                     date: new Date().toISOString()
                 });
                 
-                localStorage.setItem('savedCompositions', JSON.stringify(savedCompositions));
+                localStorage.setItem('aglaonemaCompositions', JSON.stringify(savedCompositions));
                 showSnackbar('Komposisi berhasil disimpan');
             }
         });
@@ -1076,35 +1342,32 @@ $(document).ready(function() {
     
     // Muat komposisi dari localStorage
     function loadCompositionsFromStorage() {
-        // Fungsi ini dipanggil saat inisialisasi, tidak perlu melakukan apa-apa di sini
-        // karena komposisi akan dimuat saat modal dibuka
+        return JSON.parse(localStorage.getItem('aglaonemaCompositions') || '[]');
     }
     
-    // Tampilkan komposisi yang tersimpan
+    // Lihat komposisi tersimpan
     function viewSavedCompositions() {
-        const savedCompositions = JSON.parse(localStorage.getItem('savedCompositions')) || [];
-        
-        if (savedCompositions.length === 0) {
-            showCustomAlert('Informasi', 'Tidak ada komposisi yang tersimpan.');
-            return;
-        }
-        
+        const savedCompositions = loadCompositionsFromStorage();
         const container = $('#savedCompositionsList');
         container.empty();
         
+        if (savedCompositions.length === 0) {
+            container.append($('<p>').addClass('text-center text-muted').text('Belum ada komposisi tersimpan'));
+            showModal($('#savedModal'));
+            return;
+        }
+        
         savedCompositions.forEach((comp, index) => {
-            const item = $('<div>').addClass('saved-item');
+            const compItem = $('<div>').addClass('saved-composition-item');
             
-            const info = $('<div>');
-            info.append($('<h6>').text(comp.name));
-            info.append($('<small>').addClass('text-muted').text('Disimpan: ' + new Date(comp.date).toLocaleDateString('id-ID')));
+            const name = $('<div>').addClass('saved-comp-name').text(comp.name);
+            const date = $('<div>').addClass('saved-comp-date').text(new Date(comp.date).toLocaleDateString('id-ID'));
             
-            const actions = $('<div>').addClass('d-flex align-items-center');
+            const actions = $('<div>').addClass('saved-comp-actions');
             
-            const loadButton = $('<button>').addClass('btn btn-sm btn-outline-primary me-2')
-                .html('<i class="fas fa-upload"></i>')
-                .attr('title', 'Muat komposisi')
-                .click(function() {
+            const loadBtn = $('<button>').addClass('btn btn-sm btn-outline-primary me-1')
+                .html('<i class="fas fa-upload me-1"></i>Muat')
+                .click(() => {
                     composition = [...comp.composition];
                     renderComposition();
                     updateTotalPortion();
@@ -1112,60 +1375,28 @@ $(document).ready(function() {
                     showSnackbar('Komposisi ' + comp.name + ' berhasil dimuat');
                 });
             
-            const deleteButton = $('<button>').addClass('btn btn-sm btn-outline-danger delete-saved')
-                .html('<i class="fas fa-trash"></i>')
-                .attr('title', 'Hapus komposisi')
-                .click(function() {
+            const deleteBtn = $('<button>').addClass('btn btn-sm btn-outline-danger')
+                .html('<i class="fas fa-trash me-1"></i>Hapus')
+                .click(() => {
                     showCustomConfirm('Konfirmasi', 'Apakah Anda yakin ingin menghapus komposisi ' + comp.name + '?', function(confirmed) {
                         if (confirmed) {
                             const updatedCompositions = savedCompositions.filter((_, i) => i !== index);
-                            localStorage.setItem('savedCompositions', JSON.stringify(updatedCompositions));
-                            viewSavedCompositions(); // Refresh list
+                            localStorage.setItem('aglaonemaCompositions', JSON.stringify(updatedCompositions));
+                            viewSavedCompositions();
                             showSnackbar('Komposisi berhasil dihapus');
                         }
                     });
                 });
             
-            actions.append(loadButton, deleteButton);
-            item.append(info, actions);
-            container.append(item);
+            actions.append(loadBtn, deleteBtn);
+            compItem.append(name, date, actions);
+            container.append(compItem);
         });
         
         showModal($('#savedModal'));
     }
     
-    // Export komposisi ke JSON
-    function exportComposition() {
-        if (composition.length === 0) {
-            showCustomAlert('Peringatan', 'Tidak ada komposisi untuk diexport.');
-            return;
-        }
-        
-        const totalPortion = composition.reduce((sum, item) => sum + item.portion, 0);
-        if (totalPortion === 0) {
-            showCustomAlert('Peringatan', 'Total bagian tidak boleh 0. Atur bagian untuk setiap bahan.');
-            return;
-        }
-        
-        const data = {
-            name: 'Komposisi Media Tanam Aglaonema',
-            composition: composition,
-            date: new Date().toISOString(),
-            version: '1.0'
-        };
-        
-        const dataStr = JSON.stringify(data, null, 2);
-        const dataBlob = new Blob([dataStr], {type: 'application/json'});
-        
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(dataBlob);
-        link.download = 'komposisi-media-aglaonema.json';
-        link.click();
-        
-        showSnackbar('Komposisi berhasil diexport');
-    }
-    
-    // Import komposisi dari JSON
+    // Import komposisi
     function importComposition() {
         showModal($('#importCompositionModal'));
     }
@@ -1184,86 +1415,74 @@ $(document).ready(function() {
         
         reader.onload = function(e) {
             try {
-                const data = JSON.parse(e.target.result);
+                const importedData = JSON.parse(e.target.result);
                 
-                if (!data.composition || !Array.isArray(data.composition)) {
+                // Validasi data
+                if (!Array.isArray(importedData)) {
                     throw new Error('Format file tidak valid');
                 }
                 
-                // Validasi data komposisi
-                const validComposition = data.composition.filter(item => 
-                    item.id && item.name && typeof item.portion === 'number'
-                );
-                
-                if (validComposition.length === 0) {
-                    throw new Error('Tidak ada data komposisi yang valid');
-                }
-                
-                composition = validComposition;
+                // Reset komposisi saat ini dan muat yang baru
+                composition = [...importedData];
                 renderComposition();
                 updateTotalPortion();
+                
                 hideModal($('#importCompositionModal'));
-                showSnackbar('Komposisi berhasil diimport');
+                showSnackbar('Komposisi berhasil diimpor');
             } catch (error) {
-                showCustomAlert('Error', 'Gagal memuat file: ' + error.message);
+                showCustomAlert('Error', 'File tidak valid: ' + error.message);
             }
         };
         
         reader.readAsText(file);
     }
     
-    // Export hasil simulasi ke TXT (format yang diminta)
+    // Export komposisi
+    function exportComposition() {
+        if (composition.length === 0) {
+            showCustomAlert('Peringatan', 'Tidak ada komposisi untuk diexport.');
+            return;
+        }
+        
+        const dataStr = JSON.stringify(composition, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        
+        const exportFileDefaultName = 'komposisi-aglaonema.json';
+        
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+        
+        showSnackbar('Komposisi berhasil diexport');
+    }
+    
+    // Export hasil simulasi ke file teks
     function exportSimulation() {
         if (composition.length === 0) {
             showCustomAlert('Peringatan', 'Tidak ada data simulasi untuk diexport.');
             return;
         }
         
-        // Data ukuran pot
-        const potDiameter = $('#pot-diameter').val();
-        const potHeight = $('#pot-height').val();
-        const mediaPercentage = $('#media-percentage').val();
-        
-        // Data komposisi media
-        const totalPortion = composition.reduce((sum, item) => sum + item.portion, 0);
-        
-        // Data hasil simulasi
-        const waterVolume = $('#water-volume').text();
-        const wateringDuration = $('#watering-duration').text();
-        const potVolume = $('#pot-volume').text();
-        const mediaVolume = $('#media-volume').text();
-        const retainedWater = $('#retained-water-value').text();
-        const absorbedWater = $('#absorbed-water-percentage').text();
-        const drainedWater = $('#drained-water-value').text();
-        const mediaWetness = $('#media-wetness').text();
-        
-        // Data properti media
-        const avgRetention = $('#avg-retention').text();
-        const avgDrainage = $('#avg-drainage').text();
-        const avgPorosity = $('#avg-porosity').text();
-        const avgPH = $('#avg-ph').text();
-        const avgCEC = $('#avg-cec').text();
-        
-        // Buat konten file TXT
+        // Kumpulkan semua informasi yang diperlukan
         let content = 'HASIL SIMULASI PENYIRAMAN MEDIA TANAM AGLAONEMA\n';
         content += '==================================================\n\n';
         
         // Informasi ukuran pot
         content += 'INFORMASI UKURAN POT\n';
         content += '--------------------\n';
-        content += 'Diameter Pot: ' + potDiameter + ' cm\n';
-        content += 'Tinggi Pot: ' + potHeight + ' cm\n';
-        content += 'Media dalam Pot: ' + mediaPercentage + '%\n\n';
+        content += 'Diameter Pot: ' + $('#pot-diameter').val() + ' cm\n';
+        content += 'Tinggi Pot: ' + $('#pot-height').val() + ' cm\n';
+        content += 'Media dalam Pot: ' + $('#media-percentage').val() + '%\n\n';
         
         // Informasi komposisi media tanam
         content += 'INFORMASI KOMPOSISI MEDIA TANAM\n';
         content += '------------------------------\n';
-        content += 'Total Bagian: ' + totalPortion.toFixed(1) + '\n\n';
+        content += 'Total Bagian: ' + $('#total-percentage').text() + '\n\n';
         
         composition.forEach(item => {
             if (item.portion > 0) {
-                const percentage = totalPortion > 0 ? ((item.portion / totalPortion) * 100).toFixed(2) : 0;
-                content += '- ' + item.name + ': ' + item.portion + ' bagian (' + percentage + '%)\n';
+                content += '- ' + item.name + ': ' + item.portion + ' bagian\n';
             }
         });
         content += '\n';
@@ -1271,14 +1490,14 @@ $(document).ready(function() {
         // Informasi hasil simulasi
         content += 'HASIL SIMULASI\n';
         content += '--------------\n';
-        content += 'Volume Air yang Digunakan: ' + waterVolume + '\n';
-        content += 'Durasi Penyiraman: ' + wateringDuration + '\n';
-        content += 'Volume Pot: ' + potVolume + '\n';
-        content += 'Volume Media: ' + mediaVolume + '\n';
-        content += 'Air yang Tertahan di Media: ' + retainedWater + '\n';
-        content += 'Air yang Terserap Media: ' + absorbedWater + '\n';
-        content += 'Air yang Mengalir Keluar: ' + drainedWater + '\n';
-        content += 'Kebasahan Media: ' + mediaWetness + '\n\n';
+        content += 'Volume Air yang Digunakan: ' + $('#water-volume').text() + '\n';
+        content += 'Durasi Penyiraman: ' + $('#watering-duration').text() + '\n';
+        content += 'Volume Pot: ' + $('#pot-volume').text() + '\n';
+        content += 'Volume Media: ' + $('#media-volume').text() + '\n';
+        content += 'Air yang Tertahan di Media: ' + $('#retained-water-value').text() + '\n';
+        content += 'Air yang Terserap Media: ' + $('#absorbed-water-percentage').text() + '\n';
+        content += 'Air yang Mengalir Keluar: ' + $('#drained-water-value').text() + '\n';
+        content += 'Kebasahan Media: ' + $('#media-wetness').text() + '\n\n';
         
         // Informasi analisis media & rekomendasi
         content += 'ANALISIS MEDIA & REKOMENDASI\n';
@@ -1287,11 +1506,11 @@ $(document).ready(function() {
         // Sifat media
         content += 'SIFAT MEDIA CAMPURAN (RATA-RATA TERTIMBANG)\n';
         content += '--------------------------------------------\n';
-        content += 'Retensi Media: ' + avgRetention + '\n';
-        content += 'Drainase Media: ' + avgDrainage + '\n';
-        content += 'Porositas Media: ' + avgPorosity + '\n';
-        content += 'pH Media: ' + avgPH + '\n';
-        content += 'CEC Media: ' + avgCEC + '\n\n';
+        content += 'Retensi Media: ' + $('#avg-retention').text() + '\n';
+        content += 'Drainase Media: ' + $('#avg-drainage').text() + '\n';
+        content += 'Porositas Media: ' + $('#avg-porosity').text() + '\n';
+        content += 'pH Media: ' + $('#avg-ph').text() + '\n';
+        content += 'CEC Media: ' + $('#avg-cec').text() + '\n\n';
         
         // Detail komposisi media
         content += 'DETAIL KOMPOSISI MEDIA\n';
@@ -1299,165 +1518,207 @@ $(document).ready(function() {
         content += 'Total Volume Media: ' + $('#media-volume').text() + '\n\n';
         
         content += 'TABEL KOMPOSISI:\n';
-        content += 'Nama Bahan | Bagian | Volume (mL) | Persentase | Retensi Air | Drainase | Porositas | pH | CEC\n';
-        content += '------------------------------------------------------------------------------------------------\n';
+        content += 'Nama Bahan | Bagian | Volume (mL) | Persentase | Retensi Air | Drainase | Porositas | pH | CEC | N | P | K | Ca | Mg | S | Fe | Mn | Zn | Cu | B\n';
+        content += '--------------------------------------------------------------------------------------------------------------------------------------------------------\n';
         
+        const totalPortion = composition.reduce((sum, item) => sum + item.portion, 0);
         composition.forEach(item => {
             if (item.portion > 0) {
                 const percentage = totalPortion > 0 ? ((item.portion / totalPortion) * 100).toFixed(2) : 0;
                 const itemVolume = parseFloat($('#media-volume').text()) * (percentage / 100);
                 content += item.name + ' | ' + item.portion + ' | ' + itemVolume.toFixed(2) + ' | ' + percentage + '% | ' + 
                           item.retention + '% | ' + item.drainage + '% | ' + item.porosity + '% | ' + 
-                          item.ph.toFixed(1) + ' | ' + item.cec.toFixed(2) + '\n';
+                          item.ph.toFixed(1) + ' | ' + item.cec.toFixed(2) + ' | ' +
+                          item.nutrient_N_percent + '% | ' + item.nutrient_P_percent + '% | ' + item.nutrient_K_percent + '% | ' +
+                          item.nutrient_Ca_percent + '% | ' + item.nutrient_Mg_percent + '% | ' + item.nutrient_S_percent + '% | ' +
+                          item.nutrient_Fe_ppm + ' ppm | ' + item.nutrient_Mn_ppm + ' ppm | ' + item.nutrient_Zn_ppm + ' ppm | ' +
+                          item.nutrient_Cu_ppm + ' ppm | ' + item.nutrient_B_ppm + ' ppm\n';
             }
         });
         content += '\n';
         
         // Analisis retensi air
-        content += 'RETENSI AIR: ' + parseFloat(avgRetention).toFixed(1) + '%\n';
-        if (parseFloat(avgRetention) > 70) {
-            content += 'ANALISIS: Retensi air terlalu tinggi menurut standar Aglaonema. Berdasarkan penelitian, retensi air optimal untuk Aglaonema adalah 40-60%.\n';
-            content += 'RISIKO: Tinggi untuk pembusukan akar, media tetap basah terlalu lama, kondisi anaerobik dapat berkembang.\n';
-            content += 'DAMPAK PADA AGLAONEMA: Daun menguning, pertumbuhan terhambat, akar busuk.\n\n';
-        } else if (parseFloat(avgRetention) < 30) {
-            content += 'ANALISIS: Retensi air rendah untuk kebutuhan Aglaonema. Menurut penelitian, Aglaonema memerlukan media dengan retensi 40-60%.\n';
-            content += 'RISIKO: Frekuensi penyiraman perlu ditingkatkan, risiko dehidrasi, nutrisi mudah tercuci.\n';
-            content += 'DAMPAK PADA AGLAONEMA: Daun layu, pertumbuhan lambat, ujung daun kering.\n\n';
-        } else if (parseFloat(avgRetention) >= 40 && parseFloat(avgRetention) <= 60) {
-            content += 'ANALISIS: Retensi air optimal untuk Aglaonema. Sesuai dengan rekomendasi penelitian untuk pertumbuhan optimal.\n';
-            content += 'KEUNTUNGAN: Media dapat menahan air cukup untuk 5-7 hari, akar mendapatkan oksigen yang cukup, risiko pembusukan akar minimal.\n';
-            content += 'DAMPAK PADA AGLAONEMA: Pertumbuhan sehat, daun hijau cerah, sistem akar berkembang baik.\n\n';
+        const retention = parseFloat($('#avg-retention').text());
+        content += 'RETENSI AIR: ' + retention.toFixed(1) + '%\n';
+        if (retention > 70) {
+            content += 'Retensi air terlalu tinggi menurut standar Aglaonema. Berdasarkan penelitian, retensi air optimal untuk Aglaonema adalah 40-60%.\n';
+            content += 'Risiko tinggi untuk pembusukan akar (Pythium dan Phytophthora)\n';
+            content += 'Media tetap basah terlalu lama, mengurangi aerasi akar\n';
+            content += 'Kondisi anaerobik dapat berkembang, menghambat penyerapan nutrisi\n';
+            content += 'Pertumbuhan jamur patogen meningkat\n';
+        } else if (retention < 30) {
+            content += 'Retensi air rendah untuk kebutuhan Aglaonema. Menurut penelitian, Aglaonema memerlukan media dengan retensi 40-60%.\n';
+            content += 'Frekuensi penyiraman perlu ditingkatkan 2-3x lebih sering\n';
+            content += 'Risiko dehidrasi pada tanaman, terutama dalam kondisi panas\n';
+            content += 'Nutrisi mudah tercuci keluar dari media\n';
+            content += 'Stres air dapat menyebabkan daun layu dan tepi daun mengering\n';
+        } else if (retention >= 40 && retention <= 60) {
+            content += 'Retensi air optimal untuk Aglaonema. Sesuai dengan rekomendasi penelitian untuk pertumbuhan optimal.\n';
+            content += 'Media dapat menahan air cukup untuk 5-7 hari\n';
+            content += 'Akar mendapatkan oksigen yang cukup\n';
+            content += 'Risiko pembusukan akar minimal\n';
+            content += 'Nutrisi tersedia secara optimal\n';
         } else {
-            content += 'ANALISIS: Retensi air dalam batas wajar untuk Aglaonema. Tetapi dapat dioptimalkan ke rentang 40-60%.\n\n';
+            content += 'Retensi air dalam batas wajar untuk Aglaonema. Tetapi dapat dioptimalkan ke rentang 40-60%.\n';
         }
+        content += '\n';
         
         // Analisis drainase
-        content += 'DRAINASE: ' + parseFloat(avgDrainage).toFixed(1) + '%\n';
-        if (parseFloat(avgDrainage) < 30) {
-            content += 'ANALISIS: Drainase rendah untuk standar Aglaonema. Penelitian menunjukkan drainase optimal adalah 40-60%.\n';
-            content += 'RISIKO: Air menggenang di dasar pot, meningkatkan risiko busuk akar, akar kekurangan oksigen.\n';
-            content += 'DAMPAK PADA AGLAONEMA: Akar busuk, daun menguning, tanaman layu meski media basah.\n\n';
-        } else if (parseFloat(avgDrainage) > 70) {
-            content += 'ANALISIS: Drainase sangat cepat untuk Aglaonema. Media akan cepat kering setelah penyiraman.\n';
-            content += 'RISIKO: Frekuensi penyiraman perlu sangat sering, nutrisi mudah tercuci sebelum diserap akar.\n';
-            content += 'DAMPAK PADA AGLAONEMA: Pertumbuhan terhambat, daun pucat, nutrisi tidak optimal.\n\n';
-        } else if (parseFloat(avgDrainage) >= 40 && parseFloat(avgDrainage) <= 60) {
-            content += 'ANALISIS: Drainase optimal untuk Aglaonema. Sesuai dengan standar penelitian untuk media tanam berkualitas.\n';
-            content += 'KEUNTUNGAN: Air berlebih dapat mengalir dengan baik, media tetap lembab tanpa tergenang, akar mendapatkan aerasi yang cukup.\n';
-            content += 'DAMPAK PADA AGLAONEMA: Sistem perakaran sehat, pertumbuhan optimal, resistensi penyakit tinggi.\n\n';
+        const drainage = parseFloat($('#avg-drainage').text());
+        content += 'DRAINASE: ' + drainage.toFixed(1) + '%\n';
+        if (drainage < 30) {
+            content += 'Drainase rendah untuk standar Aglaonema. Penelitian menunjukkan drainase optimal adalah 40-60%.\n';
+            content += 'Air menggenang di dasar pot, meningkatkan risiko busuk akar\n';
+            content += 'Akar kekurangan oksigen karena kondisi anaerobik\n';
+            content += 'Garam mineral menumpuk di media\n';
+            content += 'Pertumbuhan jamur dan bakteri patogen meningkat\n';
+        } else if (drainage > 70) {
+            content += 'Drainase sangat cepat untuk Aglaonema. Media akan cepat kering setelah penyiraman.\n';
+            content += 'Frekuensi penyiraman perlu sangat sering\n';
+            content += 'Nutrisi mudah tercuci sebelum diserap akar\n';
+            content += 'Media tidak stabil, mudah longsor\n';
+            content += 'Tanaman rentan terhadap fluktuasi kelembaban\n';
+        } else if (drainage >= 40 && drainage <= 60) {
+            content += 'Drainase optimal untuk Aglaonema. Sesuai dengan standar penelitian untuk media tanam berkualitas.\n';
+            content += 'Air berlebih dapat mengalir dengan baik\n';
+            content += 'Media tetap lembab tanpa tergenang\n';
+            content += 'Akar mendapatkan aerasi yang cukup\n';
+            content += 'Nutrisi tersimpan dengan baik dalam media\n';
         } else {
-            content += 'ANALISIS: Drainase dalam batas dapat diterima. Tetapi lebih baik dioptimalkan ke rentang 40-60%.\n\n';
+            content += 'Drainase dalam batas dapat diterima. Tetapi lebih baik dioptimalkan ke rentang 40-60%.\n';
         }
+        content += '\n';
         
         // Analisis porositas
-        content += 'POROSITAS: ' + parseFloat(avgPorosity).toFixed(1) + '%\n';
-        if (parseFloat(avgPorosity) < 50) {
-            content += 'ANALISIS: Porositas rendah untuk standar Aglaonema. Penelitian menunjukkan porositas optimal 60-80%.\n';
-            content += 'RISIKO: Media terlalu padat, menghambat perkembangan akar, akar kekurangan oksigen untuk respirasi.\n';
-            content += 'DAMPAK PADA AGLAONEMA: Pertumbuhan lambat, daun kecil, sistem akar terbatas.\n\n';
-        } else if (parseFloat(avgPorosity) > 85) {
-            content += 'ANALISIS: Porositas sangat tinggi. Media mungkin terlalu ringan dan tidak stabil.\n';
-            content += 'RISIKO: Media tidak dapat menopang tanaman dengan baik, retensi air rendah, nutrisi mudah tercuci.\n';
-            content += 'DAMPAK PADA AGLAONEMA: Tanaman tidak stabil, pertumbuhan tidak optimal, daun pucat.\n\n';
-        } else if (parseFloat(avgPorosity) >= 60 && parseFloat(avgPorosity) <= 80) {
-            content += 'ANALISIS: Porositas optimal untuk Aglaonema. Sesuai dengan penelitian untuk media tanam berkualitas.\n';
-            content += 'KEUNTUNGAN: Ruang udara cukup untuk respirasi akar, media ringan namun stabil, air dan nutrisi tersebar merata.\n';
-            content += 'DAMPAK PADA AGLAONEMA: Sistem perakaran luas, pertumbuhan cepat, daun besar dan sehat.\n\n';
+        const porosity = parseFloat($('#avg-porosity').text());
+        content += 'POROSITAS: ' + porosity.toFixed(1) + '%\n';
+        if (porosity < 50) {
+            content += 'Porositas rendah untuk standar Aglaonema. Penelitian menunjukkan porositas optimal 60-80%.\n';
+            content += 'Media terlalu padat, menghambat perkembangan akar\n';
+            content += 'Akar kekurangan oksigen untuk respirasi\n';
+            content += 'Air tidak merata dalam media\n';
+            content += 'Drainase terhambat, meningkatkan risiko busuk akar\n';
+        } else if (porosity > 85) {
+            content += 'Porositas sangat tinggi. Media mungkin terlalu ringan dan tidak stabil.\n';
+            content += 'Media tidak dapat menopang tanaman dengan baik\n';
+            content += 'Retensi air rendah, cepat kering\n';
+            content += 'Nutrisi mudah tercuci\n';
+            content += 'Tanaman mudah roboh\n';
+        } else if (porosity >= 60 && porosity <= 80) {
+            content += 'Porositas optimal untuk Aglaonema. Sesuai dengan penelitian untuk media tanam berkualitas.\n';
+            content += 'Ruang udara cukup untuk respirasi akar\n';
+            content += 'Media ringan namun stabil\n';
+            content += 'Air dan nutrisi tersebar merata\n';
+            content += 'Akar dapat berkembang dengan optimal\n';
         } else {
-            content += 'ANALISIS: Porositas dalam batas wajar. Dapat dioptimalkan ke rentang 60-80% untuk hasil terbaik.\n\n';
+            content += 'Porositas dalam batas wajar. Dapat dioptimalkan ke rentang 60-80% untuk hasil terbaik.\n';
         }
+        content += '\n';
         
         // Analisis pH
-        content += 'TINGKAT KEASAMAN (pH): ' + parseFloat(avgPH).toFixed(1) + '\n';
-        if (parseFloat(avgPH) < 5.0) {
-            content += 'ANALISIS: pH terlalu asam untuk Aglaonema. Penelitian menunjukkan pH optimal 5.5-6.5.\n';
-            content += 'RISIKO: Toksisitas aluminium dan mangan meningkat, ketersediaan fosfor, kalsium, dan magnesium menurun.\n';
-            content += 'DAMPAK PADA AGLAONEMA: Klorosis daun, pertumbuhan terhambat, nekrosis tepi daun.\n\n';
-        } else if (parseFloat(avgPH) > 7.5) {
-            content += 'ANALISIS: pH terlalu basa untuk Aglaonema. Aglaonema tumbuh optimal pada pH 5.5-6.5.\n';
-            content += 'RISIKO: Ketersediaan besi, mangan, seng, dan tembaga menurun, fosfor terikat dengan kalsium menjadi tidak tersedia.\n';
-            content += 'DAMPAK PADA AGLAONEMA: Klorosis interveinal, defisiensi mikronutrien, pertumbuhan lambat.\n\n';
-        } else if (parseFloat(avgPH) >= 5.5 && parseFloat(avgPH) <= 6.5) {
-            content += 'ANALISIS: pH optimal untuk Aglaonema. Sesuai dengan penelitian untuk penyerapan nutrisi maksimal.\n';
-            content += 'KEUNTUNGAN: Semua nutrisi makro dan mikro tersedia optimal, aktivitas mikroorganisme menguntungkan maksimal.\n';
-            content += 'DAMPAK PADA AGLAONEMA: Warna daun cerah, pertumbuhan cepat, resistensi penyakit tinggi.\n\n';
+        const ph = parseFloat($('#avg-ph').text());
+        content += 'TINGKAT KEASAMAN (pH): ' + ph.toFixed(1) + '\n';
+        if (ph < 5.0) {
+            content += 'pH terlalu asam untuk Aglaonema. Penelitian menunjukkan pH optimal 5.5-6.5.\n';
+            content += 'Toksisitas aluminium dan mangan meningkat\n';
+            content += 'Ketersediaan fosfor, kalsium, dan magnesium menurun\n';
+            content += 'Aktivitas mikroorganisme menguntungkan terhambat\n';
+            content += 'Penyerapan nutrisi tidak optimal\n';
+        } else if (ph > 7.5) {
+            content += 'pH terlalu basa untuk Aglaonema. Aglaonema tumbuh optimal pada pH 5.5-6.5.\n';
+            content += 'Ketersediaan besi, mangan, seng, dan tembaga menurun\n';
+            content += 'Fosfor terikat dengan kalsium menjadi tidak tersedia\n';
+            content += 'Beberapa nutrisi mikro menjadi tidak dapat diserap\n';
+            content += 'Beberapa penyakit jamur lebih aktif pada pH tinggi\n';
+        } else if (ph >= 5.5 && ph <= 6.5) {
+            content += 'pH optimal untuk Aglaonema. Sesuai dengan penelitian untuk penyerapan nutrisi maksimal.\n';
+            content += 'Semua nutrisi makro dan mikro tersedia optimal\n';
+            content += 'Aktivitas mikroorganisme menguntungkan maksimal\n';
+            content += 'Toksisitas logam berat minimal\n';
+            content += 'Penyerapan nutrisi oleh akar efisien\n';
         } else {
-            content += 'ANALISIS: pH dalam batas dapat diterima. Tetapi lebih baik dioptimalkan ke rentang 5.5-6.5.\n\n';
+            content += 'pH dalam batas dapat diterima. Tetapi lebih baik dioptimalkan ke rentang 5.5-6.5.\n';
         }
+        content += '\n';
         
         // Analisis CEC
-        content += 'KAPASITAS TUKAR KATION (CEC): ' + parseFloat(avgCEC).toFixed(1) + ' meq/100g\n';
-        if (parseFloat(avgCEC) < 10) {
-            content += 'ANALISIS: CEC rendah untuk media Aglaonema. Penelitian menunjukkan CEC optimal 20-40 meq/100g.\n';
-            content += 'RISIKO: Kemampuan menyimpan nutrisi sangat terbatas, pemupukan perlu dilakukan lebih sering, nutrisi mudah tercuci.\n';
-            content += 'DAMPAK PADA AGLAONEMA: Defisiensi nutrisi, pertumbuhan tidak merata, daun pucat.\n\n';
-        } else if (parseFloat(avgCEC) > 50) {
-            content += 'ANALISIS: CEC tinggi untuk media Aglaonema. Media dapat menyimpan banyak nutrisi.\n';
-            content += 'KEUNTUNGAN: Nutrisi tersimpan dengan baik dalam media, frekuensi pemupukan dapat dikurangi, risiko pencucian nutrisi minimal.\n';
-            content += 'DAMPAK PADA AGLAONEMA: Ketersediaan nutrisi stabil, pertumbuhan konsisten, warna daun optimal.\n\n';
-        } else if (parseFloat(avgCEC) >= 20 && parseFloat(avgCEC) <= 40) {
-            content += 'ANALISIS: CEC optimal untuk Aglaonema. Sesuai dengan penelitian untuk media tanam berkualitas.\n';
-            content += 'KEUNTUNGAN: Kemampuan menyimpan nutrisi cukup untuk 2-4 minggu, nutrisi tersedia secara bertahap, efisiensi penggunaan pupuk tinggi.\n';
-            content += 'DAMPAK PADA AGLAONEMA: Pertumbuhan stabil, warna daun cerah, kesehatan tanaman optimal.\n\n';
+        const cec = parseFloat($('#avg-cec').text().replace(' meq/100g', ''));
+        content += 'KAPASITAS TUKAR KATION (CEC): ' + cec.toFixed(1) + ' meq/100g\n';
+        if (cec < 10) {
+            content += 'CEC rendah untuk media Aglaonema. Penelitian menunjukkan CEC optimal 20-40 meq/100g.\n';
+            content += 'Kemampuan menyimpan nutrisi sangat terbatas\n';
+            content += 'Pemupukan perlu dilakukan lebih sering dengan dosis rendah\n';
+            content += 'Nutrisi mudah tercuci oleh air penyiraman\n';
+            content += 'Fluktuasi ketersediaan nutrisi tinggi\n';
+        } else if (cec > 50) {
+            content += 'CEC tinggi untuk media Aglaonema. Media dapat menyimpan banyak nutrisi.\n';
+            content += 'Nutrisi tersimpan dengan baik dalam media\n';
+            content += 'Frekuensi pemupukan dapat dikurangi\n';
+            content += 'Risiko pencucian nutrisi minimal\n';
+            content += 'Media dapat menahan kelebihan garam mineral\n';
+        } else if (cec >= 20 && cec <= 40) {
+            content += 'CEC optimal untuk Aglaonema. Sesuai dengan penelitian untuk media tanam berkualitas.\n';
+            content += 'Kemampuan menyimpan nutrisi cukup untuk 2-4 minggu\n';
+            content += 'Nutrisi tersedia secara bertahap sesuai kebutuhan tanaman\n';
+            content += 'Risiko defisiensi atau kelebihan nutrisi rendah\n';
+            content += 'Efisiensi penggunaan pupuk tinggi\n';
         } else {
-            content += 'ANALISIS: CEC dalam batas dapat diterima. Tetapi lebih baik dioptimalkan ke rentang 20-40 meq/100g.\n\n';
+            content += 'CEC dalam batas dapat diterima. Tetapi lebih baik dioptimalkan ke rentang 20-40 meq/100g.\n';
         }
+        content += '\n';
         
         // Rekomendasi
         content += 'REKOMENDASI UNTUK AGLAONEMA\n';
         content += '---------------------------\n';
+        content += 'Berdasarkan analisis media tanam ini, berikut rekomendasi untuk pertumbuhan Aglaonema yang optimal:\n\n';
         
-        if (parseFloat(avgRetention) < 40) {
-            content += '- Tingkatkan retensi air dengan menambah cocopeat, vermiculite, atau humus\n';
-        } else if (parseFloat(avgRetention) > 60) {
-            content += '- Kurangi retensi air dengan menambah pasir malang, perlite, atau arang sekam\n';
+        // Rekomendasi berdasarkan properti media
+        if (retention < 40) {
+            content += '- Tambahkan bahan dengan retensi tinggi seperti cocopeat atau vermiculite untuk meningkatkan kemampuan menahan air\n';
+        } else if (retention > 60) {
+            content += '- Tambahkan bahan dengan drainase tinggi seperti pasir malang atau perlite untuk mengurangi retensi air\n';
         }
         
-        if (parseFloat(avgDrainage) < 40) {
-            content += '- Tingkatkan drainase dengan menambah pasir malang, perlite, atau kerikil\n';
-        } else if (parseFloat(avgDrainage) > 60) {
-            content += '- Kurangi drainase dengan menambah cocopeat, vermiculite, atau bahan organik halus\n';
+        if (drainage < 40) {
+            content += '- Tambahkan bahan dengan drainase tinggi seperti arang sekam atau pasir malang untuk meningkatkan aliran air\n';
+        } else if (drainage > 60) {
+            content += '- Tambahkan bahan dengan retensi tinggi seperti cocopeat atau humus untuk mengurangi kecepatan drainase\n';
         }
         
-        if (parseFloat(avgPorosity) < 60) {
-            content += '- Tingkatkan porositas dengan menambah sekam padi, perlite, atau cocofiber\n';
-        } else if (parseFloat(avgPorosity) > 80) {
-            content += '- Kurangi porositas dengan menambah tanah atau bahan organik halus\n';
+        if (porosity < 60) {
+            content += '- Tambahkan bahan dengan porositas tinggi seperti perlite atau arang sekam untuk meningkatkan aerasi\n';
+        } else if (porosity > 80) {
+            content += '- Tambahkan bahan dengan struktur lebih padat seperti top soil untuk menstabilkan media\n';
         }
         
-        if (parseFloat(avgPH) < 5.5) {
-            content += '- Tingkatkan pH dengan menambah kapur pertanian atau arang sekam\n';
-        } else if (parseFloat(avgPH) > 6.5) {
-            content += '- Turunkan pH dengan menambah belerang, peat moss, atau pupuk yang bersifat asam\n';
+        if (ph < 5.5) {
+            content += '- Tambahkan kapur pertanian (dolomit) untuk menaikkan pH ke rentang optimal\n';
+        } else if (ph > 6.5) {
+            content += '- Tambahkan belerang atau peat moss untuk menurunkan pH ke rentang optimal\n';
         }
         
-        if (parseFloat(avgCEC) < 20) {
-            content += '- Tingkatkan CEC dengan menambah zeolit, vermiculite, atau bahan organik\n';
-        } else if (parseFloat(avgCEC) > 40) {
-            content += '- Media memiliki CEC tinggi, pupuk dapat diberikan lebih jarang dengan dosis tepat\n';
+        if (cec < 20) {
+            content += '- Tambahkan bahan dengan CEC tinggi seperti zeolit atau vermiculite untuk meningkatkan kemampuan menyimpan nutrisi\n';
         }
         
-        content += '\n';
-        content += 'Frekuensi penyiraman: ' + (parseFloat(avgRetention) >= 40 && parseFloat(avgRetention) <= 60 ? '5-7 hari sekali' : 'Sesuaikan dengan kondisi media') + '\n';
-        content += 'Pemupukan: Gunakan pupuk seimbang dengan NPK 20-20-20 setiap 2-4 minggu\n';
-        content += 'Monitoring: Periksa kelembaban media secara teratur sebelum penyiraman\n\n';
+        content += '- Siram Aglaonema 1-2 kali seminggu, sesuaikan dengan kondisi lingkungan\n';
+        content += '- Berikan pupuk lengkap dengan rasio N-P-K 3-1-2 setiap 4-6 minggu selama musim tanam\n';
+        content += '- Pastikan pot memiliki lubang drainase yang cukup\n';
+        content += '- Ganti media setiap 12-18 bulan untuk menjaga kualitas\n';
+        content += '- Letakkan Aglaonema di tempat dengan cahaya terang tidak langsung\n\n';
         
-        content += 'Catatan: Rekomendasi ini didasarkan pada penelitian tentang kebutuhan media tanam Aglaonema. Hasil aktual dapat bervariasi tergantung kondisi lingkungan.\n\n';
-        
-        content += '==================================================\n';
+        content += '---\n';
         content += 'Dibuat dengan Aplikasi Simulasi Penyiraman Media Tanam Aglaonema\n';
         content += '© 2025\n';
         
-        // Buat file dan download
-        const blob = new Blob([content], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'hasil-simulasi-aglaonema.txt';
-        link.click();
+        // Buat file dan unduh
+        const dataUri = 'data:text/plain;charset=utf-8,' + encodeURIComponent(content);
+        const exportFileDefaultName = 'hasil-simulasi-aglaonema.txt';
         
-        // Bersihkan URL
-        setTimeout(() => URL.revokeObjectURL(url), 100);
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
         
         showSnackbar('Hasil simulasi berhasil diexport');
     }
