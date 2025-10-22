@@ -453,7 +453,7 @@ $(document).ready(function() {
             const nutrients = $('<div>').addClass('nutrients-list');
             
             // Nitrogen
-            nutrients.append($('<div>').addClass('nutrient-item').append(
+            nutrients.append($('<div>').addClass('property-item').append(
                 $('<div>').addClass('icon-tooltip').append(
                     $('<span>').addClass('nutrient-value').text('Nitrogen')
                 ),
@@ -461,7 +461,7 @@ $(document).ready(function() {
             ));
             
             // Fosfor
-            nutrients.append($('<div>').addClass('nutrient-item').append(
+            nutrients.append($('<div>').addClass('property-item').append(
                 $('<div>').addClass('icon-tooltip').append(
                     $('<span>').addClass('nutrient-value').text('Fosfor')
                 ),
@@ -469,7 +469,7 @@ $(document).ready(function() {
             ));
             
             // Kalium
-            nutrients.append($('<div>').addClass('nutrient-item').append(
+            nutrients.append($('<div>').addClass('property-item').append(
                 $('<div>').addClass('icon-tooltip').append(
                     $('<span>').addClass('nutrient-value').text('Kalium')
                 ),
@@ -477,7 +477,7 @@ $(document).ready(function() {
             ));
             
             // Kalsium
-            nutrients.append($('<div>').addClass('nutrient-item').append(
+            nutrients.append($('<div>').addClass('property-item').append(
                 $('<div>').addClass('icon-tooltip').append(
                     $('<span>').addClass('nutrient-value').text('Kalsium')
                 ),
@@ -485,7 +485,7 @@ $(document).ready(function() {
             ));
             
             // Magnesium
-            nutrients.append($('<div>').addClass('nutrient-item').append(
+            nutrients.append($('<div>').addClass('property-item').append(
                 $('<div>').addClass('icon-tooltip').append(
                     $('<span>').addClass('nutrient-value').text('Magnesium')
                 ),
@@ -493,7 +493,7 @@ $(document).ready(function() {
             ));
             
             // Belerang
-            nutrients.append($('<div>').addClass('nutrient-item').append(
+            nutrients.append($('<div>').addClass('property-item').append(
                 $('<div>').addClass('icon-tooltip').append(
                     $('<span>').addClass('nutrient-value').text('Belerang')
                 ),
@@ -501,7 +501,7 @@ $(document).ready(function() {
             ));
             
             // Besi
-            nutrients.append($('<div>').addClass('nutrient-item').append(
+            nutrients.append($('<div>').addClass('property-item').append(
                 $('<div>').addClass('icon-tooltip').append(
                     $('<span>').addClass('nutrient-value').text('Besi')
                 ),
@@ -509,7 +509,7 @@ $(document).ready(function() {
             ));
             
             // Mangan
-            nutrients.append($('<div>').addClass('nutrient-item').append(
+            nutrients.append($('<div>').addClass('property-item').append(
                 $('<div>').addClass('icon-tooltip').append(
                     $('<span>').addClass('nutrient-value').text('Mangan')
                 ),
@@ -517,7 +517,7 @@ $(document).ready(function() {
             ));
             
             // Seng
-            nutrients.append($('<div>').addClass('nutrient-item').append(
+            nutrients.append($('<div>').addClass('property-item').append(
                 $('<div>').addClass('icon-tooltip').append(
                     $('<span>').addClass('nutrient-value').text('Seng')
                 ),
@@ -525,7 +525,7 @@ $(document).ready(function() {
             ));
             
             // Tembaga
-            nutrients.append($('<div>').addClass('nutrient-item').append(
+            nutrients.append($('<div>').addClass('property-item').append(
                 $('<div>').addClass('icon-tooltip').append(
                     $('<span>').addClass('nutrient-value').text('Tembaga')
                 ),
@@ -533,7 +533,7 @@ $(document).ready(function() {
             ));
             
             // Boron
-            nutrients.append($('<div>').addClass('nutrient-item').append(
+            nutrients.append($('<div>').addClass('property-item').append(
                 $('<div>').addClass('icon-tooltip').append(
                     $('<span>').addClass('nutrient-value').text('Boron')
                 ),
@@ -541,7 +541,7 @@ $(document).ready(function() {
             ));
 
             // Silikon
-            nutrients.append($('<div>').addClass('nutrient-item').append(
+            nutrients.append($('<div>').addClass('property-item').append(
                 $('<div>').addClass('icon-tooltip').append(
                     $('<span>').addClass('nutrient-value').text('Silikon')
                 ),
@@ -549,7 +549,7 @@ $(document).ready(function() {
             ));
 
             // Molibdenum
-            nutrients.append($('<div>').addClass('nutrient-item').append(
+            nutrients.append($('<div>').addClass('property-item').append(
                 $('<div>').addClass('icon-tooltip').append(
                     $('<span>').addClass('nutrient-value').text('Molibdenum')
                 ),
@@ -889,19 +889,19 @@ $(document).ready(function() {
                 // Nutrisi
                 analysisHTML += '<td class="text-right">';
                 analysisHTML += '<div class="nutrients-list">';
-                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Nitrogen</div><span class="nutrient-value">' + item.nutrient_N_percent + '%</span></div>';
-                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Fosfor</div><span class="nutrient-value">' + item.nutrient_P_percent + '%</span></div>';
-                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Kalium</div><span class="nutrient-value">' + item.nutrient_K_percent + '%</span></div>';
-                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Kalsium</div><span class="nutrient-value">' + item.nutrient_Ca_percent + '%</span></div>';
-                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Magnesium</div><span class="nutrient-value">' + item.nutrient_Mg_percent + '%</span></div>';
-                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Belerang</div><span class="nutrient-value">' + item.nutrient_S_percent + '%</span></div>';
-                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Besi</div><span class="nutrient-value">' + item.nutrient_Fe_ppm + ' ppm</span></div>';
-                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Mangan</div><span class="nutrient-value">' + item.nutrient_Mn_ppm + ' ppm</span></div>';
-                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Seng</div><span class="nutrient-value">' + item.nutrient_Zn_ppm + ' ppm</span></div>';
-                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Tembaga</div><span class="nutrient-value">' + item.nutrient_Cu_ppm + ' ppm</span></div>';
-                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Boron</div><span class="nutrient-value">' + item.nutrient_B_ppm + ' ppm</span></div>';
-                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Silikon</div><span class="nutrient-value">' + item.nutrient_Si_percent + ' ppm</span></div>';
-                analysisHTML += '<div class="nutrient-item"><div class="icon-tooltip">Molibdenum</div><span class="nutrient-value">' + item.nutrient_Mo_ppm + ' ppm</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip">Nitrogen</div><span class="nutrient-value">' + item.nutrient_N_percent + '%</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip">Fosfor</div><span class="nutrient-value">' + item.nutrient_P_percent + '%</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip">Kalium</div><span class="nutrient-value">' + item.nutrient_K_percent + '%</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip">Kalsium</div><span class="nutrient-value">' + item.nutrient_Ca_percent + '%</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip">Magnesium</div><span class="nutrient-value">' + item.nutrient_Mg_percent + '%</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip">Belerang</div><span class="nutrient-value">' + item.nutrient_S_percent + '%</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip">Besi</div><span class="nutrient-value">' + item.nutrient_Fe_ppm + ' ppm</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip">Mangan</div><span class="nutrient-value">' + item.nutrient_Mn_ppm + ' ppm</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip">Seng</div><span class="nutrient-value">' + item.nutrient_Zn_ppm + ' ppm</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip">Tembaga</div><span class="nutrient-value">' + item.nutrient_Cu_ppm + ' ppm</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip">Boron</div><span class="nutrient-value">' + item.nutrient_B_ppm + ' ppm</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip">Silikon</div><span class="nutrient-value">' + item.nutrient_Si_percent + ' ppm</span></div>';
+                analysisHTML += '<div class="property-item"><div class="icon-tooltip">Molibdenum</div><span class="nutrient-value">' + item.nutrient_Mo_ppm + ' ppm</span></div>';
                 analysisHTML += '</div>';
                 analysisHTML += '</td>';
                 analysisHTML += '</tr>';
