@@ -1898,3 +1898,191 @@ body {
     display: flex;
     gap: 0.5rem;
 }
+
+/* Animasi Tanaman dengan Pot */
+.plant-animation {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 120px;
+    height: 225px;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 999;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+    transition: all 0.3s ease;
+}
+
+.plant-svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Pot - tidak bergerak */
+.pot-group {
+    /* Pot tetap diam */
+}
+
+/* Tanaman - bagian yang bergerak */
+.plant-group {
+    animation: plant-sway 8s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+/* Batang dengan animasi berbeda */
+.stem-main {
+    animation: stem-sway 7s ease-in-out infinite;
+    transform-origin: bottom;
+}
+
+.stem-branch-1 {
+    animation: branch-sway-1 6s ease-in-out infinite;
+    transform-origin: left bottom;
+}
+
+.stem-branch-2 {
+    animation: branch-sway-2 5s ease-in-out infinite;
+    transform-origin: right bottom;
+}
+
+/* Animasi daun dengan timing berbeda */
+.leaf-1 {
+    animation: leaf-sway-1 4s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.leaf-2 {
+    animation: leaf-sway-2 5s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.leaf-3 {
+    animation: leaf-sway-3 3.5s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.leaf-4 {
+    animation: leaf-sway-4 4.5s ease-in-out infinite;
+    transform-origin: center;
+}
+
+.leaf-5 {
+    animation: leaf-sway-5 5.5s ease-in-out infinite;
+    transform-origin: center;
+}
+
+/* Keyframes untuk animasi yang lebih natural */
+@keyframes plant-sway {
+    0%, 100% {
+        transform: translateX(0) rotate(-1deg);
+    }
+    25% {
+        transform: translateX(-1px) rotate(0deg);
+    }
+    50% {
+        transform: translateX(0) rotate(1deg);
+    }
+    75% {
+        transform: translateX(1px) rotate(0deg);
+    }
+}
+
+@keyframes stem-sway {
+    0%, 100% {
+        transform: rotate(-0.5deg);
+    }
+    50% {
+        transform: rotate(0.5deg);
+    }
+}
+
+@keyframes branch-sway-1 {
+    0%, 100% {
+        transform: rotate(-1deg);
+    }
+    50% {
+        transform: rotate(1deg);
+    }
+}
+
+@keyframes branch-sway-2 {
+    0%, 100% {
+        transform: rotate(1deg);
+    }
+    50% {
+        transform: rotate(-1deg);
+    }
+}
+
+@keyframes leaf-sway-1 {
+    0%, 100% {
+        transform: rotate(-2deg) scale(1);
+    }
+    50% {
+        transform: rotate(2deg) scale(1.02);
+    }
+}
+
+@keyframes leaf-sway-2 {
+    0%, 100% {
+        transform: rotate(1deg) scale(1);
+    }
+    50% {
+        transform: rotate(-1deg) scale(1.03);
+    }
+}
+
+@keyframes leaf-sway-3 {
+    0%, 100% {
+        transform: rotate(-1deg) scale(1);
+    }
+    50% {
+        transform: rotate(1deg) scale(1.01);
+    }
+}
+
+@keyframes leaf-sway-4 {
+    0%, 100% {
+        transform: rotate(2deg) scale(1);
+    }
+    50% {
+        transform: rotate(-2deg) scale(1.02);
+    }
+}
+
+@keyframes leaf-sway-5 {
+    0%, 100% {
+        transform: rotate(-1.5deg) scale(1);
+    }
+    50% {
+        transform: rotate(1.5deg) scale(1.025);
+    }
+}
+
+/* Responsif untuk mobile */
+@media (max-width: 768px) {
+    .plant-animation {
+        width: 80px;
+        height: 120px;
+        bottom: 15px;
+        left: 15px;
+        opacity: 0.7;
+    }
+}
+
+@media (max-width: 480px) {
+    .plant-animation {
+        width: 60px;
+        height: 90px;
+        bottom: 10px;
+        left: 10px;
+        opacity: 0.6;
+    }
+}
+
+/* Efek hover subtle */
+.plant-animation:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+

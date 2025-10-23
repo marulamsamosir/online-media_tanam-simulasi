@@ -137,6 +137,48 @@
         </div>
     </div>
 
+    <!-- Animasi tanaman -->
+    <div class="plant-animation">
+        <svg class="plant-svg" viewBox="0 0 120 180">
+            <!-- Pot (diam) -->
+            <g class="pot-group">
+                <!-- Badan Pot -->
+                <path class="pot-body" d="M40 160 L80 160 L85 120 L35 120 Z" fill="#8B4513" stroke="#5D4037" stroke-width="2"/>
+                <!-- Rim Pot -->
+                <path class="pot-rim" d="M35 120 L85 120 L88 115 L32 115 Z" fill="#A0522D"/>
+                <!-- Base Pot -->
+                <path class="pot-base" d="M45 160 L75 160 L78 165 L42 165 Z" fill="#5D4037"/>
+            </g>
+            
+            <!-- Tanaman (bergerak) -->
+            <g class="plant-group">
+                <!-- Batang utama -->
+                <path class="stem stem-main" d="M60 120 C62 100 58 80 60 60 C62 40 65 20 60 10" fill="none" stroke="#2e7d32" stroke-width="3" stroke-linecap="round"/>
+                
+                <!-- Batang cabang 1 -->
+                <path class="stem stem-branch-1" d="M60 80 C45 75 40 65 35 55" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round"/>
+                
+                <!-- Batang cabang 2 -->
+                <path class="stem stem-branch-2" d="M60 90 C75 85 80 75 85 65" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round"/>
+                
+                <!-- Daun 1 (kiri atas) -->
+                <path class="leaf leaf-1" d="M35 55 C25 45 20 35 25 25 C30 15 40 20 45 30 C50 40 45 50 35 55 Z" fill="#4caf50" stroke="#388e3c" stroke-width="1"/>
+                
+                <!-- Daun 2 (kanan atas) -->
+                <path class="leaf leaf-2" d="M85 65 C95 55 100 45 95 35 C90 25 80 30 75 40 C70 50 75 60 85 65 Z" fill="#4caf50" stroke="#388e3c" stroke-width="1"/>
+                
+                <!-- Daun 3 (tengah) -->
+                <path class="leaf leaf-3" d="M60 10 C45 0 35 -5 40 -15 C45 -25 55 -20 60 -10 C65 0 75 5 60 10 Z" fill="#4caf50" stroke="#388e3c" stroke-width="1"/>
+                
+                <!-- Daun 4 (kiri bawah) -->
+                <path class="leaf leaf-4" d="M45 75 C30 65 25 55 30 45 C35 35 40 40 45 50 C50 60 60 65 45 75 Z" fill="#4caf50" stroke="#388e3c" stroke-width="1"/>
+                
+                <!-- Daun 5 (kanan bawah) -->
+                <path class="leaf leaf-5" d="M75 85 C90 75 95 65 90 55 C85 45 80 50 75 60 C70 70 60 75 75 85 Z" fill="#4caf50" stroke="#388e3c" stroke-width="1"/>
+            </g>
+        </svg>
+    </div>
+
     <div class="container">
         <!-- Card BAHAN BAKU TERSEDIA -->
         <div class="card elevation-2 card-hover mb-4">

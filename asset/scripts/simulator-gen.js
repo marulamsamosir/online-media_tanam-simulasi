@@ -129,6 +129,29 @@ $(document).ready(function() {
         $('.btn').on('click', function(e) {
             createRipple(e, $(this));
         });
+
+        // Event listener untuk tombol reset semua bagian
+        $('#reset-portions').click(function() {
+            composition.forEach(item => {
+                item.portion = 0;
+            });
+            renderComposition();
+            updateTotalPortion();
+            showSnackbar('Semua bagian berhasil direset ke 0');
+        });
+
+        ensurePlantAnimation();
+
+        setInterval(() => {
+            const plantGroup = document.querySelector('.plant-group');
+            if (plantGroup) {
+                const animation = plantGroup.style.animation;
+                plantGroup.style.animation = 'none';
+                setTimeout(() => {
+                    plantGroup.style.animation = animation;
+                }, 10);
+            }
+        }, 30000);
     }
 
     // Fungsi untuk membuat efek ripple pada tombol
@@ -1573,6 +1596,15 @@ $(document).ready(function() {
         showSnackbar('Hasil simulasi berhasil diexport');
     }
     
+    
+    // Pastikan animasi tanaman selalu berjalan
+    function ensurePlantAnimation() {
+        const plantGroup = document.querySelector('.plant-group');
+        if (plantGroup) {
+            plantGroup.style.animationPlayState = 'running';
+        }
+    }
+
     // Jalankan inisialisasi aplikasi
     initApp();
 });
