@@ -208,12 +208,16 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5 class="mb-0"><i class="fas fa-list-ul me-2"></i>KOMPOSISI MEDIA TANAM</h5>
                 <div class="composition-actions">
-                    <button id="export-composition" class="btn btn-sm btn-outline-light me-1">
-                        <i class="fas fa-download me-1"></i>Export
-                    </button>
-                    <button id="import-composition" class="btn btn-sm btn-outline-light">
-                        <i class="fas fa-upload me-1"></i>Import
-                    </button>
+                    <div class="tooltip-container">
+                        <button id="export-composition" class="btn btn-sm btn-outline-light me-1">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                    <div class="tooltip-container">
+                        <button id="import-composition" class="btn btn-sm btn-outline-light">
+                            <i class="fas fa-upload"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="card-body">
@@ -226,15 +230,30 @@
                         <strong>Total Bagian: <span id="total-percentage">0</span></strong>
                     </div>
                     <div class="action-buttons">
-                        <button id="save-composition" class="btn btn-sm btn-outline-primary me-1">
-                            <i class="fas fa-save me-1"></i>Simpan
-                        </button>
-                        <button id="view-saved" class="btn btn-sm btn-outline-primary me-1">
-                            <i class="fas fa-folder me-1"></i>Lihat Simpanan
-                        </button>
-                        <button id="reset-composition" class="btn btn-sm btn-outline-primary">
-                            <i class="fas fa-redo me-1"></i>Reset
-                        </button>
+                        <div class="tooltip-container">
+                            <button id="save-composition" class="btn btn-sm btn-outline-primary me-1">
+                                <i class="fas fa-save"></i>
+                            </button>
+                            <span class="tooltip-text">Simpan Komposisi</span>
+                        </div>
+                        <div class="tooltip-container">
+                            <button id="view-saved" class="btn btn-sm btn-outline-primary me-1">
+                                <i class="fas fa-folder"></i>
+                            </button>
+                            <span class="tooltip-text">Lihat Simpanan</span>
+                        </div>
+                        <div class="tooltip-container">
+                            <button id="reset-composition" class="btn btn-sm btn-outline-primary me-1">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                            <span class="tooltip-text">Reset Komposisi</span>
+                        </div>
+                        <div class="tooltip-container">
+                            <button id="reset-portions" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-eraser"></i>
+                            </button>
+                            <span class="tooltip-text">Clear</span>
+                        </div>
                     </div>
                 </div>
             </div>
