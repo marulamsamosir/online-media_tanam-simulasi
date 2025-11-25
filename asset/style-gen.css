@@ -1271,7 +1271,7 @@ body {
 }
 
 .dropdown-item {
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 1rem;
     cursor: pointer;
     transition: var(--transition);
     border-bottom: 1px solid var(--light-gray);
@@ -2084,5 +2084,17 @@ body {
 .plant-animation:hover {
     opacity: 0.9;
     transform: scale(1.05);
+}
+
+/* Tombol untuk export dan import semua komposisi */
+.export-import-all-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.export-import-all-container .btn {
+    flex: 1;
+    margin: 0 0.25rem;
 }
 

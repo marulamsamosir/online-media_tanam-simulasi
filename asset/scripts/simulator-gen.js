@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function() {    
     let materials = [...defaultMaterials];
     let composition = [];
     let selectedMaterial = null;
@@ -42,6 +42,10 @@ $(document).ready(function() {
         
         $('#importCompositionModalClose, #importCompositionModalCloseBtn').click(function() {
             hideModal($('#importCompositionModal'));
+        });
+        
+        $('#saveCompositionModalClose, #saveCompositionModalCloseBtn').click(function() {
+            hideModal($('#saveCompositionModal'));
         });
         
         $('#importCompositionConfirm').click(importCompositionFromFile);
@@ -103,6 +107,42 @@ $(document).ready(function() {
             updateTotalPortion();
             showSnackbar('Semua bagian berhasil direset ke 0');
         });
+
+        // Event listener untuk tombol simpan komposisi
+        $('#saveCompositionConfirm').click(function() {
+            const name = $('#saveCompositionName').val();
+            const description = $('#saveCompositionDescription').val();
+            
+            if (!name) {
+                showCustomAlert('Peringatan', 'Nama komposisi tidak boleh kosong.');
+                return;
+            }
+            
+            const savedCompositions = getSavedCompositions();
+            
+            // Simpan hanya nama dan portion untuk menghemat storage
+            const simplifiedComposition = composition.map(item => ({
+                name: item.name,
+                portion: item.portion
+            }));
+            
+            const newComposition = {
+                id: Date.now(),
+                name: name,
+                description: description,
+                date: new Date().toLocaleDateString('id-ID'),
+                composition: simplifiedComposition
+            };
+            
+            savedCompositions.push(newComposition);
+            localStorage.setItem('savedCompositions', JSON.stringify(savedCompositions));
+            
+            hideModal($('#saveCompositionModal'));
+            showSnackbar('Komposisi berhasil disimpan');
+        });
+
+        // Event listener untuk tombol export semua komposisi
+        $('#export-all-compositions').click(exportAllCompositions);
 
         ensurePlantAnimation();
 
@@ -596,6 +636,21 @@ $(document).ready(function() {
             renderComposition();
             updateTotalPortion();
         }
+    }
+    
+    // Simpan komposisi dengan modal baru
+    function saveComposition() {
+        if (composition.length === 0) {
+            showCustomAlert('Peringatan', 'Tidak ada komposisi untuk disimpan.');
+            return;
+        }
+        
+        // Reset form
+        $('#saveCompositionName').val('');
+        $('#saveCompositionDescription').val('');
+        
+        // Tampilkan modal
+        showModal($('#saveCompositionModal'));
     }
     
     // Jalankan simulasi dengan animasi penyiraman yang lebih menarik
@@ -1287,41 +1342,6 @@ $(document).ready(function() {
         showSnackbar('Simulasi berhasil direset');
     }
     
-    // Simpan komposisi
-    function saveComposition() {
-        if (composition.length === 0) {
-            showCustomAlert('Peringatan', 'Tidak ada komposisi untuk disimpan.');
-            return;
-        }
-        
-        showCustomPrompt('Simpan Komposisi', 'Masukkan nama untuk komposisi ini:', function(name) {
-            if (!name) {
-                showCustomAlert('Peringatan', 'Nama komposisi tidak boleh kosong.');
-                return;
-            }
-            
-            const savedCompositions = getSavedCompositions();
-            
-            // Simpan hanya nama dan portion untuk menghemat storage
-            const simplifiedComposition = composition.map(item => ({
-                name: item.name,
-                portion: item.portion
-            }));
-            
-            const newComposition = {
-                id: Date.now(),
-                name: name,
-                date: new Date().toLocaleDateString('id-ID'),
-                composition: simplifiedComposition
-            };
-            
-            savedCompositions.push(newComposition);
-            localStorage.setItem('savedCompositions', JSON.stringify(savedCompositions));
-            
-            showSnackbar('Komposisi berhasil disimpan');
-        });
-    }
-    
     // Lihat komposisi tersimpan
     function viewSavedCompositions() {
         const savedCompositions = getSavedCompositions();
@@ -1347,6 +1367,12 @@ $(document).ready(function() {
             
             const info = $('<div>').addClass('saved-composition-info');
             info.append($('<h6>').text(comp.name));
+            
+            // Tampilkan deskripsi jika ada
+            if (comp.description) {
+                info.append($('<p>').addClass('saved-description').text(comp.description));
+            }
+            
             info.append($('<span>').addClass('saved-date').text(comp.date));
             
             const actions = $('<div>').addClass('saved-composition-actions');
@@ -1479,6 +1505,28 @@ $(document).ready(function() {
         linkElement.click();
         
         showSnackbar('Komposisi berhasil diexport');
+    }
+    
+    // Export semua komposisi tersimpan ke file JSON
+    function exportAllCompositions() {
+        const savedCompositions = getSavedCompositions();
+        
+        if (savedCompositions.length === 0) {
+            showCustomAlert('Peringatan', 'Tidak ada komposisi tersimpan untuk diexport.');
+            return;
+        }
+        
+        const dataStr = JSON.stringify(savedCompositions, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        
+        const exportFileDefaultName = 'semua_komposisi_media_tanam.json';
+        
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+        
+        showSnackbar('Semua komposisi berhasil diexport');
     }
     
     // Export hasil simulasi ke file teks
