@@ -1,4 +1,4 @@
-$(document).ready(function() {    
+$(document).ready(function() {
     let materials = [...defaultMaterials];
     let composition = [];
     let selectedMaterial = null;
@@ -143,6 +143,16 @@ $(document).ready(function() {
 
         // Event listener untuk tombol export semua komposisi
         $('#export-all-compositions').click(exportAllCompositions);
+        
+        // Event listener untuk tombol import semua komposisi
+        $('#import-all-compositions').click(importAllCompositions);
+        
+        // Event listener untuk modal import semua komposisi
+        $('#importAllCompositionsModalClose, #importAllCompositionsModalCloseBtn').click(function() {
+            hideModal($('#importAllCompositionsModal'));
+        });
+        
+        $('#importAllCompositionsConfirm').click(importAllCompositionsFromFile);
 
         ensurePlantAnimation();
 
@@ -1436,6 +1446,11 @@ $(document).ready(function() {
         showModal($('#importCompositionModal'));
     }
     
+    // Import semua komposisi
+    function importAllCompositions() {
+        showModal($('#importAllCompositionsModal'));
+    }
+    
     // Import komposisi dari file
     function importCompositionFromFile() {
         const fileInput = $('#importCompositionFile')[0];
@@ -1473,6 +1488,45 @@ $(document).ready(function() {
                 updateTotalPortion();
                 hideModal($('#importCompositionModal'));
                 showSnackbar('Komposisi berhasil diimport');
+            } catch (error) {
+                showCustomAlert('Error', 'Terjadi kesalahan saat membaca file: ' + error.message);
+            }
+        };
+        
+        reader.readAsText(file);
+    }
+    
+    // Import semua komposisi dari file
+    function importAllCompositionsFromFile() {
+        const fileInput = $('#importAllCompositionsFile')[0];
+        
+        if (!fileInput.files.length) {
+            showCustomAlert('Peringatan', 'Pilih file terlebih dahulu.');
+            return;
+        }
+        
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            try {
+                const data = JSON.parse(e.target.result);
+                
+                if (!Array.isArray(data)) {
+                    showCustomAlert('Error', 'Format file tidak valid. File harus berupa array komposisi.');
+                    return;
+                }
+                
+                // Simpan ke localStorage
+                localStorage.setItem('savedCompositions', JSON.stringify(data));
+                
+                hideModal($('#importAllCompositionsModal'));
+                showSnackbar('Semua komposisi berhasil diimport');
+                
+                // Refresh daftar komposisi tersimpan jika modal savedModal sedang terbuka
+                if ($('#savedModal').is(':visible')) {
+                    viewSavedCompositions();
+                }
             } catch (error) {
                 showCustomAlert('Error', 'Terjadi kesalahan saat membaca file: ' + error.message);
             }

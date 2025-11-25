@@ -92,10 +92,13 @@
                 <button class="close-btn" id="savedModalClose">&times;</button>
             </div>
             <div class="modal-body">
-                <!-- Tambahan tombol untuk export semua komposisi -->
+                <!-- Tambahan tombol untuk export semua komposisi dan import semua komposisi -->
                 <div class="export-import-all-container">
                     <button id="export-all-compositions" class="btn btn-outline-primary">
                         <i class="fas fa-download me-1"></i>Export Semua
+                    </button>
+                    <button id="import-all-compositions" class="btn btn-outline-primary">
+                        <i class="fas fa-upload me-1"></i>Import Semua
                     </button>
                 </div>
                 <div class="saved-compositions" id="savedCompositionsList">
@@ -104,6 +107,27 @@
             </div>
             <div class="modal-footer">
                 <button id="savedModalCloseBtn" class="btn btn-primary">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal untuk import semua komposisi -->
+    <div class="custom-modal material-modal" id="importAllCompositionsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Import Semua Komposisi Media Tanam</h5>
+                <button class="close-btn" id="importAllCompositionsModalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Pilih file JSON yang berisi semua komposisi media tanam:</label>
+                    <input type="file" id="importAllCompositionsFile" class="form-control" accept=".json">
+                    <div class="form-text">File harus dalam format JSON yang diexport dari aplikasi ini.</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="importAllCompositionsConfirm" class="btn btn-primary">Import</button>
+                <button id="importAllCompositionsModalCloseBtn" class="btn btn-outline-primary">Batal</button>
             </div>
         </div>
     </div>
